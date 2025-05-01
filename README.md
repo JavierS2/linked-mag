@@ -31,7 +31,8 @@ ng generate --help
 To build the project run:
 
 ```bash
-ng build
-```
-
 npm install primeng @primeng/themes
+npm install primeicons
+npm install primeflex
+npm i tailwindcss-primeui
+```
