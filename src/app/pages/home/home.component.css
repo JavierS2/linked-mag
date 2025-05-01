@@ -42,7 +42,7 @@
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
-  border: none; /* QUITADO EL OUTLINE */
+  border: none;
 }
 
 /* NUEVA SECCIÓN INFERIOR EN FONDO BLANCO */
