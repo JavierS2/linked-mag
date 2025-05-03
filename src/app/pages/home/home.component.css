@@ -45,6 +45,14 @@
   border: none;
 }
 
+.btn-primary:hover {
+  background-color: #8546f3;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e1e1;
+}
+
 /* NUEVA SECCIÓN INFERIOR EN FONDO BLANCO */
 .benefits {
   background: white;
@@ -95,4 +103,14 @@
 .benefit-card p {
   font-size: 0.95rem;
   color: #4b5563;
+}
+
+.benefit-card .icon {
+  margin-bottom: 15px;
+}
+
+.benefit-card .icon img {
+  width: 40px;
+  height: 40px;
+  opacity: 0.85;
 }

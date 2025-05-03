@@ -25,3 +25,7 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.btn-register:hover {
+  background-color: #eeeeee;
+}
