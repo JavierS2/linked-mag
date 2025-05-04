@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrl: './nav-bar-home.component.css'
 })
 export class NavBarHomeComponent {
-
 }

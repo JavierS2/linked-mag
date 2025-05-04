@@ -1,0 +1,52 @@
+<app-nav-bar-home></app-nav-bar-home>
+<p-toast></p-toast>
+<section class="first-section"></section>
+
+<section class="login">
+  <div class="box-login">
+    <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4">
+      Regístro como estudiante
+    </h2>
+
+    <p-floatlabel variant="on" class="margin-form">
+      <textarea pTextarea id="fullName" [(ngModel)]="name" required cols="70" style="resize: none; height: 50px;" 
+        class="h-full p-filled" #nameRef="ngModel"></textarea>
+      <label for="name">Nombre completo</label>
+    </p-floatlabel>
+    
+    <p-floatlabel variant="on" class="margin-form">
+      <textarea pTextarea id="over_label" [(ngModel)]="email" cols="70" style="resize: none; height: 50px;" 
+      class="h-full p-filled h-full"></textarea>
+      <label for="on_label">Correo eléctronico</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on" class="margin-list">
+      <p-select [(ngModel)]="selectPrograma"  inputId="on_label" [options]="academicPrograms" optionLabel="name" class="custom-label" />
+      <label for="on_label">Programa académico</label>
+    </p-floatlabel>
+    
+    <p-floatlabel variant="on" class="margin-form">
+      <textarea pTextarea id="over_label" [(ngModel)]="studentCode" cols="70" style="resize: none; height: 50px;"  class="h-full"
+      class="h-full p-filled"></textarea>
+      <label for="on_label">Código estudiantil</label>
+    </p-floatlabel>
+
+    <p-floatlabel variant="on" class="margin-form">
+      <input pInputText id="password_input" type="password" [(ngModel)]="password"
+             style="width: 550px; height: 50px; border: 1px solid #ced4da !important; border-radius: 4px; padding-left: 10px;"
+             class="h-full p-filled">
+      <label for="password_input">Contraseña</label>
+    </p-floatlabel>
+    
+    <p-floatlabel variant="on" class="margin-form">
+      <input pInputText id="confirm_password" type="password" [(ngModel)]="confirmPassword"
+             style="width: 550px; height: 50px; border: 1px solid #ced4da !important; border-radius: 4px; padding-left: 10px;"
+             class="h-full p-filled">
+      <label for="confirm_password">Confirmar contraseña</label>
+    </p-floatlabel>
+
+    <button type="button" class="btn-register" (click)="validarFormulario()">Registrate</button>
+    
+  </div>
+
+</section>
