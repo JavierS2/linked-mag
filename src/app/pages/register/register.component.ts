@@ -11,7 +11,7 @@ import { NavBarHomeComponent } from "../../shared/components/nav-bar-home/nav-ba
 import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 @Component({
-  selector: 'app-login',
+  selector: 'app-Register',
   standalone: true,
   imports: [NavBarHomeComponent, ButtonModule, FloatLabelModule, FormsModule, TextareaModule, 
             DropdownModule, SelectModule, HttpClientModule, ToastModule],
@@ -19,7 +19,7 @@ import { ToastModule } from 'primeng/toast';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class LoginComponent {
+export class RegisterComponent {
   constructor(private http: HttpClientModule, private messageService: MessageService) {}
   name: string = '';
   email: string = '';  // Propiedad que enlazará con ngModel
