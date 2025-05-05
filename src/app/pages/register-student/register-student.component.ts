@@ -8,19 +8,19 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea'; // Corregido a minúsculas
 import { NavBarHomeComponent } from "../../shared/components/nav-bar-home/nav-bar-home.component";
-import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 @Component({
-  selector: 'app-Register',
+  selector: 'app-register-student',
   standalone: true,
   imports: [NavBarHomeComponent, ButtonModule, FloatLabelModule, FormsModule, TextareaModule, 
-            DropdownModule, SelectModule, HttpClientModule, ToastModule],
-            providers: [MessageService],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+            DropdownModule, SelectModule, ToastModule],
+  providers: [MessageService],
+  templateUrl: './register-student.component.html',
+  styleUrls: ['./register-student.component.css']
 })
-export class RegisterComponent {
-  constructor(private http: HttpClientModule, private messageService: MessageService) {}
+
+export class RegisterStudentComponent {
+  constructor(private messageService: MessageService) {}
   name: string = '';
   email: string = '';  // Propiedad que enlazará con ngModel
   selectPrograma: any;
@@ -79,7 +79,7 @@ export class RegisterComponent {
 
   validarFormulario(): void {
     const correoValido = /^[a-zA-Z0-9._%+-]+@unimagdalena\.edu\.co$/;
-    const claveSegura = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+    const claveSegura = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@?#\$%\^&\*])(?=.{8,})/;
   
     if (
       !this.name.trim() ||
