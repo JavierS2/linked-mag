@@ -8,5 +8,4 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './nav-bar-home.component.css'
 })
 export class NavBarHomeComponent {
-
 }
