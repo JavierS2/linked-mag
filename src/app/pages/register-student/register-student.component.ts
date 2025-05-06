@@ -9,11 +9,16 @@ import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea'; // Corregido a minúsculas
 import { NavBarHomeComponent } from "../../shared/components/nav-bar-home/nav-bar-home.component";
 import { ToastModule } from 'primeng/toast';
+import {MenuModule } from 'primeng/menu';
+import { DividerModule } from 'primeng/divider';
+import { PasswordModule } from 'primeng/password';
+import { InputTextModule } from 'primeng/inputtext';
+
 @Component({
   selector: 'app-register-student',
   standalone: true,
   imports: [NavBarHomeComponent, ButtonModule, FloatLabelModule, FormsModule, TextareaModule, 
-            DropdownModule, SelectModule, ToastModule],
+            DropdownModule, SelectModule, ToastModule, MenuModule, DividerModule, PasswordModule, InputTextModule],
   providers: [MessageService],
   templateUrl: './register-student.component.html',
   styleUrls: ['./register-student.component.css']
@@ -77,6 +82,7 @@ export class RegisterStudentComponent {
     { name: 'Tecnología en Atención Integral a la Primera Infancia - Modalidad A distancia', code: '109326' }
   ];
 
+
   validarFormulario(): void {
     const correoValido = /^[a-zA-Z0-9._%+-]+@unimagdalena\.edu\.co$/;
     const claveSegura = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@?#\$%\^&\*])(?=.{8,})/;
@@ -133,9 +139,5 @@ export class RegisterStudentComponent {
     this.password = '';
     this.confirmPassword = '';
   }
-  
 
-
-  
-  
 }

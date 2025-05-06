@@ -69,6 +69,13 @@
     box-shadow: 0 0 15px #9f6dff, 0 0 30px rgba(124, 58, 237, 0.4);
 }
   
+::ng-deep .custom-password .p-inputtext {
+    width: 550px !important;
+    height: 50px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 4px !important;
+    padding-left: 10px !important;
+  }
   
 
 
