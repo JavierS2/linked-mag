@@ -7,17 +7,17 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectModule } from 'primeng/select';
 import { TextareaModule } from 'primeng/textarea';
-import { NavBarHomeComponent } from "../../shared/components/nav-bar-home/nav-bar-home.component";
 import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { NavBarHomeComponent } from '../../shared/components/nav-bar-home/nav-bar-home.component';
 
 @Component({
   selector: 'app-register-student',
   standalone: true,
-  imports: [NavBarHomeComponent, ButtonModule, FloatLabelModule, FormsModule, TextareaModule, 
+  imports: [NavBarHomeComponent, ButtonModule, FloatLabelModule, FormsModule, TextareaModule,
             DropdownModule, SelectModule, ToastModule, MenuModule, DividerModule, PasswordModule, InputTextModule],
   providers: [MessageService],
   templateUrl: './register-student.component.html',

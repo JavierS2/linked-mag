@@ -5,14 +5,14 @@ import { ButtonModule } from 'primeng/button';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-nav-bar-home',
+  selector: 'app-nav-bar-login',
   standalone: true,
   imports: [ButtonModule, MenuModule, RouterLink],
-  templateUrl: './nav-bar-home.component.html',
-  styleUrl: './nav-bar-home.component.css'
+  templateUrl: './nav-bar-login.component.html',
+  styleUrl: './nav-bar-login.component.css'
 })
 
-export class NavBarHomeComponent {
+export class NavBarLoginComponent {
   @ViewChild('menu') menu!: Menu;
 
   constructor (private router: Router) {}
