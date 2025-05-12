@@ -3,12 +3,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { RegisterStudentComponent } from './pages/register-student/register-student.component';
 import { LoginStudentComponent } from './pages/login-student/login-student.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { DashboardCompanyComponent } from './pages/dashboard-company/dashboard-company.component';
+import { DashboardStudentComponent } from './pages/dashboard-student/dashboard-student.component';
 
 export const routes: Routes = [
   
   // Ruta raíz redirige a home
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  
+
   // Página principal
   { path: 'home', component: HomeComponent },
 
@@ -28,6 +30,30 @@ export const routes: Routes = [
     ]
   },
 
-  // Ruta comodín (404)
-  { path: '**', component: NotFoundComponent }
+  // Rutas dashboard
+  {
+    path: 'dashboard',
+    children: [
+
+      // Dashboard estudiante
+      { path: 'student', component: DashboardStudentComponent, 
+        children: [
+          { path: 'profile', component: DashboardCompanyComponent }
+        ]
+      },
+
+      // Dashboard empresa
+      { path: 'company', component: DashboardCompanyComponent }
+    ]
+  },
+
+
+  
+
+
+
+
+
+    // Ruta comodín (404) (Debe ir de último)
+  { path: '**', component: NotFoundComponent },
 ];
