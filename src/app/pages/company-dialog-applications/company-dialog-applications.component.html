@@ -1,0 +1,28 @@
+<p-button (click)="showDialog()" label="Añadir oferta" [rounded]="true" icon="pi pi-plus"></p-button>
+
+<p-dialog header="Añadir oferta laboral" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }">
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Nombre</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex items-center gap-4 mb-8">
+        <label for="email" class="font-semibold w-24">Email</label>
+        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+
+        <label for="email" class="font-semibold w-24">Teléfono</label>
+        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+    </div>
+
+    <div class="gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Descripción</label>
+        <p-editor [(ngModel)]="description" [style]="{ height: '320px' }">
+            <ng-template #header>
+                <span class="ql-formats">
+                    <button type="button" class="ql-bold" aria-label="Bold"></button>
+                    <button type="button" class="ql-italic" aria-label="Italic"></button>
+                    <button type="button" class="ql-underline" aria-label="Underline"></button>
+                </span>
+            </ng-template>
+        </p-editor>
+    </div>
+</p-dialog>
