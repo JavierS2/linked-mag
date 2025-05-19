@@ -11,8 +11,8 @@
                     <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="..." fill="var(--primary-color)" />
                     </svg>
-                    <h1 class="text-2xl font-inter font-bold text-gray-800 tracking-wide ml-10">
-                        HOME
+                    <h1 class="text-2xl font-inter font-bold text-gray-800 tracking-wide ml-70">
+                        Home
                     </h1>
                 </ng-template>
                 <ng-template #end>
@@ -38,10 +38,10 @@
                         </div>
                     </div>
                     <div class="mb-2 text-xs">Disponible hasta</div>
-                    <div class="mb-2 font-semibold">Nov 18 2021, 17:00</div>
+                    <div class="mb-2 font-semibold">May 31 2025, 17:00</div>
                     <div class="flex justify-between text-xs mb-4">
-                        <span>Vacantes disponibles<br><b>2</b></span>
-                        <span>Postulados<br><b>4</b></span>
+                        <span>Vacantes disponibles<br><b>-</b></span>
+                        <span>Postulados<br><b>-</b></span>
                     </div>
                     <button class="bg-white text-indigo-600 font-bold px-4 py-2 rounded-lg w-full">Ver detalles</button>
                 </div>
@@ -142,7 +142,47 @@
                 <!-- Notificaciones -->
                 <section class="bg-white rounded-2xl p-6 shadow flex-1">
                     <h2 class="font-bold text-lg mb-4">Notificaciones</h2>
-                    <!-- Aquí va la lista de notificaciones -->
+                    <div class="max-h-[160px] overflow-y-auto pr-2">
+                         <p-panel>
+                            <ng-template #header>
+                                <div class="flex items-center justify-between gap-2 w-full">
+                                    <div class="flex items-center gap-2">
+                                        <p-avatar image="https://www.publicdomainpictures.net/pictures/310000/velka/purple-circle.png" shape="circle" />
+                                        <div class="flex flex-col">
+                                            <span class="font-inter opacity-70 ml-2">12 may 2025</span>
+                                            <span class="text-sm ml-2">Te has postulado correctamente a la oferta laboral “Practicante - Administrador de sistemas JR”</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>    
+                        </p-panel>
+                        <p-panel>
+                            <ng-template #header>
+                                <div class="flex items-center justify-between gap-2 w-full">
+                                    <div class="flex items-center gap-2">
+                                        <p-avatar image="https://www.publicdomainpictures.net/pictures/310000/velka/purple-circle.png" shape="circle" />
+                                        <div class="flex flex-col">
+                                            <span class="font-inter opacity-70 ml-2">12 abril 2025</span>
+                                            <span class="text-sm ml-2">Te has postulado correctamente a la oferta laboral “Practicante - Administrador de base de datos JR”</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>    
+                        </p-panel>
+                        <p-panel>
+                            <ng-template #header>
+                                <div class="flex items-center justify-between gap-2 w-full">
+                                    <div class="flex items-center gap-2">
+                                        <p-avatar image="https://www.publicdomainpictures.net/pictures/310000/velka/purple-circle.png" shape="circle" />
+                                        <div class="flex flex-col">
+                                            <span class="font-inter opacity-70 ml-2">12 may 2025</span>
+                                            <span class="text-sm ml-2">Te has postulado correctamente a la oferta laboral “Practicante - Analista de sistemas JR”</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>    
+                        </p-panel>
+                    </div>
                 </section>
             </section>
         </main>

@@ -7,6 +7,8 @@ import { DashboardCompanyComponent } from './pages/dashboard-company/dashboard-c
 import { DashboardStudentComponent } from './pages/dashboard-student/dashboard-student.component';
 import { RegisterCompanyComponent } from './pages/register-company/register-company.component';
 import { LoginCompanyComponent } from './pages/login-company/login-company.component';
+import { StudentOffersComponent } from './pages/student-offers/student-offers.component';
+import { StudentApplicationsComponent } from './pages/student-applications/student-applications.component';
 export const routes: Routes = [
   
   // Ruta raíz redirige a home
@@ -35,15 +37,13 @@ export const routes: Routes = [
 
   // Rutas dashboard
   {
-    path: 'dashboard',
+    path: 'student',
     children: [
 
       // Dashboard estudiante
-      { path: 'student', component: DashboardStudentComponent, 
-        children: [
-          { path: 'profile', component: DashboardCompanyComponent }
-        ]
-      },
+      { path: 'home', component: DashboardStudentComponent},
+      { path: 'offers', component: StudentOffersComponent},
+      { path: 'applications', component: StudentApplicationsComponent},
 
       // Dashboard empresa
       { path: 'company', component: DashboardCompanyComponent, 

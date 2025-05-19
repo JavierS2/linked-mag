@@ -1,0 +1,48 @@
+<app-sidebar-student></app-sidebar-student>
+<div class="flex-1 flex flex-col bg-gray-50 min-h-screen">
+<header class="Nav-Bar">
+            <p-menubar>
+                <ng-template #start>
+                    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="..." fill="var(--primary-color)" />
+                    </svg>
+                    <h1 class="text-2xl font-inter font-bold text-gray-800 tracking-wide ml-70">
+                        Ofertas
+                    </h1>
+                </ng-template>
+                <ng-template #end>
+                    <div class="flex items-center gap-2">
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" size="large" />
+                    </div>
+                </ng-template>
+            </p-menubar>
+        </header>
+
+        <main class="flex flex-1 flex-col items-center justify-start p-6">
+                <!-- Barra de búsqueda centrada -->
+                <div class="flex items-center gap-2 my-4 w-full max-w-xl justify-center">
+                    <input
+                        type="text"
+                        [(ngModel)]="searchTerm"
+                        placeholder="Buscar oferta..."
+                        class="border rounded px-4 py-2 w-full"
+                    />
+                    <button class="ml-2 px-4 py-2 bg-indigo-600 text-white rounded" (click)="searchOffer()">
+                        Buscar
+                    </button>
+                </div>
+                <!-- Sección de resultados de ofertas -->
+                <section class="bg-white rounded-2xl shadow p-6 w-full max-w-5xl">
+                    <!-- Aquí van las ofertas filtradas -->
+                    <ul>
+                        <li *ngFor="let oferta of ofertasFiltradas">
+                            <span class="font-bold">{{ oferta.nombre }}</span> - {{ oferta.ciudad }}
+                        </li>
+                    </ul>
+                </section>
+        </main>
+        
+
+
+</div>
+

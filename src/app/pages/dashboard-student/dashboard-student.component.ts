@@ -6,7 +6,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
 import { CardModule } from 'primeng/card';
 import { RippleModule } from 'primeng/ripple';
-import { DashboardCompanyComponent } from "../dashboard-company/dashboard-company.component";
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 @Component({

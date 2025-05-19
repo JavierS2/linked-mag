@@ -8,23 +8,44 @@
             </div>
             <ul class="list-none p-4 m-0">
                 <li>
-                    <a routerLink="/panel/home" class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md">
-                        <i class="pi pi-home mr-3"></i>
-                        <span>Home</span>
-                    </a>
+                        <a
+                            routerLink="/student/home"
+                            routerLinkActive="bg-[#6366f1] text-white"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md"
+                        >
+                            <i class="pi pi-home mr-3"></i>
+                            <span>Home</span>
+                        </a>
                 </li>
+
+
                 <li>
-                    <a routerLink="/panel/ofertas" class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md">
-                        <i class="pi pi-briefcase mr-3"></i>
-                        <span>Ofertas</span>
-                    </a>
+                        <a
+                            routerLink="/student/offers"
+                            routerLinkActive="bg-[#6366f1] text-white"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md"
+                        >
+                            <i class="pi pi-home mr-3"></i>
+                            <span>Ofertas</span>
+                        </a>
                 </li>
+
+
                 <li>
-                    <a routerLink="/panel/postulaciones" class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md">
-                        <i class="pi pi-file mr-3"></i>
-                        <span>Mis postulaciones</span>
-                    </a>
+                        <a
+                            routerLink="/student/applications"
+                            routerLinkActive="bg-[#6366f1] text-white"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md"
+                        >
+                            <i class="pi pi-home mr-3"></i>
+                            <span>Mis aplicaciones</span>
+                        </a>
                 </li>
+
+
                 <li>
                     <a routerLink="/panel/notificaciones" class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md">
                         <i class="pi pi-bell mr-3"></i>
