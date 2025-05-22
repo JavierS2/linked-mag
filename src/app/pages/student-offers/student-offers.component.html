@@ -18,31 +18,65 @@
             </p-menubar>
         </header>
 
-        <main class="flex flex-1 flex-col items-center justify-start p-6">
-                <!-- Barra de búsqueda centrada -->
-                <div class="flex items-center gap-2 my-4 w-full max-w-xl justify-center">
+    <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'location', 'date', 'salary']">
+        <ng-template #caption>
+            <div class="flex">
+                <p-iconfield iconPosition="left" class="m-auto">
+                    <p-inputicon>
+                        <i class="pi pi-search"></i>
+                    </p-inputicon>
                     <input
+                        #globalFilter
+                        pInputText
                         type="text"
-                        [(ngModel)]="searchTerm"
-                        placeholder="Buscar oferta..."
-                        class="border rounded px-4 py-2 w-full"
+                        (input)="dt1.filterGlobal(globalFilter.value, 'contains')"
+                        placeholder="Search keyword"
                     />
-                    <button class="ml-2 px-4 py-2 bg-indigo-600 text-white rounded" (click)="searchOffer()">
-                        Buscar
-                    </button>
-                </div>
-                <!-- Sección de resultados de ofertas -->
-                <section class="bg-white rounded-2xl shadow p-6 w-full max-w-5xl">
-                    <!-- Aquí van las ofertas filtradas -->
-                    <ul>
-                        <li *ngFor="let oferta of ofertasFiltradas">
-                            <span class="font-bold">{{ oferta.nombre }}</span> - {{ oferta.ciudad }}
-                        </li>
-                    </ul>
-                </section>
-        </main>
+                </p-iconfield>
+            </div>
+        </ng-template>
         
-
-
+        <ng-template #header>
+        <tr>
+            <th style="min-width:15rem; padding-left: 20rem;">
+                <div class="flex items-center">
+                    Nombre
+                    <p-columnFilter type="text" field="name" display="menu" />
+                </div>
+            </th>
+            <th style="min-width:10rem">
+                <div class="flex items-center">
+                    Disponible hasta
+                    <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                </div>
+            </th>
+            <th style="min-width:10rem">
+                <div class="flex items-center">
+                    Salario
+                    <p-columnFilter type="numeric" field="salary" display="menu" currency="COP" />
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+        <tr>
+            <td colspan="7">No customers found.</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+    <tr>
+        <td style="padding-left:20rem;">
+            {{ rowData.name }} <span>{{ rowData.location }}</span>
+        </td>
+        <td>
+            {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
+        </td>
+        <td>
+            {{ rowData.salary | currency:'COP':'symbol':'1.0-0':'es-CO' }}
+        </td>
+    </tr>
+</ng-template>
+</p-table>
+       
 </div>
 
