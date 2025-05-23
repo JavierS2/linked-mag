@@ -13,7 +13,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
   selector: 'app-company-dialog-applications',
   imports: [ButtonModule, DialogModule, InputTextModule, EditorModule, FormsModule, DatePickerModule, SelectModule, KeyFilterModule, InputNumberModule],
   templateUrl: './company-dialog-applications.component.html',
-  styleUrl: './company-dialog-applications.component.css'
 })
 export class CompanyDialogApplicationsComponent {
   
