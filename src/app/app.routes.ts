@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterStudentComponent } from './pages/register-student/register-student.component';
 import { LoginStudentComponent } from './pages/login-student/login-student.component';
@@ -8,17 +9,18 @@ import { DashboardStudentComponent } from './pages/dashboard-student/dashboard-s
 import { RegisterCompanyComponent } from './pages/register-company/register-company.component';
 import { LoginCompanyComponent } from './pages/login-company/login-company.component';
 import { StudentOffersComponent } from './pages/student-offers/student-offers.component';
-import { StudentApplicationsComponent } from './pages/student-applications/student-applications.component';
-import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
+import { StudentMyApplicationsComponent } from './pages/student-my-applications/student-my-applications.component';
+import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-apply-offer.component';
+
 export const routes: Routes = [
-  
+
   // Ruta raíz redirige a home
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   // Página principal
   { path: 'home', component: HomeComponent },
 
-  // Rutas de registro
+  // Registro
   {
     path: 'register',
     children: [
@@ -27,7 +29,7 @@ export const routes: Routes = [
     ]
   },
 
-  // Rutas de login
+  // Login
   {
     path: 'login',
     children: [
@@ -36,30 +38,31 @@ export const routes: Routes = [
     ]
   },
 
+  // Panel estudiante
   {
-    path: 'panel',
+    path: 'panel/student',
     children: [
-      // Rutas dashboard
-      {
-        path: 'student',
+      { path: 'home', component: DashboardStudentComponent },
+      { path: 'offers', component: StudentOffersComponent,
         children: [
-          // Dashboard estudiante
-          { path: 'home', component: DashboardStudentComponent},
-          { path: 'offers', component: StudentOffersComponent},
-          { path: 'my-applications', component: StudentApplicationsComponent},
-          { path: 'job-offer', component: JobOfferDetailsComponent},   
-        ]
+          { path: 'dialog', component: StudentApplyOfferComponent },]
       },
-
-      // Dashboard empresa
-        { path: 'company', 
-          children: [
-            { path: 'home', component: DashboardCompanyComponent},
-            { path: 'profile', component: DashboardCompanyComponent}
-          ]
-        },
+      { path: 'my-applications', component: StudentMyApplicationsComponent },
+      { path: 'my-profile', component: StudentMyApplicationsComponent },
     ]
   },
-    // Ruta comodín (404) (Debe ir de último)
+
+  // Panel empresa
+  {
+    path: 'panel/company',
+    children: [
+      { path: 'home', component: DashboardCompanyComponent },
+      { path: 'my-offers', component:  DashboardCompanyComponent},
+      { path: 'configuration', component:  DashboardCompanyComponent},
+      { path: 'my-profile', component:  DashboardCompanyComponent},
+    ]
+  },
+
+  // Ruta 404 (última siempre)
   { path: '**', component: NotFoundComponent },
 ];
