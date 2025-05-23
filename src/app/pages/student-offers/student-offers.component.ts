@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localeEsCO from '@angular/common/locales/es-CO';
+import { RouterLink } from '@angular/router';
+import { StudentApplyOfferComponent } from '../student-apply-offer/student-apply-offer.component';
 
 registerLocaleData(localeEsCO, 'es-CO');
 
@@ -25,7 +27,7 @@ registerLocaleData(localeEsCO, 'es-CO');
   imports: [
     SidebarStudentComponent, AvatarModule, MenubarModule, TableModule, ButtonModule,
     InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-    SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CurrencyPipe
+    SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CurrencyPipe, StudentApplyOfferComponent
   ],
   templateUrl: './student-offers.component.html',
   styleUrl: './student-offers.component.css'

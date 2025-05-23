@@ -10,6 +10,7 @@ import { RegisterCompanyComponent } from './pages/register-company/register-comp
 import { LoginCompanyComponent } from './pages/login-company/login-company.component';
 import { StudentOffersComponent } from './pages/student-offers/student-offers.component';
 import { StudentMyApplicationsComponent } from './pages/student-my-applications/student-my-applications.component';
+import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-apply-offer.component';
 
 export const routes: Routes = [
 
@@ -42,7 +43,10 @@ export const routes: Routes = [
     path: 'panel/student',
     children: [
       { path: 'home', component: DashboardStudentComponent },
-      { path: 'offers', component: StudentOffersComponent },
+      { path: 'offers', component: StudentOffersComponent,
+        children: [
+          { path: 'dialog', component: StudentApplyOfferComponent },]
+      },
       { path: 'my-applications', component: StudentMyApplicationsComponent },
       { path: 'my-profile', component: StudentMyApplicationsComponent },
     ]
