@@ -11,6 +11,7 @@ import { LoginCompanyComponent } from './pages/login-company/login-company.compo
 import { StudentOffersComponent } from './pages/student-offers/student-offers.component';
 import { StudentMyApplicationsComponent } from './pages/student-my-applications/student-my-applications.component';
 import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-apply-offer.component';
+import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
 
 export const routes: Routes = [
 
@@ -60,6 +61,7 @@ export const routes: Routes = [
       { path: 'my-offers', component:  DashboardCompanyComponent},
       { path: 'configuration', component:  DashboardCompanyComponent},
       { path: 'my-profile', component:  DashboardCompanyComponent},
+      { path: 'job-offer', component: JobOfferDetailsComponent}
     ]
   },
 
