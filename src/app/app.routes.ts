@@ -9,7 +9,7 @@ import { DashboardStudentComponent } from './pages/dashboard-student/dashboard-s
 import { RegisterCompanyComponent } from './pages/register-company/register-company.component';
 import { LoginCompanyComponent } from './pages/login-company/login-company.component';
 import { StudentOffersComponent } from './pages/student-offers/student-offers.component';
-import { StudentApplicationsComponent } from './pages/student-applications/student-applications.component';
+import { StudentMyApplicationsComponent } from './pages/student-my-applications/student-my-applications.component';
 
 export const routes: Routes = [
 
@@ -43,8 +43,8 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: DashboardStudentComponent },
       { path: 'offers', component: StudentOffersComponent },
-      { path: 'my-applications', component: StudentApplicationsComponent },
-      { path: 'my-profile', component: StudentApplicationsComponent },
+      { path: 'my-applications', component: StudentMyApplicationsComponent },
+      { path: 'my-profile', component: StudentMyApplicationsComponent },
     ]
   },
 
