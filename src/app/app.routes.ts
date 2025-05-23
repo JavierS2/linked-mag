@@ -9,6 +9,7 @@ import { RegisterCompanyComponent } from './pages/register-company/register-comp
 import { LoginCompanyComponent } from './pages/login-company/login-company.component';
 import { StudentOffersComponent } from './pages/student-offers/student-offers.component';
 import { StudentApplicationsComponent } from './pages/student-applications/student-applications.component';
+import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
 export const routes: Routes = [
   
   // Ruta raíz redirige a home
@@ -45,7 +46,8 @@ export const routes: Routes = [
           // Dashboard estudiante
           { path: 'home', component: DashboardStudentComponent},
           { path: 'offers', component: StudentOffersComponent},
-          { path: 'my-applications', component: StudentApplicationsComponent},      
+          { path: 'my-applications', component: StudentApplicationsComponent},
+          { path: 'job-offer', component: JobOfferDetailsComponent},   
         ]
       },
 
