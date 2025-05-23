@@ -35,26 +35,29 @@ export const routes: Routes = [
     ]
   },
 
-  // Rutas dashboard
   {
-    path: 'student',
+    path: 'panel',
     children: [
-
-      // Dashboard estudiante
-      { path: 'home', component: DashboardStudentComponent},
-      { path: 'offers', component: StudentOffersComponent},
-      { path: 'applications', component: StudentApplicationsComponent},
+      // Rutas dashboard
+      {
+        path: 'student',
+        children: [
+          // Dashboard estudiante
+          { path: 'home', component: DashboardStudentComponent},
+          { path: 'offers', component: StudentOffersComponent},
+          { path: 'my-applications', component: StudentApplicationsComponent},      
+        ]
+      },
 
       // Dashboard empresa
-      { path: 'company', component: DashboardCompanyComponent, 
-        children: [
-          { path: 'profile', component: DashboardCompanyComponent}
-        ]
-      }
+        { path: 'company', 
+          children: [
+            { path: 'home', component: DashboardCompanyComponent},
+            { path: 'profile', component: DashboardCompanyComponent}
+          ]
+        },
     ]
   },
-
-
     // Ruta comodín (404) (Debe ir de último)
   { path: '**', component: NotFoundComponent },
 ];
