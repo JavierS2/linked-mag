@@ -36,6 +36,15 @@ export class ApiService {
     });
   }
 
+  loginStudent(credentials: {
+    studentCode: string;
+    password: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/students/login`, credentials, {
+      headers: this.getHeaders(),
+    });
+  }
+
   getStudentByCode(studentCode: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/students/code/${studentCode}`, {
       headers: this.getHeaders(),
