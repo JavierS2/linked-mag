@@ -14,7 +14,9 @@ import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-
 import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
 import { authGuard } from './guards/auth.guard';
 import { StudentProfileComponent } from './pages/student-profile/student-profile.component';
-
+import { UniversityLoginComponent } from './pages/university-login/university-login.component';
+import { UniversityValidateRegistrationComponent } from './pages/university-validate-registration/university-validate-registration.component';
+import { UniversityValidateRegistrationCompanyComponent } from './pages/university-validate-registration-company/university-validate-registration-company.component';
 export const routes: Routes = [
 
   // Ruta raíz redirige a home
@@ -37,7 +39,8 @@ export const routes: Routes = [
     path: 'login',
     children: [
       { path: 'student', component: LoginStudentComponent },
-      { path: 'company', component: LoginCompanyComponent }
+      { path: 'company', component: LoginCompanyComponent },
+      { path: 'university', component: UniversityLoginComponent }
     ]
   },
 
@@ -67,6 +70,16 @@ export const routes: Routes = [
       { path: 'job-offer', component: JobOfferDetailsComponent}
     ]
   },
+
+  // panel universidad
+  {
+    path: 'panel/university',
+    children: [
+      { path: 'validate-registration', component: UniversityValidateRegistrationComponent },
+      { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent }
+    ]
+  },
+
 
   // Ruta 404 (última siempre)
   { path: '**', component: NotFoundComponent },
