@@ -18,7 +18,7 @@
             </p-menubar>
         </header>
 
-    <p-table #dt1 [value]="customers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['name', 'location', 'date', 'salary']">
+    <p-table #dt1 [value]="combinedOffers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['title', 'location', 'closingDate', 'salary']">
         <ng-template #caption>
             <div class="flex">
                 <p-iconfield iconPosition="left" class="m-auto">
@@ -70,10 +70,10 @@
     <ng-template pTemplate="body" let-rowData>
     <tr>
         <td style="padding-left:20rem;">
-            {{ rowData.name }} <span>{{ rowData.location }}</span>
+            {{ rowData.title }} <span>{{ rowData.location }}</span>
         </td>
         <td>
-            {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
+            {{ rowData.closingDate | date:'MMM dd, yyyy hh:mm a' }}
         </td>
         <td>
             {{ rowData.salary | currency:'COP':'symbol':'1.0-0':'es-CO' }}
@@ -82,7 +82,7 @@
             <app-student-apply-offer></app-student-apply-offer>
         </td>
     </tr>
-</ng-template>
+    </ng-template>
 </p-table>
 
 </div>
