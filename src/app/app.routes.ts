@@ -18,6 +18,7 @@ import { UniversityLoginComponent } from './pages/university-login/university-lo
 import { UniversityValidateRegistrationComponent } from './pages/university-validate-registration/university-validate-registration.component';
 import { UniversityValidateRegistrationCompanyComponent } from './pages/university-validate-registration-company/university-validate-registration-company.component';
 import { CompanyMyJobOffersComponent } from './pages/company-my-job-offers/company-my-job-offers.component';
+import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
 
 export const routes: Routes = [
 
@@ -56,8 +57,8 @@ export const routes: Routes = [
           { path: 'dialog', component: StudentApplyOfferComponent }]
       },
       { path: 'my-applications', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
-      { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
-      { path: 'profile', component: StudentProfileComponent, canActivate: [authGuard],}
+      { path: 'my-profile', component: StudentMyApplicationsComponent},
+      { path: 'profile', component: StudentProfileComponent}
     ]
   },
 
@@ -68,8 +69,8 @@ export const routes: Routes = [
       { path: 'home', component: DashboardCompanyComponent, canActivate: [authGuard]},
       { path: 'my-offers', component:  CompanyMyJobOffersComponent, canActivate: [authGuard]},
       { path: 'configuration', component:  DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'my-profile', component:  DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'job-offer', component: JobOfferDetailsComponent, canActivate: [authGuard]}
+      { path: 'job-offer', component: JobOfferDetailsComponent, canActivate: [authGuard]},
+      { path: 'profile', component: CompanyProfileComponent}
     ]
   },
 
