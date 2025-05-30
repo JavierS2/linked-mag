@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { StudentProfile } from '../models/student-profile.model'; // Import the StudentProfile interface
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,12 @@ export class ApiService {
     });
   }
 
+  getStudentProfile(): Observable<StudentProfile> {
+    return this.http.get<StudentProfile>(`${this.apiUrl}/students/me`, {
+      headers: this.getHeaders(),
+    });
+  }
+
   getStudentByCode(studentCode: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/students/code/${studentCode}`, {
       headers: this.getHeaders(),
@@ -81,6 +88,25 @@ export class ApiService {
       formData,
       {
         params: { studentId },
+      }
+    );
+  }
+
+  // ========== JOB APPLICATIONS ==========
+  getLastAppliedOffer(studentId: string): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/students/${studentId}/last-applied-offer`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
+
+  getAppliedOffersCount(studentId: string): Observable<number> {
+    return this.http.get<number>(
+      `${this.apiUrl}/students/${studentId}/applied-offers/count`,
+      {
+        headers: this.getHeaders(),
       }
     );
   }
