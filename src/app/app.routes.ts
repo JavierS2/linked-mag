@@ -14,6 +14,7 @@ import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-
 import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
 import { authGuard } from './guards/auth.guard';
 import { StudentProfileComponent } from './pages/student-profile/student-profile.component';
+import { CompanyMyJobOffersComponent } from './pages/company-my-job-offers/company-my-job-offers.component';
 
 export const routes: Routes = [
 
@@ -61,7 +62,7 @@ export const routes: Routes = [
     path: 'panel/company',
     children: [
       { path: 'home', component: DashboardCompanyComponent },
-      { path: 'my-offers', component:  DashboardCompanyComponent},
+      { path: 'my-offers', component:  CompanyMyJobOffersComponent},
       { path: 'configuration', component:  DashboardCompanyComponent},
       { path: 'my-profile', component:  DashboardCompanyComponent},
       { path: 'job-offer', component: JobOfferDetailsComponent}

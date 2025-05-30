@@ -8,6 +8,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { CompanyService } from '../../services/company.service';
+import { JobOffer } from '../../models/job-offer';
 
 @Component({
   selector: 'app-company-dialog-applications',
@@ -16,6 +18,32 @@ import { InputNumberModule } from 'primeng/inputnumber';
 })
 export class CompanyDialogApplicationsComponent {
   
+  constructor(private jobOfferService: CompanyService) {}
+
+  publishOffer() {
+    const offer: JobOffer = {
+      name: this.name,
+      email: this.email,
+      phone: this.phone,
+      date: this.date,
+      city: this.city,
+      country: this.country,
+      modality: this.modality,
+      salary: this.salary,
+      description: this.description
+    };
+
+    this.jobOfferService.createJobOffer(offer).subscribe({
+      next: response => {
+        console.log('Oferta publicada', response);
+        this.visible = false;
+      },
+      error: err => {
+        console.error('Error al publicar oferta', err);
+      }
+    });
+  }
+
   name: string = '';
   email: string = '';
   phone : number | null = null;

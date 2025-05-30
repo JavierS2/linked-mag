@@ -8,7 +8,7 @@ import { SliderModule } from 'primeng/slider';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
-import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
