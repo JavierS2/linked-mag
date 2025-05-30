@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { SidebarStudentComponent } from '../../shared/components/sidebar-student/sidebar-student.component';
 import { AvatarModule } from 'primeng/avatar';
 import { MenubarModule } from 'primeng/menubar';
@@ -18,6 +18,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEsCO from '@angular/common/locales/es-CO';
 import { RouterLink } from '@angular/router';
 import { StudentApplyOfferComponent } from '../student-apply-offer/student-apply-offer.component';
+import { ApiService } from '../../services/api.service'; // Import ApiService
 
 registerLocaleData(localeEsCO, 'es-CO');
 
@@ -32,7 +33,7 @@ registerLocaleData(localeEsCO, 'es-CO');
   templateUrl: './student-offers.component.html',
   styleUrl: './student-offers.component.css'
 })
-export class StudentOffersComponent {
+export class StudentOffersComponent implements OnInit {
 
   
   loading = false;
@@ -130,6 +131,46 @@ export class StudentOffersComponent {
     { label: 'Disponible', value: 'Disponible' },
     { label: 'Cerrada', value: 'Cerrada' }
   ];
+
+  dynamicOffers: any[] = []; // Array to store offers from the backend
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.fetchOffers();
+  }
+
+  fetchOffers(): void {
+    this.loading = true;
+    this.apiService.getAllOffers().subscribe({
+      next: (offers: any[]) => {
+        this.dynamicOffers = offers.map((offer: any) => ({
+          id: offer.id,
+          title: offer.title,
+          description: offer.description,
+          modality: offer.modality,
+          location: offer.location,
+          publicationDate: offer.publicationDate,
+          closingDate: offer.closingDate,
+          salary: offer.salary,
+          companyName: offer.company?.name,
+          status: offer.status?.status
+        }));
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error fetching offers:', error);
+        this.loading = false;
+      },
+      complete: () => {
+        console.log('Fetch offers completed');
+      }
+    });
+  }
+
+  get combinedOffers(): any[] {
+    return [...this.customers, ...this.dynamicOffers];
+  }
 
   clear(table: any) {
     table.clear();

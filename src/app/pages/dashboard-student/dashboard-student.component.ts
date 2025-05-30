@@ -11,6 +11,7 @@ import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { ApiService } from '../../services/api.service';
 import { StudentProfile } from '../../models/student-profile.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-student',
@@ -27,7 +28,7 @@ export class DashboardStudentComponent implements OnInit {
   appliedOffersCount: number = 0;
   jobOffers: any[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.apiService.getStudentProfile().subscribe({
@@ -51,8 +52,35 @@ export class DashboardStudentComponent implements OnInit {
     });
 
     this.apiService.getAllOffers().subscribe({
-      next: (offers) => this.jobOffers = offers,
+      next: (offers: any[]) => {
+        this.jobOffers = offers.map((offer: any) => ({
+          id: offer.id,
+          title: offer.title,
+          description: offer.description,
+          modality: offer.modality,
+          location: offer.location,
+          publicationDate: offer.publicationDate,
+          closingDate: offer.closingDate,
+          salary: offer.salary,
+          companyName: offer.company?.name,
+          status: offer.status?.status
+        }));
+      },
       error: (err) => console.error('Error cargando ofertas laborales:', err)
+    });
+  }
+
+  navigateToOffers(): void {
+    this.router.navigate(['/panel/student/offers']).catch(err => {
+      console.error('Navigation error:', err);
+      alert('Error al redirigir a ofertas laborales.');
+    });
+  }
+
+  navigateToOfferDetails(offerId: string): void {
+    this.router.navigate(['/panel/student/offers', offerId]).catch(err => {
+      console.error('Navigation error:', err);
+      alert('Error al redirigir a detalles de la oferta.');
     });
   }
 }
