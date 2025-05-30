@@ -18,7 +18,7 @@ import { UniversityLoginComponent } from './pages/university-login/university-lo
 import { UniversityValidateRegistrationComponent } from './pages/university-validate-registration/university-validate-registration.component';
 import { UniversityValidateRegistrationCompanyComponent } from './pages/university-validate-registration-company/university-validate-registration-company.component';
 import { CompanyMyJobOffersComponent } from './pages/company-my-job-offers/company-my-job-offers.component';
-
+import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
 export const routes: Routes = [
 
   // Ruta raíz redirige a home
@@ -55,9 +55,9 @@ export const routes: Routes = [
         children: [
           { path: 'dialog', component: StudentApplyOfferComponent }]
       },
-      { path: 'my-applications', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
-      { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
-      { path: 'profile', component: StudentProfileComponent, canActivate: [authGuard],}
+      { path: 'my-applications', component: StudentMyApplicationsComponent,  },
+      { path: 'my-profile', component: StudentMyApplicationsComponent,  },
+      { path: 'profile', component: StudentProfileComponent, }
     ]
   },
 
@@ -65,11 +65,11 @@ export const routes: Routes = [
   {
     path: 'panel/company',
     children: [
-      { path: 'home', component: DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'my-offers', component:  CompanyMyJobOffersComponent, canActivate: [authGuard]},
-      { path: 'configuration', component:  DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'my-profile', component:  DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'job-offer', component: JobOfferDetailsComponent, canActivate: [authGuard]}
+      { path: 'home', component: DashboardCompanyComponent, },
+      { path: 'my-offers', component:  CompanyMyJobOffersComponent, },
+      { path: 'configuration', component:  DashboardCompanyComponent, },
+      { path: 'my-profile', component:  CompanyProfileComponent},
+      { path: 'job-offer', component: JobOfferDetailsComponent}
     ]
   },
 
@@ -77,8 +77,8 @@ export const routes: Routes = [
   {
     path: 'panel/university',
     children: [
-      { path: 'validate-registration', component: UniversityValidateRegistrationComponent, canActivate: [authGuard] },
-      { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent, canActivate: [authGuard] }
+      { path: 'validate-registration', component: UniversityValidateRegistrationComponent },
+      { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent }
     ]
   },
 
