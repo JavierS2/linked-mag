@@ -46,14 +46,14 @@ export const routes: Routes = [
   {
     path: 'panel/student',
     children: [
-      { path: 'home', component: DashboardStudentComponent },
-      { path: 'offers', component: StudentOffersComponent,
+      { path: 'home', component: DashboardStudentComponent, canActivate: [authGuard] },
+      { path: 'offers', component: StudentOffersComponent, canActivate: [authGuard],
         children: [
           { path: 'dialog', component: StudentApplyOfferComponent },]
       },
-      { path: 'my-applications', component: StudentMyApplicationsComponent },
+      { path: 'my-applications', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
       { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
-      { path: 'profile', component: StudentProfileComponent}
+      { path: 'profile', component: StudentProfileComponent, canActivate: [authGuard],}
     ]
   },
 
