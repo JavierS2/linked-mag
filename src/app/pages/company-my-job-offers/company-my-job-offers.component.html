@@ -57,7 +57,11 @@
             <th style="min-width:10rem">
                 <div class="flex items-center">
                     Estado
-                    <p-columnFilter type="text" field="status" display="menu" />
+                </div>
+            </th>
+            <th style="min-width:10rem">
+                <div class="flex items-center">
+                    Ver
                 </div>
             </th>
         </tr>
@@ -90,6 +94,9 @@
                     <p-tag *ngSwitchCase="'Pausada'" label="Pausada" value="Pausada" ></p-tag>
                     <p-button *ngSwitchDefault [label]="rowData.status" variant="text"></p-button>
                 </ng-container>
+            </td>
+            <td>
+               <p-button [rounded]="true" icon="pi pi-eye" class="mr-5" [routerLink]="['/panel/company/job-offer']" routerLinkActive="router-link-active" ></p-button>
             </td>
         </tr>
     </ng-template>

@@ -41,7 +41,6 @@
   .user-box{
     margin-left: 50px;
     margin-top: 10px;
-    color: #6c7a89;
   }
 
   .btn-login {
@@ -69,6 +68,10 @@
   border-radius: 4px;
   padding-left: 10px;
   margin-left: 150px;
+}
+
+::ng-deep .user-box input::placeholder {
+  color:#6c7a89;
 }
 
 .user-box input:focus{

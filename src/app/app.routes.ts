@@ -14,6 +14,9 @@ import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-
 import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
 import { authGuard } from './guards/auth.guard';
 import { StudentProfileComponent } from './pages/student-profile/student-profile.component';
+import { UniversityLoginComponent } from './pages/university-login/university-login.component';
+import { UniversityValidateRegistrationComponent } from './pages/university-validate-registration/university-validate-registration.component';
+import { UniversityValidateRegistrationCompanyComponent } from './pages/university-validate-registration-company/university-validate-registration-company.component';
 import { CompanyMyJobOffersComponent } from './pages/company-my-job-offers/company-my-job-offers.component';
 
 export const routes: Routes = [
@@ -38,7 +41,8 @@ export const routes: Routes = [
     path: 'login',
     children: [
       { path: 'student', component: LoginStudentComponent },
-      { path: 'company', component: LoginCompanyComponent }
+      { path: 'company', component: LoginCompanyComponent },
+      { path: 'university', component: UniversityLoginComponent }
     ]
   },
 
@@ -46,8 +50,8 @@ export const routes: Routes = [
   {
     path: 'panel/student',
     children: [
-      { path: 'home', component: DashboardStudentComponent, canActivate: [authGuard] },
-      { path: 'offers', component: StudentOffersComponent, canActivate: [authGuard],
+      { path: 'home', component: DashboardStudentComponent},
+      { path: 'offers', component: StudentOffersComponent,
         children: [
           { path: 'dialog', component: StudentApplyOfferComponent },
           { path: ':offerId', component: JobOfferDetailsComponent } // Add this route
@@ -63,13 +67,23 @@ export const routes: Routes = [
   {
     path: 'panel/company',
     children: [
-      { path: 'home', component: DashboardCompanyComponent },
-      { path: 'my-offers', component:  CompanyMyJobOffersComponent},
-      { path: 'configuration', component:  DashboardCompanyComponent},
-      { path: 'my-profile', component:  DashboardCompanyComponent},
-      { path: 'job-offer', component: JobOfferDetailsComponent}
+      { path: 'home', component: DashboardCompanyComponent, canActivate: [authGuard]},
+      { path: 'my-offers', component:  CompanyMyJobOffersComponent, canActivate: [authGuard]},
+      { path: 'configuration', component:  DashboardCompanyComponent, canActivate: [authGuard]},
+      { path: 'my-profile', component:  DashboardCompanyComponent, canActivate: [authGuard]},
+      { path: 'job-offer', component: JobOfferDetailsComponent, canActivate: [authGuard]}
     ]
   },
+
+  // panel universidad
+  {
+    path: 'panel/university',
+    children: [
+      { path: 'validate-registration', component: UniversityValidateRegistrationComponent, canActivate: [authGuard] },
+      { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent, canActivate: [authGuard] }
+    ]
+  },
+
 
   // Ruta 404 (última siempre)
   { path: '**', component: NotFoundComponent },

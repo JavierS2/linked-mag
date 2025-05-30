@@ -14,12 +14,13 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 import { IconFieldModule } from 'primeng/iconfield';
 import { MenubarModule } from 'primeng/menubar';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-company-my-job-offers',
   imports: [CompanySidebarComponent, AvatarModule, MenubarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, TagModule],
+      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, TagModule, RouterLink],
   templateUrl: './company-my-job-offers.component.html',
   styleUrl: './company-my-job-offers.component.css'
 })
