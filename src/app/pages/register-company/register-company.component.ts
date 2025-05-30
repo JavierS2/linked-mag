@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { NavBarHomeComponent } from "../../shared/components/nav-bar-home/nav-bar-home.component";
+import { NavBarHomeComponent } from '../../shared/components/nav-bar-home/nav-bar-home.component';
 import { FormsModule, NgModel } from '@angular/forms';
 import { FloatLabel } from 'primeng/floatlabel';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectModule } from 'primeng/select';
-import {  FileUploadModule } from 'primeng/fileupload';
+import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,12 +15,22 @@ import { Router } from '@angular/router';
 @Component({
   standalone: true, // <-- ESTA LÍNEA ES CLAVE
   selector: 'app-register-company',
-  imports: [NavBarHomeComponent, InputNumberModule, FormsModule, FloatLabel, 
-    DropdownModule, SelectModule, FileUploadModule, CommonModule, ButtonModule, 
-    HttpClientModule, PasswordModule],
-   providers: [MessageService],
+  imports: [
+    NavBarHomeComponent,
+    InputNumberModule,
+    FormsModule,
+    FloatLabel,
+    DropdownModule,
+    SelectModule,
+    FileUploadModule,
+    CommonModule,
+    ButtonModule,
+    HttpClientModule,
+    PasswordModule,
+  ],
+  providers: [MessageService],
   templateUrl: './register-company.component.html',
-  styleUrls: ['./register-company.component.css']
+  styleUrls: ['./register-company.component.css'],
 })
 export class RegisterCompanyComponent {
   constructor(private messageService: MessageService, private router: Router) {
@@ -61,18 +71,18 @@ export class RegisterCompanyComponent {
     { id: 18, name: 'Investigación y desarrollo (I+D)' },
     { id: 19, name: 'Análisis de datos y Big Data' },
     { id: 20, name: 'Gobierno digital y servicios públicos' },
-    { id: 21, name: 'Otros' }
+    { id: 21, name: 'Otros' },
   ];
 
   selectTypeCompany: string = '';
   emailCompany: string = '';
   typeCompany: any = [
     { id: 1, name: 'Privada' },
-    { id: 2, name: 'Publica' }
-  ]
+    { id: 2, name: 'Publica' },
+  ];
 
-  selectedCountry : any = '';
-   countries: any[] = [
+  selectedCountry: any = '';
+  countries: any[] = [
     { code: 'AR', name: 'Argentina' },
     { code: 'MX', name: 'México' },
     { code: 'CL', name: 'Chile' },
@@ -82,106 +92,101 @@ export class RegisterCompanyComponent {
     { code: 'US', name: 'Estados Unidos' },
     { code: 'BR', name: 'Brasil' },
     { code: 'UY', name: 'Uruguay' },
-    { code: 'PY', name: 'Paraguay' }
+    { code: 'PY', name: 'Paraguay' },
   ];
 
   fileName: string = '';
-  uploadedFiles : any[] = [];
+  uploadedFiles: any[] = [];
   documentLabel: string = 'Camara-de-comercio.pdf';
-onUpload(event: any) {
-  for (let file of event.files) {
-    this.uploadedFiles.push(file);
+  onUpload(event: any) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+
+    this.fileName = event.files[0].name;
+    this.documentLabel = this.fileName;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: `Archivo cargado: ${this.fileName}`,
+    });
   }
 
-  this.fileName = event.files[0].name;
-  this.documentLabel = this.fileName;
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Éxito',
-    detail: `Archivo cargado: ${this.fileName}`
-  });
-}
+  fileRut: string = '';
+  uploadedRut: any[] = [];
+  documentRut: string = 'RUT.pdf';
 
-fileRut: string = '';
-uploadedRut: any[] = [];
+  onUploadRut(event: any) {
+    for (let file of event.files) {
+      this.uploadedRut.push(file);
+    }
 
+    this.fileRut = event.files[0].name;
+    this.documentRut = this.fileRut;
 
-onUploadRut(event: any) {
-  for (let file of event.files) {
-    this.uploadedRut.push(file);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: `Archivo cargado: ${this.fileRut}`,
+    });
   }
 
-  this.fileRut = event.files[0].name;
-  ;
+  approvalLicense: string = '';
+  uploadedApprovalLicense: any[] = [];
+  documentApprovalLicense: string = 'Licencia-de-aprobacion.pdf';
 
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Éxito',
-    detail: `Archivo cargado: ${this.fileRut}`
-  });
-}
+  onUploadApprovalLicense(event: any) {
+    for (let file of event.files) {
+      this.uploadedApprovalLicense.push(file);
+    }
 
+    this.approvalLicense = event.files[0].name;
+    this.documentApprovalLicense = this.approvalLicense;
 
-approvalLicense: string = '';
-uploadedApprovalLicense: any[] = [];
-documentApprovalLicense: string = 'Licencia-de-aprobacion.pdf';
-
-onUploadApprovalLicense(event: any) {
-  for (let file of event.files) {
-    this.uploadedApprovalLicense.push(file);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: `Archivo cargado: ${this.approvalLicense}`,
+    });
   }
 
-  this.approvalLicense = event.files[0].name;
-  this.documentApprovalLicense = this.approvalLicense;
+  idDocument: string = '';
+  uploadedIdDocument: any[] = [];
+  displayedIdDocumentName: string = 'Cédula.pdf';
 
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Éxito',
-    detail: `Archivo cargado: ${this.approvalLicense}`
-  });
-}
+  jobCertificate: string = '';
+  uploadedJobCertificate: any[] = [];
+  displayedJobCertificateName: string = 'Certificado-del-representante.pdf';
 
-idDocument: string = '';
-uploadedIdDocument: any[] = [];
-displayedIdDocumentName: string = 'Cédula.pdf';
+  onUploadIdDocument(event: any) {
+    for (let file of event.files) {
+      this.uploadedIdDocument.push(file);
+    }
 
-jobCertificate: string = '';
-uploadedJobCertificate: any[] = [];
-displayedJobCertificateName: string = 'Certificado-del-representante.pdf';
+    this.idDocument = event.files[0].name;
+    this.displayedIdDocumentName = this.idDocument;
 
-onUploadIdDocument(event: any) {
-  for (let file of event.files) {
-    this.uploadedIdDocument.push(file);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: `File uploaded: ${this.idDocument}`,
+    });
   }
 
-  this.idDocument = event.files[0].name;
-  this.displayedIdDocumentName = this.idDocument;
+  onUploadJobCertificate(event: any) {
+    for (let file of event.files) {
+      this.uploadedJobCertificate.push(file);
+    }
 
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Success',
-    detail: `File uploaded: ${this.idDocument}`
-  });
-}
+    this.jobCertificate = event.files[0].name;
+    this.displayedJobCertificateName = this.jobCertificate;
 
-onUploadJobCertificate(event: any) {
-  for (let file of event.files) {
-    this.uploadedJobCertificate.push(file);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: `File uploaded: ${this.jobCertificate}`,
+    });
   }
 
-  this.jobCertificate = event.files[0].name;
-  this.displayedJobCertificateName = this.jobCertificate;
-
-  this.messageService.add({
-    severity: 'success',
-    summary: 'Success',
-    detail: `File uploaded: ${this.jobCertificate}`
-  });
-}
-
-validarFormulario(): void{
-
-}
-  
-  
+  validarFormulario(): void {}
 }

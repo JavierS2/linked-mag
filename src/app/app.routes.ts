@@ -12,7 +12,9 @@ import { StudentOffersComponent } from './pages/student-offers/student-offers.co
 import { StudentMyApplicationsComponent } from './pages/student-my-applications/student-my-applications.component';
 import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-apply-offer.component';
 import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
+import { authGuard } from './guards/auth.guard';
 import { StudentProfileComponent } from './pages/student-profile/student-profile.component';
+
 export const routes: Routes = [
 
   // Ruta raíz redirige a home
@@ -49,7 +51,7 @@ export const routes: Routes = [
           { path: 'dialog', component: StudentApplyOfferComponent },]
       },
       { path: 'my-applications', component: StudentMyApplicationsComponent },
-      { path: 'my-profile', component: StudentMyApplicationsComponent },
+      { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
       { path: 'profile', component: StudentProfileComponent}
     ]
   },
