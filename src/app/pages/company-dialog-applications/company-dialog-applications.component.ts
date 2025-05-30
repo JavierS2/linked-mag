@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -8,7 +8,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { SelectModule } from 'primeng/select';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { CompanyService } from '../../services/company.service';
+import { ApiService } from '../../services/api.service';
 import { JobOffer } from '../../models/job-offer';
 
 @Component({
@@ -18,7 +18,7 @@ import { JobOffer } from '../../models/job-offer';
 })
 export class CompanyDialogApplicationsComponent {
   
-  constructor(private jobOfferService: CompanyService) {}
+  constructor(@Inject(ApiService) private jobOfferService: ApiService) {}
 
   publishOffer() {
     const offer: JobOffer = {
@@ -33,15 +33,19 @@ export class CompanyDialogApplicationsComponent {
       description: this.description
     };
 
-    this.jobOfferService.createJobOffer(offer).subscribe({
-      next: response => {
-        console.log('Oferta publicada', response);
-        this.visible = false;
-      },
-      error: err => {
-        console.error('Error al publicar oferta', err);
-      }
+    this.jobOfferService.createOffer(offer).subscribe({
+      next: (response: any) => this.handleResponse(response),
+      error: (err: any) => this.handleError(err)
     });
+  }
+
+  handleResponse(response: any) {
+    console.log('Oferta publicada', response);
+    this.visible = false;
+  }
+
+  handleError(err: any) {
+    console.error('Error al publicar oferta', err);
   }
 
   name: string = '';
