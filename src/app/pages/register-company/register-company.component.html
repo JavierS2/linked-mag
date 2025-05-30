@@ -4,7 +4,7 @@
 
 <section class="login">
     <div class="box-login">
-        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-3">
+        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-5">
             Datos de la empresa
         </h2>
         <div style="display: flex; gap: 10px; align-items: center;">
@@ -27,7 +27,6 @@
                   id="companyName"
                   [(ngModel)]="nameCompany"
                   class="input-highlight"
-                  style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
                 />
                 <label for="companyName">Nombre completo</label>
               </p-floatlabel> 
@@ -46,13 +45,13 @@
               </p-floatlabel>
           </div>
 
-          <div style="display: flex; gap: 20px; align-items: center; margin-top: 10px;">
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 15px;">
                 <p-floatlabel variant="on">
                 <input
                   pInputText
                   id="companyName"
                   [(ngModel)]="addressCompany"
-                  class="input-highlight"
+                  class="input-highlight input-uniform"
                   style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
                 />
                 <label for="companyName">Dirección</label>
@@ -62,21 +61,21 @@
                   pInputText
                   id="companyName"
                   [(ngModel)]="pageWeb"
-                  class="input-highlight"
+                  class="input-highlight input-uniform"
                   style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
                 />
                 <label for="companyName">Página web</label>
               </p-floatlabel> 
               
               <p-floatlabel variant="on">
-                <p-select [(ngModel)]="selectEconomicSector"  inputId="on_label" [options]="economicSector" optionLabel="name" class="economicSector" />
+                <p-select [(ngModel)]="selectEconomicSector"  inputId="on_label" [options]="economicSector" optionLabel="name" class="economicSector input-uniform" />
                 <label for="on_label">Sector económico</label>
               </p-floatlabel>
           </div>
 
-          <div style="display: flex; gap: 20px; align-items: center; margin-top: 10px;">
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 15px;">
             <p-floatlabel variant="on">
-              <p-select [(ngModel)]="selectTypeCompany"  inputId="on_label" [options]="typeCompany" optionLabel="name" class="economicSector" />
+              <p-select [(ngModel)]="selectTypeCompany"  inputId="on_label" [options]="typeCompany" optionLabel="name" class="input-highlight"/>
               <label for="on_label">Tipo de empresa</label>
             </p-floatlabel>
 
@@ -88,10 +87,10 @@
                 filterBy="name" 
                 [showClear]="true" 
                 placeholder="País de origen" 
-                class="w-full md:w-56" 
+                class="input-highlight"
                 >
                 <ng-template #selectedItem let-selectedOption>
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-2 input-uniform">
                     <img 
                       [src]="'https://flagcdn.com/w40/' + selectedOption.code.toLowerCase() + '.png'" 
                       style="width: 18px" />
@@ -101,7 +100,7 @@
                 
                 <!-- Template para cada opción del dropdown -->
                 <ng-template let-country #item>
-                  <div class="flex items-center gap-2">
+                  <div class="flex items-center gap-2 input-uniform">
                     <img 
                       [src]="'https://flagcdn.com/w40/' + country.code.toLowerCase() + '.png'" 
                       style="width: 18px" />
@@ -116,37 +115,31 @@
             [auto]="true" [chooseLabel]="documentLabel" class="bottomUpload"/>
           </div>
 
-          <div style="display: flex; gap: 20px; align-items: center; margin-top: 10px;">
+          <div style="display: flex; gap: 10px; align-items: center; margin-top: 15px;">
 
             <p-floatlabel variant="on">
               <input
                 pInputText
                 id="emailCompany"
                 [(ngModel)]="emailCompany"
-                class="input-highlight"
-                style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
+                class="input-highlight" 
               />
               <label for="emailCompany">Correo electrónico</label>
             </p-floatlabel> 
 
-            <p-floatlabel variant="on" class="margin-form">
-              <p-password [(ngModel)]="password" inputId="on_label" styleClass="custom-password p-filled" [toggleMask]="true" />
+            <p-floatlabel variant="on" class="input-uniform">
+              <p-password [(ngModel)]="password" inputId="on_label" class="custom-label" [toggleMask]="true" />
               <label for="on_label">Contraseña</label>
             </p-floatlabel>
             
-            <p-floatlabel variant="on" class="margin-form">
-              <p-password [(ngModel)]="confirmPassword" inputId="on_label" styleClass="custom-password p-filled" [toggleMask]="true" />
+            <p-floatlabel variant="on" class="margin-form input-uniform">
+              <p-password [(ngModel)]="confirmPassword" inputId="on_label" class="custom-label" [toggleMask]="true" />
               <label for="on_label">Confirmar contraseña</label>
             </p-floatlabel>
             
           </div>
 
-          <div style="display: flex; gap: 20px; align-items: center; margin-top: 10px;">
-            <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" 
-            url="https://www.primefaces.org/cdn/api/upload.php" 
-            accept="application/pdf" maxFileSize="1000000" (onUpload)="onUploadRut($event)" 
-            [auto]="true" [chooseLabel]="documentRut" class="bottomUpload"/>
-
+          <div style="display: flex; gap: 20px; align-items: center; margin-top: 15px;">
             <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" 
             url="https://www.primefaces.org/cdn/api/upload.php" 
             accept="application/pdf" maxFileSize="1000000" (onUpload)="onUploadApprovalLicense($event)" 
@@ -165,7 +158,7 @@
                 id="nameComplete"
                 [(ngModel)]="nameComplete"
                 class="input-highlight"
-                style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
+                
               />
               <label for="nameComplete">Nombres</label>
             </p-floatlabel> 
@@ -176,19 +169,20 @@
                 id="lastName"
                 [(ngModel)]="lastName"
                 class="input-highlight"
-                style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
               />
               <label for="lastName">Apellidos</label>
             </p-floatlabel> 
             <p-floatlabel variant="on">
-              <input
-                pInputText
-                id="phoneNumberContact"
+              <p-inputnumber
                 [(ngModel)]="phoneNumberContact"
-                class="input-highlight"
-                style="border-radius: 5px; width: 230px; height: 40px; font-size: 16px; padding-left: 10px;"
+                inputId="nit"
+                mode="decimal"
+                [useGrouping]="false"
+                [minFractionDigits]="0"
+                [maxFractionDigits]="0"
+                class="custom-label"
               />
-              <label for="phoneNumberContact">Número de contacto</label>
+              <label for="nit">Número de contacto</label>
             </p-floatlabel> 
           </div>
 

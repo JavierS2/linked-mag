@@ -11,17 +11,23 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
+import { Router } from '@angular/router';
 @Component({
   standalone: true, // <-- ESTA LÍNEA ES CLAVE
   selector: 'app-register-company',
   imports: [NavBarHomeComponent, InputNumberModule, FormsModule, FloatLabel, 
-    DropdownModule, SelectModule, FileUploadModule, CommonModule, ButtonModule, HttpClientModule, PasswordModule],
+    DropdownModule, SelectModule, FileUploadModule, CommonModule, ButtonModule, 
+    HttpClientModule, PasswordModule],
    providers: [MessageService],
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.css']
 })
 export class RegisterCompanyComponent {
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private router: Router) {
+  }
+  goToStudentHome() {
+    this.router.navigate(['/ruta-home-estudiante']); 
+  }
   NIT: number | undefined;
   nameCompany: string = '';
   phoneNumber: number | undefined;
@@ -98,7 +104,7 @@ onUpload(event: any) {
 
 fileRut: string = '';
 uploadedRut: any[] = [];
-documentRut: string = 'RUT.pdf';
+
 
 onUploadRut(event: any) {
   for (let file of event.files) {
@@ -106,7 +112,7 @@ onUploadRut(event: any) {
   }
 
   this.fileRut = event.files[0].name;
-  this.documentRut = this.fileRut;
+  ;
 
   this.messageService.add({
     severity: 'success',
