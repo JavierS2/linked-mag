@@ -29,10 +29,6 @@ import { Router } from '@angular/router';
     PasswordModule,
   ],
   providers: [MessageService],
-  imports: [NavBarHomeComponent, InputNumberModule, FormsModule, FloatLabel, 
-    DropdownModule, SelectModule, FileUploadModule, CommonModule, ButtonModule, 
-    HttpClientModule, PasswordModule],
-   providers: [MessageService],
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.css'],
 })
