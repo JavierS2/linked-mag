@@ -13,6 +13,7 @@ import { StudentMyApplicationsComponent } from './pages/student-my-applications/
 import { StudentApplyOfferComponent } from './pages/student-apply-offer/student-apply-offer.component';
 import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-details.component';
 import { authGuard } from './guards/auth.guard';
+import { StudentProfileComponent } from './pages/student-profile/student-profile.component';
 
 export const routes: Routes = [
 
@@ -51,6 +52,7 @@ export const routes: Routes = [
       },
       { path: 'my-applications', component: StudentMyApplicationsComponent },
       { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
+      { path: 'profile', component: StudentProfileComponent}
     ]
   },
 

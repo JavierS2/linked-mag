@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
+import { Router } from '@angular/router';
 @Component({
   standalone: true, // <-- ESTA LÍNEA ES CLAVE
   selector: 'app-register-company',
@@ -28,11 +29,19 @@ import { PasswordModule } from 'primeng/password';
     PasswordModule,
   ],
   providers: [MessageService],
+  imports: [NavBarHomeComponent, InputNumberModule, FormsModule, FloatLabel, 
+    DropdownModule, SelectModule, FileUploadModule, CommonModule, ButtonModule, 
+    HttpClientModule, PasswordModule],
+   providers: [MessageService],
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.css'],
 })
 export class RegisterCompanyComponent {
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private router: Router) {
+  }
+  goToStudentHome() {
+    this.router.navigate(['/ruta-home-estudiante']); 
+  }
   NIT: number | undefined;
   nameCompany: string = '';
   phoneNumber: number | undefined;

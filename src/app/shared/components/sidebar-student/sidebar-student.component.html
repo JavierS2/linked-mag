@@ -51,7 +51,12 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="/panel/student/my-profile" class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md">
+                    <a
+                            routerLink="/panel/student/profile"
+                            routerLinkActive="bg-[#6366f1] text-white"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="flex items-center p-4 rounded text-gray-600 hover:bg-[#6366f1] hover:text-white transition-all duration-300 cursor-pointer hover:scale-105 hover:shadow-md"
+                        >
                         <i class="pi pi-user mr-3"></i>
                         <span>Perfil</span>
                     </a>

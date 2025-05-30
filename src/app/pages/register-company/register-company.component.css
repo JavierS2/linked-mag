@@ -18,6 +18,10 @@
   width: 90vw;
   min-height: 100vh;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;   /* Centra horizontalmente */
+  align-items: center;       /* Centra verticalmente */
+  min-height: 100vh; 
 }
 
 
@@ -27,8 +31,8 @@
     align-items: center;
     justify-content: flex-start; /* contenido alineado al inicio */
     
-    width: 90%;
-    max-width: 950px;
+    width: 100%;
+    max-width: 1100px;         /* Ajusta el ancho máximo según tu diseño */
     margin: 0 auto;
     padding: 1rem;
   
@@ -40,22 +44,26 @@
   }
 
 
+
+
 .custom-label ::ng-deep input {
-    width: 230px;          
-    height: 40px;          
-    font-size: 16px;       
+    width: 230px !important;
+    height: 40px !important;
+    font-size: 16px;
+    border-radius: 5px;
     padding-left: 10px;
-    align-items: center;  
-    justify-content: center;  
+    align-items: center;   
     color: rgba(0, 0, 0, 0.5);    
 }
 
-.input-highlight {
+.input-highlight{
     border: 1px solid rgba(108, 122, 127, 0.4);
     transition: border 0.3s ease;
     border-radius: 5px;
-    height: 40px;
+    width: 230px !important;
+    height: 40px !important;
     font-size: 16px;
+    border-radius: 5px;
     padding-left: 10px;
   }
   
