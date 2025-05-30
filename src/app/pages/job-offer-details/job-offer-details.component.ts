@@ -12,6 +12,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { FormsModule } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
+import { CompanySidebarComponent } from '../../shared/components/company-sidebar/company-sidebar.component';
 
 registerLocaleData(localeEsCO, 'es-CO');
 
@@ -22,7 +23,7 @@ registerLocaleData(localeEsCO, 'es-CO');
   styleUrl: 'job-offer-details.component.css',
   imports: [
     CommonModule,
-    SidebarStudentComponent,
+    CompanySidebarComponent,
     AvatarModule,
     MenubarModule,
     TableModule,

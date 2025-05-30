@@ -1,14 +1,14 @@
-<p-button (click)="showDialog()" label="Ver" [rounded]="true" icon="pi pi-eye"></p-button>
-<p-dialog header="Ver oferta laboral" [modal]="true" [(visible)]="visible" [style]="{ width: '55rem' }">
+<p-button (onClick)="showDialog()" label="Ver" [rounded]="true" icon="pi pi-eye"></p-button>
+<p-dialog header="Ver infomración de la empresa" [modal]="true" [(visible)]="visible" [style]="{ width: '55rem' }">
     <div class="mb-4">
-        <label for="username" class="font-semibold block mb-1">Nombre</label>
-        <input pInputText id="username" class="w-full" autocomplete="off" [disabled]="true" value="Practicante Ing. de Sistemas - Desarrollo de Software Santa Marta, Magdalena"/>
+        <label for="username" class="font-semibold block mb-1">Nombre de la compañia</label>
+        <input pInputText id="username" class="w-full" autocomplete="off" [disabled]="true" value="Ecopetrol S.A"/>
     </div>
 
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <label for="email" class="font-semibold block mb-1">Email</label>
-            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value="4G5tH@example.com"/>
+            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value="Ecopetrol@gmail.com"/>
         </div>
         <div>
             <label for="phone" class="font-semibold block mb-1">Teléfono</label>
