@@ -69,6 +69,9 @@ export class ApiService {
   getAllOffers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/offers`, {
       headers: this.getHeaders(),
+      params: {
+        include: 'company,status', // Ensure related models are included
+      },
     });
   }
 
@@ -109,5 +112,11 @@ export class ApiService {
         headers: this.getHeaders(),
       }
     );
+  }
+
+  updateOffer(offerId: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/offers/${offerId}`, data, {
+      headers: this.getHeaders(),
+    });
   }
 }

@@ -48,7 +48,9 @@ export const routes: Routes = [
       { path: 'home', component: DashboardStudentComponent, canActivate: [authGuard] },
       { path: 'offers', component: StudentOffersComponent, canActivate: [authGuard],
         children: [
-          { path: 'dialog', component: StudentApplyOfferComponent },]
+          { path: 'dialog', component: StudentApplyOfferComponent },
+          { path: ':offerId', component: JobOfferDetailsComponent } // Add this route
+        ]
       },
       { path: 'my-applications', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
       { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
