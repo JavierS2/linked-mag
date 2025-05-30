@@ -55,9 +55,9 @@ export const routes: Routes = [
         children: [
           { path: 'dialog', component: StudentApplyOfferComponent }]
       },
-      { path: 'my-applications', component: StudentMyApplicationsComponent,  },
-      { path: 'my-profile', component: StudentMyApplicationsComponent,  },
-      { path: 'profile', component: StudentProfileComponent, }
+      { path: 'my-applications', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
+      { path: 'my-profile', component: StudentMyApplicationsComponent, canActivate: [authGuard]  },
+      { path: 'profile', component: StudentProfileComponent, canActivate: [authGuard] }
     ]
   },
 
@@ -65,11 +65,11 @@ export const routes: Routes = [
   {
     path: 'panel/company',
     children: [
-      { path: 'home', component: DashboardCompanyComponent, },
-      { path: 'my-offers', component:  CompanyMyJobOffersComponent, },
-      { path: 'configuration', component:  DashboardCompanyComponent, },
-      { path: 'my-profile', component:  CompanyProfileComponent},
-      { path: 'job-offer', component: JobOfferDetailsComponent}
+      { path: 'home', component: DashboardCompanyComponent},
+      { path: 'my-offers', component:  CompanyMyJobOffersComponent,},
+      { path: 'configuration', component:  DashboardCompanyComponent},
+      { path: 'job-offer', component: JobOfferDetailsComponent},
+      { path: 'profile', component: CompanyProfileComponent }
     ]
   },
 
@@ -77,7 +77,7 @@ export const routes: Routes = [
   {
     path: 'panel/university',
     children: [
-      { path: 'validate-registration', component: UniversityValidateRegistrationComponent },
+      { path: 'validate-registration', component: UniversityValidateRegistrationComponent},
       { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent }
     ]
   },
