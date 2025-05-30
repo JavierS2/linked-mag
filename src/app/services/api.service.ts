@@ -46,8 +46,14 @@ export class ApiService {
     });
   }
 
-  getStudentProfile(): Observable<StudentProfile> {
-    return this.http.get<StudentProfile>(`${this.apiUrl}/students/me`, {
+  getStudentById(studentId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/students/id/${studentId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getAllStudents(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/students/`, {
       headers: this.getHeaders(),
     });
   }
@@ -58,26 +64,77 @@ export class ApiService {
     });
   }
 
-  // ========== COMPANIES ==========
-  createCompany(companyData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/companies`, companyData, {
+  updateStudent(studentCode: string, studentData: any): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/api/students/${studentCode}`,
+      studentData,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
+
+  deleteStudent(studentCode: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/students/${studentCode}`, {
       headers: this.getHeaders(),
     });
   }
 
-  // ========== OFFERS ==========
-  getAllOffers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/offers`, {
+  getStudentProfile(): Observable<StudentProfile> {
+    return this.http.get<StudentProfile>(`${this.apiUrl}/api/students/me`, {
       headers: this.getHeaders(),
-      params: {
-        include: 'company,status', // Ensure related models are included
-      },
     });
+  }
+
+  getLastAppliedOffer(studentId: string): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/api/students/${studentId}/last-applied-offer`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
+
+  getAppliedOffersCount(studentId: string): Observable<number> {
+    return this.http.get<number>(
+      `${this.apiUrl}/api/students/${studentId}/applied-offers/count`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
   }
 
   // ========== POSTULATIONS ==========
   createPostulation(postulationData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/api/postulations`, postulationData, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getPostulationById(postulationId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/postulations/${postulationId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  updatePostulation(postulationId: string, postulationData: any): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/api/postulations/${postulationId}`,
+      postulationData,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
+
+  deletePostulation(postulationId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/postulations/${postulationId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getAllPostulations(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/postulations/`, {
       headers: this.getHeaders(),
     });
   }
@@ -95,27 +152,88 @@ export class ApiService {
     );
   }
 
-  // ========== JOB APPLICATIONS ==========
-  getLastAppliedOffer(studentId: string): Observable<any> {
-    return this.http.get(
-      `${this.apiUrl}/students/${studentId}/last-applied-offer`,
-      {
-        headers: this.getHeaders(),
-      }
-    );
+  getCVById(cvId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/curriculum-vitae/${cvId}`, {
+      headers: this.getHeaders(),
+    });
   }
 
-  getAppliedOffersCount(studentId: string): Observable<number> {
-    return this.http.get<number>(
-      `${this.apiUrl}/students/${studentId}/applied-offers/count`,
-      {
-        headers: this.getHeaders(),
-      }
-    );
+  getAllCVs(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/curriculum-vitae/`, {
+      headers: this.getHeaders(),
+    });
   }
 
-  updateOffer(offerId: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/offers/${offerId}`, data, {
+  updateCV(cvId: string, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.put(`${this.apiUrl}/api/curriculum-vitae/${cvId}`, formData);
+  }
+
+  deleteCV(cvId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/curriculum-vitae/${cvId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  // ========== OFFERS ==========
+  createOffer(offerData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/offers`, offerData, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  updateOffer(offerId: string, offerData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/offers/${offerId}`, offerData, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getAllOffers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/offers`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getOfferById(offerId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/offers/${offerId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  deleteOffer(offerId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/offers/${offerId}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  // ========== COMPANIES ==========
+  createCompany(companyData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/companies`, companyData, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  updateCompany(nitCode: string, companyData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/api/companies/${nitCode}`, companyData, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getCompanyByNitCode(nitCode: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/companies/${nitCode}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getAllCompanies(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/companies`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  deleteCompany(nitCode: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/companies/${nitCode}`, {
       headers: this.getHeaders(),
     });
   }
