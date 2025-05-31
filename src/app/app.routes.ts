@@ -56,7 +56,7 @@ export const routes: Routes = [
         children: [
           { path: 'dialog', component: StudentApplyOfferComponent }]
       },
-      { path: 'my-applications', component: StudentMyApplicationsComponent, canActivate: [authGuard] },
+      { path: 'my-applications', component: StudentMyApplicationsComponent }, /// canActivate: [authGuard]
       { path: 'my-profile', component: StudentMyApplicationsComponent},
       { path: 'profile', component: StudentProfileComponent}
     ]
@@ -66,12 +66,12 @@ export const routes: Routes = [
   {
     path: 'panel/company',
     children: [
-      { path: 'home', component: DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'my-offers', component:  CompanyMyJobOffersComponent, canActivate: [authGuard]},
-      { path: 'configuration', component:  DashboardCompanyComponent, canActivate: [authGuard]},
-      { path: 'job-offer', component: JobOfferDetailsComponent, canActivate: [authGuard]},
+      { path: 'home', component: DashboardCompanyComponent},
+      { path: 'my-offers', component:  CompanyMyJobOffersComponent},
+      { path: 'configuration', component:  DashboardCompanyComponent},
+      { path: 'job-offer', component: JobOfferDetailsComponent},
       { path: 'profile', component: CompanyProfileComponent}
-    ]
+    ] //  canActivate: [authGuard]}
   },
 
   // panel universidad

@@ -1,5 +1,6 @@
 export interface JobOffer {
   name: string;
+  companyId: number;
   email: string;
   phone: number | null;
   date: Date | null;

@@ -23,6 +23,7 @@ export class CompanyDialogApplicationsComponent {
   publishOffer() {
     const offer: JobOffer = {
       name: this.name,
+      companyId: 1, // Assuming a static company ID for demonstration
       email: this.email,
       phone: this.phone,
       date: this.date,
