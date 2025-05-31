@@ -27,9 +27,8 @@ export class CompanyDialogApplicationsComponent {
       email: this.email,
       phone: this.phone,
       date: this.date,
-      city: this.city,
-      country: this.country,
-      modality: this.modality,
+      city: this.city ? this.city.name : '',           // <-- Solo el string
+      modality: this.modality ? this.modality.name : '', // <-- Solo el string
       salary: this.salary,
       description: this.description
     };
@@ -53,9 +52,8 @@ export class CompanyDialogApplicationsComponent {
   email: string = '';
   phone : number | null = null;
   date: Date | null = null;
-  city: string = '';
-  country: string = '';
-  modality: string = '';
+  city: any = null;         // <-- Cambia a any para que almacene el objeto seleccionado
+  modality: any = null;     // <-- Cambia a any para que almacene el objeto seleccionado
   salary: number | null = null;
   description: string = '';
   visible: boolean = false;
