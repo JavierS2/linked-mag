@@ -257,6 +257,7 @@ onBannerImageChange(event: Event) {
   endDate = null;
   documentLabel: string = 'Logo-de-la-empresa(opcional).png';
   uploadedFiles : any[] = [];
+  Direccion = 'Calle 123';
   
   onUpload(event: any) {
   for (let file of event.files) {
@@ -280,6 +281,7 @@ experiences: any[] = [];
     this.startDate = null;
     this.endDate = null;
     this.showExperienceDialog = false;
+    this.Direccion = '';
   }
 
   documentCV: string = 'Curriculum vitae.pdf';

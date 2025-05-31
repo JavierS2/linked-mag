@@ -19,7 +19,6 @@ import { UniversityValidateRegistrationComponent } from './pages/university-vali
 import { UniversityValidateRegistrationCompanyComponent } from './pages/university-validate-registration-company/university-validate-registration-company.component';
 import { CompanyMyJobOffersComponent } from './pages/company-my-job-offers/company-my-job-offers.component';
 import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
-
 export const routes: Routes = [
 
   // Ruta raíz redirige a home
@@ -78,8 +77,8 @@ export const routes: Routes = [
   {
     path: 'panel/university',
     children: [
-      { path: 'validate-registration', component: UniversityValidateRegistrationComponent, canActivate: [authGuard] },
-      { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent, canActivate: [authGuard] }
+      { path: 'validate-registration', component: UniversityValidateRegistrationComponent},
+      { path: 'validate-registration-company', component: UniversityValidateRegistrationCompanyComponent }
     ]
   },
 
