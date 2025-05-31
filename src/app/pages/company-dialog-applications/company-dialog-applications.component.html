@@ -3,17 +3,17 @@
 <p-dialog header="Añadir oferta laboral" [modal]="true" [(visible)]="visible" [style]="{ width: '55rem' }">
     <div class="mb-4">
         <label for="username" class="font-semibold block mb-1">Nombre</label>
-        <input pInputText id="username" class="w-full" autocomplete="off" />
+        <input [(ngModel)]="name" pInputText id="username" class="w-full" autocomplete="off" />
     </div>
 
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <label for="email" class="font-semibold block mb-1">Email</label>
-            <input pInputText id="email" class="w-full" autocomplete="off" />
+            <input [(ngModel)]="email" pInputText id="email" class="w-full" autocomplete="off" />
         </div>
         <div>
             <label for="phone" class="font-semibold block mb-1">Teléfono</label>
-            <input pInputText pKeyFilter="num" id="phone" class="w-full" placeholder="+57" />
+            <input  pInputText [(ngModel)]="phone" id="phone" class="w-full" placeholder="+57" />
         </div>
     </div>
 
@@ -35,7 +35,7 @@
         </div>
         <div>
             <label for="salary" class="font-semibold block mb-1">Salario</label>
-            <p-inputnumber inputId="salary" [(ngModel)]="salary" class="w-full" />
+            <p-inputnumber  inputId="salary" [(ngModel)]="salary" class="w-full" />
         </div>
     </div>
 
