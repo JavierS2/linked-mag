@@ -1,23 +1,26 @@
 import { Component, Inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { EditorModule } from 'primeng/editor';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
-import { SelectModule } from 'primeng/select';
-import { KeyFilterModule } from 'primeng/keyfilter';
+import { DialogModule } from 'primeng/dialog';
+import { EditorModule } from 'primeng/editor';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { ApiService } from '../../services/api.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { SelectModule } from 'primeng/select';
 import { JobOffer } from '../../models/job-offer';
+import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-company-dialog-applications',
-  imports: [ButtonModule, DialogModule, InputTextModule, EditorModule, FormsModule, DatePickerModule, SelectModule, KeyFilterModule, InputNumberModule],
-  templateUrl: './company-dialog-applications.component.html',
+  selector: 'app-company-dialog-edit-offer',
+  imports: [ButtonModule, DialogModule, InputTextModule, 
+    EditorModule, FormsModule, DatePickerModule, 
+    SelectModule, KeyFilterModule, InputNumberModule],
+  templateUrl: './company-dialog-edit-offer.component.html',
+  styleUrl: './company-dialog-edit-offer.component.css'
 })
-export class CompanyDialogApplicationsComponent {
-  
+
+export class CompanyDialogEditOfferComponent {
   constructor(@Inject(ApiService) private jobOfferService: ApiService) {}
 
   publishOffer() {
