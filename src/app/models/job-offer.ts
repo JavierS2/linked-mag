@@ -10,4 +10,7 @@ export interface JobOffer {
   salary: number | null;
   description: string;
   status: 'Abierta' | 'Cerrada' | string;
+
+  // NO DEBE IR EN EL BACKEND, SOLO SE CREA PARA HACER UN MEJOR MANEJO DE LOS DATE
+  fechaPublicacion ?: Date;// <-- AÑADE ESTA LÍNEA
 }

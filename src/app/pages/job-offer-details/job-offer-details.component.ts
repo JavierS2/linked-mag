@@ -44,22 +44,29 @@ registerLocaleData(localeEsCO, 'es-CO');
 
 export class JobOfferDetailsComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private api: ApiService) {}
+    constructor(private route: ActivatedRoute, private api: ApiService, private datePipe: DatePipe ) {}
 
     loading = false;
     searchTerm = '';
-
     offer: JobOffer | null = null;
 
     ngOnInit(): void {
         const offerId = Number(this.route.snapshot.paramMap.get('id'));
-        this.api.getOfferById(offerId).subscribe({
-        next: (data) => {
-            this.offer = data;
-        },
-        error: (err) => {
-            console.error('Error al cargar la oferta:', err);
+        console.log('ID recibido desde la ruta:', offerId);
+
+        if (isNaN(offerId)) {
+            console.error('ID inválido en la URL');
+            return;
         }
+
+        this.api.getOfferById(offerId).subscribe({
+            next: (data) => {
+            data.fechaPublicacion = this.datePipe.transform(data.date, 'yyyy-MM-dd');
+            this.offer = data;
+            },
+            error: (err) => {
+            console.error('Error al cargar la oferta:', err);
+            }
         });
     }
 
@@ -92,7 +99,7 @@ export class JobOfferDetailsComponent implements OnInit {
 
     getStatusClass(status: string): string {
         const statusMap: any = {
-        'APROBADA': 'approved',
+        'ABIERT': 'approved',
         'EN ESPERA': 'pending',
         'DENEGADA': 'rejected'
         };

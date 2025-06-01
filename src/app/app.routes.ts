@@ -68,7 +68,7 @@ export const routes: Routes = [
       { path: 'home', component: DashboardCompanyComponent},
       { path: 'my-offers', component:  CompanyMyJobOffersComponent},
       { path: 'configuration', component:  DashboardCompanyComponent},
-      { path: 'job-offer', component: JobOfferDetailsComponent},
+      { path: 'job-offer/:id', component: JobOfferDetailsComponent },
       { path: 'profile', component: CompanyProfileComponent}
     ] //  canActivate: [authGuard]}
   },
