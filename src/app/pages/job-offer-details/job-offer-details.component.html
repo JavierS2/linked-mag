@@ -78,10 +78,9 @@
                         <div
                 class="flex items-center justify-between bg-white">
                 <h2 class="text-2xl font-bold text-gray-800">
-                    postulaciones Recibidas
+                    Postulaciones recibidas
                 </h2>
             </div>
-
                         <p-iconfield iconPosition="left" class="m-auto">
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
@@ -146,17 +145,16 @@
                         <td>{{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}</td>
                         <td>{{ rowData.program }}</td>
                         <td>
-                            <span class="status-badge" [class]="getStatusClass(rowData.status)">
-                                {{ rowData.status }}
-                                <i class="pi pi-check" *ngIf="rowData.status === 'APROBADA'"></i>
-                                <i class="pi pi-clock" *ngIf="rowData.status === 'EN ESPERA'"></i>
-                                <i class="pi pi-times" *ngIf="rowData.status === 'DENEGADA'"></i>
-                            </span>
+                            <ng-container [ngSwitch]="rowData.status">
+                                <p-tag *ngSwitchCase="'Aprobada'" [value]="'Aprobada'" severity="success"></p-tag>
+                                <p-tag *ngSwitchCase="'Rechazada'" [value]="'Rechazada'" severity="danger"></p-tag>
+                                <p-tag *ngSwitchCase="'Pendiente'" [value]="'Pendiente'" severity="warn"></p-tag>
+                            </ng-container>
                         </td>
                         <td>
-                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                            <p-button pButton pRipple type="button" icon="pi pi-eye"
                                 class="p-button-rounded p-button-text p-button-secondary"
-                                (click)="verDetalles(rowData)"></button>
+                                (click)="verDetalles(rowData)"></p-button>
                         </td>
                     </tr>
                 </ng-template>

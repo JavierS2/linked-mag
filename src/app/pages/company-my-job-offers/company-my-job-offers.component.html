@@ -97,7 +97,7 @@
                 </td>
                 <td>
                     <p-button [rounded]="true" icon="pi pi-eye" class="mr-5" 
-                        [routerLink]="['/panel/company/job-offer']"
+                        [routerLink]="['/panel/company/job-offer/:id', rowData.id]"
                         routerLinkActive="router-link-active"></p-button>
 
                     <app-company-dialog-edit-offer [offer]="rowData"></app-company-dialog-edit-offer>

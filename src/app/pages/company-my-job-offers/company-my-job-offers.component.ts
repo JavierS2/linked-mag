@@ -98,7 +98,11 @@ export class CompanyMyJobOffersComponent {
 
 ngOnInit() {
   this.loadOffers();
+
+  
 }
+
+
 
 loadOffers() {
   this.api.getAllOffers().subscribe({

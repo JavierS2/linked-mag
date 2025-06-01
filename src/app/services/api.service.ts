@@ -196,7 +196,7 @@ export class ApiService {
     });
   }
 
-  getOfferById(offerId: string): Observable<any> {
+  getOfferById(offerId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/offers/${offerId}`, {
       headers: this.getHeaders(),
     });
