@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -32,6 +32,7 @@ export class CompanyDialogEditOfferComponent {
   constructor(@Inject(ApiService) private api: ApiService) {}
 
   @Input() offer: any;
+  @Output() offerUpdated = new EventEmitter<any>();
 
   visible: boolean = false;
   jobOffers: JobOffer[] = [];
@@ -105,6 +106,7 @@ export class CompanyDialogEditOfferComponent {
           this.jobOffers = this.jobOffers.map(o =>
             o.id === result.id ? result : o
           );
+          this.offerUpdated.emit(result);
           alert('La oferta fue actualizada correctamente.');
           this.visible = false;
         },

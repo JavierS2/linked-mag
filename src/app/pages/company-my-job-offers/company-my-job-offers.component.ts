@@ -102,7 +102,12 @@ ngOnInit() {
   
 }
 
-
+handleOfferUpdated(updatedOffer: any) {
+  const index = this.jobOffers.findIndex(o => o.id === updatedOffer.id);
+  if (index !== -1) {
+    this.jobOffers[index] = updatedOffer;
+  }
+}
 
 loadOffers() {
   this.api.getAllOffers().subscribe({
