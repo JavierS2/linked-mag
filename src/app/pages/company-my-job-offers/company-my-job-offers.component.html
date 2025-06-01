@@ -61,7 +61,7 @@
                 </th>
                 <th style="min-width:10rem">
                     <div class="flex items-center">
-                        Ver
+                        Opciones
                     </div>
                 </th>
             </tr>
@@ -87,11 +87,11 @@
                 <td>
                     {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
                 </td>
+                
                 <td>
                     <ng-container [ngSwitch]="rowData.status">
-                        <p-tag *ngSwitchCase="'Abierta'" label="Abierta" severity="success"></p-tag>
-                        <p-tag *ngSwitchCase="'Cerrada'" label="Cerrada" severity="danger"></p-tag>
-                        <p-tag *ngSwitchCase="'Pausada'" label="Pausada"></p-tag>
+                        <p-tag *ngSwitchCase="'Abierta'" [value]="'Abierta'" severity="success"></p-tag>
+                        <p-tag *ngSwitchCase="'Cerrada'" [value]="'Cerrada'" severity="danger"></p-tag>
                         <p-button *ngSwitchDefault [label]="rowData.status" variant="text"></p-button>
                     </ng-container>
                 </td>
@@ -99,6 +99,14 @@
                     <p-button [rounded]="true" icon="pi pi-eye" class="mr-5" 
                         [routerLink]="['/panel/company/job-offer']"
                         routerLinkActive="router-link-active"></p-button>
+
+                    <app-company-dialog-edit-offer></app-company-dialog-edit-offer>
+
+                    <p-button [rounded]="true" severity="danger" icon="pi pi-trash" class="mr-5" 
+                        [routerLink]="['/panel/company/job-offer']"
+                        routerLinkActive="router-link-active"
+                        (click)="onDeleteOffer(rowData.id)">
+                    </p-button>
                 </td>
             </tr>
         </ng-template>

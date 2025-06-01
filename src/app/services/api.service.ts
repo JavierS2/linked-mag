@@ -201,7 +201,7 @@ export class ApiService {
     });
   }
 
-  deleteOffer(offerId: string): Observable<any> {
+  deleteOffer(offerId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/offers/${offerId}`, {
       headers: this.getHeaders(),
     });
