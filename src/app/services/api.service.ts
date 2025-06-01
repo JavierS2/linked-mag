@@ -118,7 +118,10 @@ export class ApiService {
     });
   }
 
-  updatePostulation(postulationId: string, postulationData: any): Observable<any> {
+  updatePostulation(
+    postulationId: string,
+    postulationData: any
+  ): Observable<any> {
     return this.http.put(
       `${this.apiUrl}/api/postulations/${postulationId}`,
       postulationData,
@@ -129,9 +132,12 @@ export class ApiService {
   }
 
   deletePostulation(postulationId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/api/postulations/${postulationId}`, {
-      headers: this.getHeaders(),
-    });
+    return this.http.delete(
+      `${this.apiUrl}/api/postulations/${postulationId}`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
   }
 
   getAllPostulations(): Observable<any> {
@@ -168,7 +174,10 @@ export class ApiService {
   updateCV(cvId: string, file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.put(`${this.apiUrl}/api/curriculum-vitae/${cvId}`, formData);
+    return this.http.put(
+      `${this.apiUrl}/api/curriculum-vitae/${cvId}`,
+      formData
+    );
   }
 
   deleteCV(cvId: string): Observable<any> {
@@ -215,14 +224,18 @@ export class ApiService {
     });
   }
 
-  updateCompany(nitCode: string, companyData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/api/companies/${nitCode}`, companyData, {
-      headers: this.getHeaders(),
-    });
+  updateCompany(NIT: string, companyData: any): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/api/companies/${NIT}`,
+      companyData,
+      {
+        headers: this.getHeaders(),
+      }
+    );
   }
 
-  getCompanyByNitCode(nitCode: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/companies/${nitCode}`, {
+  getCompanyByNIT(NIT: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/api/companies/${NIT}`, {
       headers: this.getHeaders(),
     });
   }
@@ -233,8 +246,17 @@ export class ApiService {
     });
   }
 
-  deleteCompany(nitCode: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/api/companies/${nitCode}`, {
+  deleteCompany(NIT: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/api/companies/${NIT}`, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  loginCompany(credentials: {
+    NIT: string;
+    password: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/api/companies/login`, credentials, {
       headers: this.getHeaders(),
     });
   }
