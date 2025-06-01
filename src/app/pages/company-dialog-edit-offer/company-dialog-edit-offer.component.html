@@ -17,10 +17,14 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-6 mb-4">
+    <div class="grid grid-cols-3 gap-6 mb-4">
         <div>
             <label for="date" class="font-semibold block mb-1">Fecha cierre</label>
             <p-datepicker id="date" [(ngModel)]="date" class="w-full" />
+        </div>
+        <div>
+            <label for="status" class="font-semibold block mb-1">Estado</label>
+            <p-select [(ngModel)]="status" inputId="city" [options]="statusList" optionLabel="name" class="w-full" />
         </div>
         <div>
             <label for="modality" class="font-semibold block mb-1">Modalidad</label>
@@ -54,6 +58,6 @@
 
     <div class="flex justify-end gap-2 mt-6">
         <p-button label="Cancelar" [rounded]="true" severity="secondary" />
-        <p-button label="Publicar" [rounded]="true" (click)="publishOffer()" />
+        <p-button label="Guardar" [rounded]="true" (click)="updateOffer()"/>
     </div>
 </p-dialog>

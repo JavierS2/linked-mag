@@ -30,13 +30,11 @@ import { CompanySidebarComponent } from '../../shared/components/company-sidebar
     BadgeModule,
     InputTextModule,
     FormsModule,
-    FloatLabel,
     HttpClientModule,
     DropdownModule,
     FloatLabelModule,
     DialogModule,
     ButtonModule,
-    FileUpload,
   ],
   standalone: true,
 })

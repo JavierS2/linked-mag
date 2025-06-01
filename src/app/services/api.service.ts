@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { StudentProfile } from '../models/student-profile.model'; // Import the StudentProfile interface
+import { JobOffer } from '../models/job-offer';
 
 @Injectable({
   providedIn: 'root',
@@ -183,7 +184,7 @@ export class ApiService {
     });
   }
 
-  updateOffer(offerId: string, offerData: any): Observable<any> {
+  updateOffer(offerId: number, offerData: JobOffer): Observable<any> {
     return this.http.put(`${this.apiUrl}/api/offers/${offerId}`, offerData, {
       headers: this.getHeaders(),
     });

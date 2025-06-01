@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -21,26 +21,14 @@ import { ApiService } from '../../services/api.service';
 })
 
 export class CompanyDialogEditOfferComponent {
-  constructor(@Inject(ApiService) private jobOfferService: ApiService) {}
+  constructor(@Inject(ApiService) private api: ApiService) {}
 
-  publishOffer() {
-    const offer: JobOffer = {
-      name: this.name,
-      companyId: 1, // Assuming a static company ID for demonstration
-      email: this.email,
-      phone: this.phone,
-      date: this.date,
-      city: this.city ? this.city.name : '',           // <-- Solo el string
-      modality: this.modality ? this.modality.name : '', // <-- Solo el string
-      salary: this.salary,
-      description: this.description,
-      status: 'Abierta' // Estado inicial de la oferta
-    };
+  @Input() offer: JobOffer | null = null;
 
-    this.jobOfferService.createOffer(offer).subscribe({
-      next: (response: any) => this.handleResponse(response),
-      error: (err: any) => this.handleError(err)
-    });
+  jobOffers: JobOffer[] = [ ];
+  
+  updateOffer(): void {
+    
   }
 
   handleResponse(response: any) {
@@ -60,6 +48,7 @@ export class CompanyDialogEditOfferComponent {
   modality: any = null;     // <-- Cambia a any para que almacene el objeto seleccionado
   salary: number | null = null;
   description: string = '';
+  status: string = '';
   visible: boolean = false;
 
   modalities: any[] = [
@@ -73,6 +62,11 @@ export class CompanyDialogEditOfferComponent {
     {name: 'Bogotá'},
     {name: 'Londres'},
     {name: 'New York'}  
+  ];
+
+  statusList: any[] = [
+    {name: 'Abierta'},
+    {name: 'Cerrada'}, 
   ];
 
   showDialog() {

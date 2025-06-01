@@ -100,11 +100,9 @@
                         [routerLink]="['/panel/company/job-offer']"
                         routerLinkActive="router-link-active"></p-button>
 
-                    <app-company-dialog-edit-offer></app-company-dialog-edit-offer>
+                    <app-company-dialog-edit-offer [offer]="rowData"></app-company-dialog-edit-offer>
 
                     <p-button [rounded]="true" severity="danger" icon="pi pi-trash" class="mr-5" 
-                        [routerLink]="['/panel/company/job-offer']"
-                        routerLinkActive="router-link-active"
                         (click)="onDeleteOffer(rowData.id)">
                     </p-button>
                 </td>

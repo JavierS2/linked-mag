@@ -22,7 +22,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class StudentApplyOfferComponent implements OnInit {
   visible: boolean = false;
-  offerId: string = ''; // ID of the offer being applied to
+  offerId: number =0; // ID of the offer being applied to
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
@@ -37,21 +37,5 @@ export class StudentApplyOfferComponent implements OnInit {
     this.visible = true;
   }
 
-  applyToOffer() {
-    const updatedData = {
-      applicants: 1 // Increment applicants by 1 (or handle this logic in the backend)
-    };
 
-    this.apiService.updateOffer(this.offerId, updatedData).subscribe({
-      next: (response) => {
-        console.log('Offer updated successfully:', response);
-        alert('Aplicación realizada correctamente.');
-        this.visible = false; // Close the dialog
-      },
-      error: (err) => {
-        console.error('Error updating offer:', err);
-        alert('Error al aplicar a la oferta.');
-      }
-    });
-  }
 }

@@ -125,5 +125,4 @@ onDeleteOffer(offerId: number): void {
   }
 }
 
-
 }

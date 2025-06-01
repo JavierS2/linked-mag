@@ -1,5 +1,5 @@
 export interface JobOffer {
-  id ?: number; // Optional ID for existing offers
+  id?: number; // Optional ID for existing offers
   name: string;
   companyId: number;
   email: string;
