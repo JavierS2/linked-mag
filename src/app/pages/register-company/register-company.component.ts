@@ -38,18 +38,36 @@ export class RegisterCompanyComponent {
   goToStudentHome() {
     this.router.navigate(['/ruta-home-estudiante']); 
   }
-  NIT: number | undefined;
+
+  //Información de la empresa
   nameCompany: string = '';
-  phoneNumber: number | undefined;
+  emailCompany: string = '';
+  phoneCompany: number | undefined;
+  NIT: number | undefined;
   addressCompany: string = '';
-  nameComplete: string = '';
-  lastName: string = '';
-  phoneNumberContact: number | undefined;
-  pageWeb: string = '';
-  citizenshipCard: number | undefined;
-  selectEconomicSector: string = '';
   password: string = '';
   confirmPassword: string = '';
+  //
+
+
+  // Ubicación
+  deparmentCompany: string = '';
+  cityCompany: string = '';
+  //
+
+
+  // Descrición
+  descriptionCompany: string = '';
+
+  // imagenes de perfil
+  profileImage: string = '';
+  banner: string = '';
+
+
+  
+  
+  selectEconomicSector: string = '';
+  
   economicSector: any = [
     { id: 1, name: 'Desarrollo de software' },
     { id: 2, name: 'Comercio electrónico' },
@@ -75,118 +93,12 @@ export class RegisterCompanyComponent {
   ];
 
   selectTypeCompany: string = '';
-  emailCompany: string = '';
+ 
   typeCompany: any = [
     { id: 1, name: 'Privada' },
     { id: 2, name: 'Publica' },
   ];
 
-  selectedCountry: any = '';
-  countries: any[] = [
-    { code: 'AR', name: 'Argentina' },
-    { code: 'MX', name: 'México' },
-    { code: 'CL', name: 'Chile' },
-    { code: 'CO', name: 'Colombia' },
-    { code: 'PE', name: 'Perú' },
-    { code: 'ES', name: 'España' },
-    { code: 'US', name: 'Estados Unidos' },
-    { code: 'BR', name: 'Brasil' },
-    { code: 'UY', name: 'Uruguay' },
-    { code: 'PY', name: 'Paraguay' },
-  ];
-
-  fileName: string = '';
-  uploadedFiles: any[] = [];
-  documentLabel: string = 'Camara-de-comercio.pdf';
-  onUpload(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-
-    this.fileName = event.files[0].name;
-    this.documentLabel = this.fileName;
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Éxito',
-      detail: `Archivo cargado: ${this.fileName}`,
-    });
-  }
-
-  fileRut: string = '';
-  uploadedRut: any[] = [];
-  documentRut: string = 'RUT.pdf';
-
-  onUploadRut(event: any) {
-    for (let file of event.files) {
-      this.uploadedRut.push(file);
-    }
-
-    this.fileRut = event.files[0].name;
-    this.documentRut = this.fileRut;
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Éxito',
-      detail: `Archivo cargado: ${this.fileRut}`,
-    });
-  }
-
-  approvalLicense: string = '';
-  uploadedApprovalLicense: any[] = [];
-  documentApprovalLicense: string = 'Licencia-de-aprobacion.pdf';
-
-  onUploadApprovalLicense(event: any) {
-    for (let file of event.files) {
-      this.uploadedApprovalLicense.push(file);
-    }
-
-    this.approvalLicense = event.files[0].name;
-    this.documentApprovalLicense = this.approvalLicense;
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Éxito',
-      detail: `Archivo cargado: ${this.approvalLicense}`,
-    });
-  }
-
-  idDocument: string = '';
-  uploadedIdDocument: any[] = [];
-  displayedIdDocumentName: string = 'Cédula.pdf';
-
-  jobCertificate: string = '';
-  uploadedJobCertificate: any[] = [];
-  displayedJobCertificateName: string = 'Certificado-del-representante.pdf';
-
-  onUploadIdDocument(event: any) {
-    for (let file of event.files) {
-      this.uploadedIdDocument.push(file);
-    }
-
-    this.idDocument = event.files[0].name;
-    this.displayedIdDocumentName = this.idDocument;
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: `File uploaded: ${this.idDocument}`,
-    });
-  }
-
-  onUploadJobCertificate(event: any) {
-    for (let file of event.files) {
-      this.uploadedJobCertificate.push(file);
-    }
-
-    this.jobCertificate = event.files[0].name;
-    this.displayedJobCertificateName = this.jobCertificate;
-
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: `File uploaded: ${this.jobCertificate}`,
-    });
-  }
 
   validarFormulario(): void {}
 }
