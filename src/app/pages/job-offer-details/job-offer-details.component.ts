@@ -49,25 +49,39 @@ export class JobOfferDetailsComponent implements OnInit {
     loading = false;
     searchTerm = '';
     offer: JobOffer | null = null;
+    statusClass: string = '';
+
+    
 
     ngOnInit(): void {
         const offerId = Number(this.route.snapshot.paramMap.get('id'));
         console.log('ID recibido desde la ruta:', offerId);
-
+        
         if (isNaN(offerId)) {
             console.error('ID inválido en la URL');
             return;
-        }
+        }// Ajusta el texto exacto a lo que devuelve tu API:
+
+        
+        
 
         this.api.getOfferById(offerId).subscribe({
             next: (data) => {
-            data.fechaPublicacion = this.datePipe.transform(data.date, 'yyyy-MM-dd');
-            this.offer = data;
+                data.fechaPublicacion = this.datePipe.transform(data.date, 'yyyy-MM-dd');
+                this.offer = data;
+
+                const status = this.offer?.status?.toLowerCase();
+                if (status === 'cerrada') {
+                this.statusClass = 'text-red-600';
+                } else {
+                this.statusClass = 'text-green-600';
+                }
             },
             error: (err) => {
-            console.error('Error al cargar la oferta:', err);
+                console.error('Error al cargar la oferta:', err);
             }
         });
+
     }
 
         students = [
@@ -117,4 +131,5 @@ export class JobOfferDetailsComponent implements OnInit {
     editarTitulo() {
         console.log('Editar postulacion:');
     }
+    
 }
