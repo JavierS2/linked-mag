@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
 import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 @Component({
   standalone: true, // <-- ESTA LÍNEA ES CLAVE
   selector: 'app-register-company',
@@ -33,10 +34,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-company.component.css'],
 })
 export class RegisterCompanyComponent {
-  constructor(private messageService: MessageService, private router: Router) {
-  }
+  constructor(
+    private messageService: MessageService,
+    private router: Router,
+    private apiService: ApiService
+  ) {}
   goToStudentHome() {
-    this.router.navigate(['/ruta-home-estudiante']); 
+    this.router.navigate(['/ruta-home-estudiante']);
   }
 
   //Información de la empresa
@@ -49,12 +53,10 @@ export class RegisterCompanyComponent {
   confirmPassword: string = '';
   //
 
-
   // Ubicación
   deparmentCompany: string = '';
   cityCompany: string = '';
   //
-
 
   // Descrición
   descriptionCompany: string = '';
@@ -63,11 +65,8 @@ export class RegisterCompanyComponent {
   profileImage: string = '';
   banner: string = '';
 
+  selectEconomicSector: any = null;
 
-  
-  
-  selectEconomicSector: string = '';
-  
   economicSector: any = [
     { id: 1, name: 'Desarrollo de software' },
     { id: 2, name: 'Comercio electrónico' },
@@ -92,13 +91,39 @@ export class RegisterCompanyComponent {
     { id: 21, name: 'Otros' },
   ];
 
-  selectTypeCompany: string = '';
- 
+  selectTypeCompany: any = null;
+
   typeCompany: any = [
     { id: 1, name: 'Privada' },
     { id: 2, name: 'Publica' },
   ];
 
+  validarFormulario(): void {
+    const payload = {
+      nameCompany: this.nameCompany,
+      emailCompany: this.emailCompany,
+      NIT: this.NIT,
+      password: this.password,
+      selectEconomicSector: this.selectEconomicSector?.name || '', // Ensure the name is sent
+      selectTypeCompany: this.selectTypeCompany?.name || '', // Ensure the name is sent
+    };
 
-  validarFormulario(): void {}
+    this.apiService.createCompany(payload).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Registro exitoso',
+          detail: 'La empresa ha sido registrada correctamente.',
+        });
+        this.router.navigate(['/login/company']);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error en el registro',
+          detail: err.error.message || 'No se pudo registrar la empresa.',
+        });
+      },
+    });
+  }
 }

@@ -38,7 +38,13 @@
         <div style="display: flex; gap: 20px; align-items: center; margin-top: 15px;">
                 <div style="display: flex; gap: 20px; align-items: center; margin-top: 15px;">
               <p-floatlabel variant="on">
-                <p-select [(ngModel)]="selectTypeCompany"  inputId="on_label" [options]="typeCompany" optionLabel="name" class="input-highlight"/>
+                <p-select
+                  [(ngModel)]="selectTypeCompany"
+                  inputId="on_label"
+                  [options]="typeCompany"
+                  optionLabel="name"
+                  class="input-highlight"
+                ></p-select>
                 <label for="on_label">Tipo de empresa</label>
               </p-floatlabel>
             </div>
@@ -46,8 +52,14 @@
 
             <div style="display: flex; gap: 20px; align-items: center; margin-top: 15px;">
                 <p-floatlabel variant="on">
-                    <p-select [(ngModel)]="selectEconomicSector"  inputId="on_label" [options]="economicSector" optionLabel="name" class="economicSector input-uniform" />
-                    <label for="on_label">Sector económico</label>
+                  <p-select
+                    [(ngModel)]="selectEconomicSector"
+                    inputId="on_label"
+                    [options]="economicSector"
+                    optionLabel="name"
+                    class="economicSector input-uniform"
+                  ></p-select>
+                  <label for="on_label">Sector económico</label>
                 </p-floatlabel>
             </div>
         </div>
