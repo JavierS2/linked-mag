@@ -85,7 +85,7 @@
 
                 <ng-template #header>
                     <tr>
-                        <th style="min-width:15rem; padding-left: 20rem;">
+                        <th style="min-width:15rem; padding-left: 5rem;">
                             <div class="flex items-center">
                                 Nombre completo
                                 <p-columnFilter type="text" field="fullName" display="menu" />
@@ -129,7 +129,7 @@
 
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
-                        <td style="padding-left:20rem;">
+                        <td style="padding-left:5rem;">
                             {{ rowData.fullName }}
                         </td>
                         <td>{{ rowData.studentCode }}</td>
