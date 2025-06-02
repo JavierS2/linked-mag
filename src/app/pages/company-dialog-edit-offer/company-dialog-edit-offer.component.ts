@@ -10,6 +10,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectModule } from 'primeng/select';
 import { JobOffer } from '../../models/job-offer';
 import { ApiService } from '../../services/api.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-company-dialog-edit-offer',
@@ -22,14 +24,16 @@ import { ApiService } from '../../services/api.service';
     DatePickerModule,
     SelectModule,
     KeyFilterModule,
-    InputNumberModule
+    InputNumberModule,
+    ToastModule
   ],
+  providers:[MessageService],
   templateUrl: './company-dialog-edit-offer.component.html',
   styleUrl: './company-dialog-edit-offer.component.css'
 })
 export class CompanyDialogEditOfferComponent {
 
-  constructor(@Inject(ApiService) private api: ApiService) {}
+  constructor(@Inject(ApiService) private api: ApiService, private messageService: MessageService) {}
 
   @Input() offer: any;
   @Output() offerUpdated = new EventEmitter<any>();
@@ -107,12 +111,12 @@ export class CompanyDialogEditOfferComponent {
             o.id === result.id ? result : o
           );
           this.offerUpdated.emit(result);
-          alert('La oferta fue actualizada correctamente.');
+          this.showSuccessMessage('Oferta actualizada exitosamente.');
           this.visible = false;
         },
         error: (err) => {
           console.error('Error al actualizar la oferta:', err);
-          alert('Ocurrió un error al actualizar la oferta.');
+          this.showErrorMessage('Ocurrió un error al actualizar la oferta. Por favor, inténtelo de nuevo más tarde.');
         }
       });
     }
@@ -125,5 +129,21 @@ export class CompanyDialogEditOfferComponent {
 
   handleError(err: any) {
     console.error('Error al actualizar oferta', err);
+  }
+
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+    });
+  }
+
+  showErrorMessage(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
   }
 }

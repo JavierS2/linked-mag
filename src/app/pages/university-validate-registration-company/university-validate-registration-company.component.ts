@@ -16,11 +16,14 @@ import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-university-validate-registration-company',
   imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, AvatarModule, MenubarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, ],
+      SelectModule, ProgressBarModule, TagModule, FormsModule,DatePipe, CommonModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './university-validate-registration-company.component.html',
   styleUrl: './university-validate-registration-company.component.css'
 })
@@ -29,7 +32,7 @@ export class UniversityValidateRegistrationCompanyComponent implements OnInit {
   loading = false;
   visible: boolean = false;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private messageService: MessageService) { }
 
   companies: any[] = [];
 
@@ -56,17 +59,33 @@ export class UniversityValidateRegistrationCompanyComponent implements OnInit {
     this.api.changeCompanyStatus(NIT, newStatus).subscribe({
       next: () => {
         this.companies = this.companies.filter(company => company.NIT !== NIT);
-        alert('Registro validado correctamente.');
+        this.showSuccessMessage('Registro validado exitosamente.');
       },
       error: (err) => {
         console.error('Error al validar el registro:', err);
-        alert('Ocurrió un error al validar el registro.');
+        this.showErrorMessage('Error al validar el registro. Por favor, inténtelo de nuevo más tarde.');
       }
     });
   }
 
   showDialog() {
     this.visible = true;
+  }
+
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+    });
+  }
+
+  showErrorMessage(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
   }
 
 }
