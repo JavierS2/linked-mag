@@ -42,19 +42,19 @@ export class DashboardStudentComponent implements OnInit {
   dynamicOffers: JobOffer[] = [];
   appliedOffersCount = 0;
   lastAppliedOffer?: JobOffer;
+  studentId = 1; // Cambia esto por el id real del estudiante logueado
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadOffers();
+    this.loadAppliedOffersCount();
   }
 
   loadOffers() {
     this.loading = true;
     this.apiService.getAllOffers().subscribe({
       next: (offers: JobOffer[]) => {
-        console.log('Ofertas recibidas desde el backend:', offers);
-
         this.dynamicOffers = offers
           .filter((offer: any) => {
             const estado = offer.status?.status || offer.status;
@@ -63,11 +63,9 @@ export class DashboardStudentComponent implements OnInit {
           .map((offer: any) => ({
             ...offer,
             companyName: offer.company?.name,
-            companyLogo: offer.company?.logo, // <-- Asegúrate de que esto exista
+            companyLogo: offer.company?.logo,
             status: offer.status?.status || offer.status
           }));
-
-        console.log('Ofertas mapeadas:', this.dynamicOffers);
         this.loading = false;
       },
       error: (err) => {
@@ -77,17 +75,28 @@ export class DashboardStudentComponent implements OnInit {
     });
   }
 
+  loadAppliedOffersCount() {
+    this.apiService.getAllPostulations().subscribe({
+      next: (postulations: any[]) => {
+        this.appliedOffersCount = postulations.filter(p => p.studentId === this.studentId).length;
+      },
+      error: (err) => {
+        console.error('Error al cargar postulaciones', err);
+        this.appliedOffersCount = 0;
+      }
+    });
+  }
+
   showDialog() {
     this.visible = true;
   }
 
   navigateToOffers() {
-    this.router.navigate(['/ofertas']); // Ajusta esta ruta según tus rutas reales
+    this.router.navigate(['/ofertas']);
   }
 
   navigateToOfferDetails(id: number | undefined) {
-  if (id === undefined) return; // Evita errores
-  this.router.navigate(['/ofertas', id]);
+    if (id === undefined) return;
+    this.router.navigate(['/ofertas', id]);
   }
-
 }
