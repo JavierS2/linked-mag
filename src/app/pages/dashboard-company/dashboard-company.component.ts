@@ -12,6 +12,7 @@ import { CompanyDialogApplicationsComponent } from '../company-dialog-applicatio
 import { JobOffer } from '../../models/job-offer';
 import { ApiService } from '../../services/api.service';
 import { NgForOf, CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-company',
@@ -29,14 +30,16 @@ export class DashboardCompanyComponent {
   value = 0;
 
   dynamicOffers: JobOffer[] = [];
+
+  latestOffer: JobOffer | null = null;
   
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService, private router: Router) {}
   
     ngOnInit(): void {
       this.loadOffers();
     }
   
-    loadOffers() {
+  loadOffers() {
   this.loading = true;
   this.apiService.getAllOffers().subscribe({
     next: (offers: JobOffer[]) => {
@@ -53,7 +56,16 @@ export class DashboardCompanyComponent {
           status: offer.status?.status || offer.status
         }));
 
-      console.log('Ofertas mapeadas:', this.dynamicOffers);
+      // Ordenar de más reciente a más antigua
+      this.dynamicOffers.sort((a, b) => {
+        const idA = a.id ?? 0;  // si no tiene id, ponemos 0 para que quede al final
+        const idB = b.id ?? 0;
+        return idB - idA; // orden descendente por id, el mayor primero
+      });
+
+      // Tomar la oferta más reciente
+      this.latestOffer = this.dynamicOffers[0] || null;
+
       this.loading = false;
     },
     error: (err) => {
@@ -62,6 +74,15 @@ export class DashboardCompanyComponent {
     }
   });
 }
+
+goToLatestOffer() {
+  if (this.latestOffer) {
+    this.router.navigate(['panel/company/job-offer/', this.latestOffer.id]);
+  }
+}   
+
+      // Asigna la última oferta
+      
 
 
   visible: boolean = false;

@@ -30,28 +30,28 @@
                 <!-- Última oferta aplicada (carta morada) -->
                 <div class="bg-indigo-600 rounded-2xl p-4 text-white shadow-lg">
                     <h2 class="font-bold text-lg mb-2">Última oferta aplicada</h2>
-                    <div *ngIf="lastAppliedOffer; else noLastOffer" class="flex items-center gap-3 mb-3">
+                    <div *ngIf="latestOffer; else noLastOffer" class="flex items-center gap-3 mb-3">
                         <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
                         <div>
-                            <div class="font-bold">{{ lastAppliedOffer.name }}</div>
-                            <div class="text-xs opacity-80">{{ lastAppliedOffer.modality }}</div>
+                            <div class="font-bold">{{ latestOffer.name }}</div>
+                            <div class="text-xs opacity-80">{{ latestOffer.modality }}</div>
                         </div>
                     </div>
                     <ng-template #noLastOffer>
-                        <p>No hay ofertas aplicadas recientemente.</p>
+                        <p> {{ latestOffer?.name }}</p>
                     </ng-template>
+                    <div class="text-xs">Descripción</div>
+                    <div class="text-xs opacity-80 mb-2" [innerHTML]="latestOffer?.description"></div>
                     <div class="mb-2 text-xs">Disponible hasta</div>
-                    <div class="mb-2 font-semibold">May 31 2025, 17:00</div>
+                    <div class="mb-2 font-semibold">{{ latestOffer?.date }}</div>
                     <div class="flex justify-between text-xs mb-4">
-                        <span>Vacantes disponibles<br><b>-</b></span>
-                        <span>Postulados<br><b>-</b></span>
                     </div>
-                    <button class="bg-white text-indigo-600 font-bold px-4 py-2 rounded-lg w-full" (click)="navigateToOffers()">Ver detalles</button>
+                    <button class="bg-white text-indigo-600 font-bold px-4 py-2 rounded-lg w-full" (click)="goToLatestOffer()">Ver más ofertas</button>
                 </div>
                 <!-- Ofertas aplicadas -->
                 <div class="bg-white rounded-2xl p-4 shadow">
                     <h3 class="font-bold text-gray-700 mb-2">Ofertas aplicadas</h3>
-                    <div class="text-4xl font-bold text-center text-indigo-600">{{ appliedOffersCount }}</div>
+                    <div class="text-4xl font-bold text-center text-indigo-600">6</div>
                     <div class="flex justify-center mt-2">
                         <span class="bg-pink-100 text-pink-600 rounded-full p-2">
                             <i class="pi pi-briefcase"></i>
@@ -64,7 +64,7 @@
             <section class="flex-1 flex flex-col gap-6">
                 <!-- Ofertas laborales disponibles -->
                 <section class="bg-white rounded-2xl p-6 shadow mb-4">
-    <h2 class="font-bold text-lg mb-4 cursor-pointer" (click)="navigateToOffers()">Ofertas laborales disponibles</h2>
+    <h2 class="font-bold text-lg mb-4 cursor-pointer">Ofertas laborales disponibles</h2>
     <!-- Contenedor scrollable para la lista de ofertas -->
     <div class="max-h-[200px] overflow-y-auto pr-2">
         <!-- Renderizar dinámicamente las ofertas laborales -->

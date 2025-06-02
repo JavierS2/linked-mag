@@ -37,57 +37,67 @@ export class DashboardStudentComponent implements OnInit {
   loading = false;
   searchTerm = '';
   value = 0;
-  visible = false;
 
   dynamicOffers: JobOffer[] = [];
-  appliedOffersCount = 0;
-  lastAppliedOffer?: JobOffer;
 
-  constructor(private apiService: ApiService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.loadOffers();
-  }
-
+  latestOffer: JobOffer | null = null;
+  
+    constructor(private apiService: ApiService, private router: Router) {}
+  
+    ngOnInit(): void {
+      this.loadOffers();
+    }
+  
   loadOffers() {
-    this.loading = true;
-    this.apiService.getAllOffers().subscribe({
-      next: (offers: JobOffer[]) => {
-        console.log('Ofertas recibidas desde el backend:', offers);
+  this.loading = true;
+  this.apiService.getAllOffers().subscribe({
+    next: (offers: JobOffer[]) => {
+      console.log('Ofertas recibidas desde el backend:', offers);
 
-        this.dynamicOffers = offers
-          .filter((offer: any) => {
-            const estado = offer.status?.status || offer.status;
-            return estado === 'Abierta';
-          })
-          .map((offer: any) => ({
-            ...offer,
-            companyName: offer.company?.name,
-            companyLogo: offer.company?.logo, // <-- Asegúrate de que esto exista
-            status: offer.status?.status || offer.status
-          }));
+      this.dynamicOffers = offers
+        .filter((offer: any) => {
+          const estado = offer.status?.status || offer.status;
+          return estado === 'Abierta';
+        })
+        .map((offer: any) => ({
+          ...offer,
+          companyName: offer.company?.name,
+          status: offer.status?.status || offer.status
+        }));
 
-        console.log('Ofertas mapeadas:', this.dynamicOffers);
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error al cargar ofertas', err);
-        this.loading = false;
-      }
-    });
+      // Ordenar de más reciente a más antigua
+      this.dynamicOffers.sort((a, b) => {
+        const idA = a.id ?? 0;  // si no tiene id, ponemos 0 para que quede al final
+        const idB = b.id ?? 0;
+        return idB - idA; // orden descendente por id, el mayor primero
+      });
+
+      // Tomar la oferta más reciente
+      this.latestOffer = this.dynamicOffers[0] || null;
+
+      this.loading = false;
+    },
+    error: (err) => {
+      console.error('Error al cargar ofertas', err);
+      this.loading = false;
+    }
+  });
+}
+
+goToLatestOffer() {
+  if (this.latestOffer) {
+    this.router.navigate(['panel/student/offers']);
   }
+}   
+
+      // Asigna la última oferta
+      
+
+
+  visible: boolean = false;
 
   showDialog() {
     this.visible = true;
-  }
-
-  navigateToOffers() {
-    this.router.navigate(['/ofertas']); // Ajusta esta ruta según tus rutas reales
-  }
-
-  navigateToOfferDetails(id: number | undefined) {
-  if (id === undefined) return; // Evita errores
-  this.router.navigate(['/ofertas', id]);
   }
 
 }
