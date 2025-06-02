@@ -3,45 +3,45 @@
 <p-dialog header="Ver oferta laboral" [modal]="true" [(visible)]="visible" [style]="{ width: '55rem' }">
     <div class="mb-4">
         <label for="username" class="font-semibold block mb-1">Nombre</label>
-        <input pInputText id="username" class="w-full" autocomplete="off" [disabled]="true" value="Practicante Ing. de Sistemas - Desarrollo de Software Santa Marta, Magdalena"/>
+        <input pInputText id="username" class="w-full" autocomplete="off" [disabled]="true" value={{offer.name}}>
     </div>
 
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <label for="email" class="font-semibold block mb-1">Email</label>
-            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value="4G5tH@example.com"/>
+            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value= {{offer.email}} />
         </div>
         <div>
             <label for="phone" class="font-semibold block mb-1">Teléfono</label>
-            <input pInputText pKeyFilter="num" id="phone" class="w-full" [disabled]="true" value="+57 320 123 4567"/>
+            <input pInputText pKeyFilter="num" id="phone" class="w-full" [disabled]="true" value={{offer.phone}}/>
         </div>
     </div>
 
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <label for="date" class="font-semibold block mb-1">Fecha cierre</label>
-            <input pInputText id="date"  class="w-full" [disabled]="true" value="Nov 14, 2021 07:00 AM"/>
+            <input pInputText id="date"  class="w-full" [disabled]="true" [value]="offer.date | date:'MMM dd, yyyy hh:mm a'" />
         </div>
         <div>
             <label for="modality" class="font-semibold block mb-1">Modalidad</label>
-            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value="Remoto"/>
+            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value={{offer.modality}}/>
         </div>
     </div>
 
     <div class="grid grid-cols-2 gap-6 mb-4">
         <div>
             <label for="city" class="font-semibold block mb-1">Ciudad</label>
-            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value="Santa Marta"/>
+            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value={{offer.city}}/>
         </div>
         <div>
             <label for="salary" class="font-semibold block mb-1">Salario</label>
-            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value="1500000"/>
+            <input pInputText id="email" class="w-full" autocomplete="off" [disabled]="true" value={{offer.salary}}/>
         </div>
     </div>
 
     <div class="mb-4">
         <label for="description" class="font-semibold block mb-2" >Descripción</label>
-        <textarea rows="5"cols="30" pTextarea [disabled]="true">Requerimientos: experiencia en Java, SQL, HTML, CSS y JavaScript para el desarrollo de aplicaciones web
+        <textarea rows="5"cols="30" pTextarea [disabled]="true">{{offer.description}}
 </textarea>
     </div>
 

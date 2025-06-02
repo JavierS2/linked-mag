@@ -79,78 +79,28 @@
                     <!-- Contenedor scrollable para la lista de ofertas -->
                     <div class="max-h-[200px] overflow-y-auto pr-2">
                         <!-- Aquí puedes repetir el p-panel para cada oferta -->
-                        <p-panel>
-                            <ng-template #header>
+                        <ng-container *ngFor="let offer of dynamicOffers">
+                            <p-panel>
+                                <ng-template #header>
                                 <div class="flex items-center justify-between gap-2 w-full">
                                     <div class="flex items-center gap-2">
-                                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png" shape="circle" />
-                                        <div class="flex flex-col">
-                                            <span class="font-bold">Practicante Ing. Sistemas - Analista de Sistemas</span>
-                                            <span class="text-sm opacity-80 ml-2">Santa Marta, Magdalena</span>
-                                        </div>
+                                    <p-avatar 
+                                        image="https://primefaces.org/cdn/primevue/images/avatar/asiyajavayant.png" 
+                                        shape="circle" />
+                                    <div class="flex flex-col">
+                                        <span class="font-bold">{{ offer.name }}</span>
+                                        <span class="text-sm opacity-80 ml-2">{{ offer.city }}</span>
+                                    </div>
                                     </div>
                                     <div class="flex flex-col items-end">
-                                        <span class="text-xs font-bold text-gray-500">DISPONIBLE HASTA</span>
-                                        <span class="text-xs text-gray-500">May 30, 08:00 PM</span>
+                                    <span class="text-xs font-bold text-gray-500">DISPONIBLE HASTA</span>
+                                    <span class="text-xs text-gray-500">{{ offer.date }}</span>
                                     </div>
                                 </div>
-                            </ng-template>    
-                        </p-panel>
+                                </ng-template>
+                            </p-panel>
+                            </ng-container>
 
-                        <p-panel>
-                            <ng-template #header>
-                                <div class="flex items-center justify-between gap-2 w-full">
-                                    <div class="flex items-center gap-2">
-                                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/onyamalimba.png" shape="circle" />
-                                        <div class="flex flex-col">
-                                            <span class="font-bold">Practicante Ing. Sistemas - Desarrollo de Software</span>
-                                            <span class="text-sm opacity-80 ml-2">Cienaga, Magdalena</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-xs font-bold text-gray-500">DISPONIBLE HASTA</span>
-                                        <span class="text-xs text-gray-500">Nov 14, 07:00 AM</span>
-                                    </div>
-                                </div>
-                            </ng-template>    
-                        </p-panel>
-
-                        <p-panel>
-                            <ng-template #header>
-                                <div class="flex items-center justify-between gap-2 w-full">
-                                    <div class="flex items-center gap-2">
-                                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/xuxuefeng.png" shape="circle" />
-                                        <div class="flex flex-col">
-                                            <span class="font-bold">Practicante Ing. Sistemas - Desarrollador de Aplicaciones Móviles Junior</span>
-                                            <span class="text-sm opacity-80 ml-2">Barranquilla, Atlantico</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-xs font-bold text-gray-500">DISPONIBLE HASTA</span>
-                                        <span class="text-xs text-gray-500">Jun 14, 10:00 AM</span>
-                                    </div>
-                                </div>
-                            </ng-template>    
-                        </p-panel>
-                        
-                        <p-panel>
-                            <ng-template #header>
-                                <div class="flex items-center justify-between gap-2 w-full">
-                                    <div class="flex items-center gap-2">
-                                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/ivanmagalhaes.png" shape="circle" />
-                                        <div class="flex flex-col">
-                                            <span class="font-bold">Practicante Ing. Sistemas - Administrador de sistemas JR</span>
-                                            <span class="text-sm opacity-80 ml-2">Santa Marta, Magdalena</span>
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-col items-end">
-                                        <span class="text-xs font-bold text-gray-500">DISPONIBLE HASTA</span>
-                                        <span class="text-xs text-gray-500">May 31, 07:00 PM</span>
-                                    </div>
-                                </div>
-                            </ng-template>    
-                        </p-panel>
-                        <!-- ...más p-panel para otras ofertas... -->
                     </div>
                 </section>
 

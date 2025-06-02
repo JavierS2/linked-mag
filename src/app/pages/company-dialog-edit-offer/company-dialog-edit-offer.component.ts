@@ -74,10 +74,10 @@ export class CompanyDialogEditOfferComponent {
       this.email = this.offer.email || '';
       this.phone = this.offer.phone || null;
       this.date = this.offer.date ? new Date(this.offer.date) : null;
-      this.city = this.cities.find(c => c.name === this.offer.city) || null;
+      this.city = this.cities.find(c => c.name === this.offer.city);
       this.modality = this.modalities.find(m => m.name === this.offer.modality) || null;
       this.status = this.statusList.find(s => s.name === this.offer.status) || null;
-      this.salary = this.offer.salary || null;
+      this.salary = Number(this.offer.salary);
       this.description = this.offer.description || '';
     }
 

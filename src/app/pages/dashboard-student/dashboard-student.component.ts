@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Import CommonModule
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SidebarStudentComponent } from '../../shared/components/sidebar-student/sidebar-student.component';
 import { MenubarModule } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
@@ -10,79 +10,84 @@ import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { ApiService } from '../../services/api.service';
-import { StudentProfile } from '../../models/student-profile.model';
 import { Router } from '@angular/router';
+import { JobOffer } from '../../models/job-offer';
 
 @Component({
   selector: 'app-dashboard-student',
   standalone: true,
-  imports: [CommonModule, SidebarStudentComponent, MenubarModule, BadgeModule, // Add CommonModule
-    InputTextModule, AvatarModule, RippleModule, CardModule, PanelModule,
-    ButtonModule],
+  imports: [
+    CommonModule,
+    SidebarStudentComponent,
+    MenubarModule,
+    BadgeModule,
+    InputTextModule,
+    AvatarModule,
+    RippleModule,
+    CardModule,
+    PanelModule,
+    ButtonModule
+  ],
   templateUrl: './dashboard-student.component.html',
   styleUrls: ['./dashboard-student.component.css']
 })
 export class DashboardStudentComponent implements OnInit {
-  student: StudentProfile | null = null;
-  lastAppliedOffer: any;
-  appliedOffersCount: number = 0;
-  jobOffers: any[] = [];
+
+  @Input() offer!: JobOffer;
+  loading = false;
+  searchTerm = '';
+  value = 0;
+  visible = false;
+
+  dynamicOffers: JobOffer[] = [];
+  appliedOffersCount = 0;
+  lastAppliedOffer?: JobOffer;
 
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.apiService.getStudentProfile().subscribe({
-      next: (data: StudentProfile) => {
-        this.student = data;
-        this.loadDashboardData(data.id);
-      },
-      error: (err) => console.error('Error cargando perfil:', err)
-    });
+    this.loadOffers();
   }
 
-  private loadDashboardData(studentId: string): void {
-    this.apiService.getLastAppliedOffer(studentId).subscribe({
-      next: (data) => this.lastAppliedOffer = data,
-      error: (err) => console.error('Error cargando última oferta aplicada:', err)
-    });
-
-    this.apiService.getAppliedOffersCount(studentId).subscribe({
-      next: (count) => this.appliedOffersCount = count,
-      error: (err) => console.error('Error cargando contador de ofertas aplicadas:', err)
-    });
-
+  loadOffers() {
+    this.loading = true;
     this.apiService.getAllOffers().subscribe({
-      next: (offers: any[]) => {
-        this.jobOffers = offers.map((offer: any) => ({
-          id: offer.id,
-          title: offer.title,
-          description: offer.description,
-          modality: offer.modality,
-          location: offer.location,
-          publicationDate: offer.publicationDate,
-          closingDate: offer.closingDate,
-          salary: offer.salary,
-          companyName: offer.company?.name,
-          status: offer.status?.status
-        }));
+      next: (offers: JobOffer[]) => {
+        console.log('Ofertas recibidas desde el backend:', offers);
+
+        this.dynamicOffers = offers
+          .filter((offer: any) => {
+            const estado = offer.status?.status || offer.status;
+            return estado === 'Abierta';
+          })
+          .map((offer: any) => ({
+            ...offer,
+            companyName: offer.company?.name,
+            companyLogo: offer.company?.logo, // <-- Asegúrate de que esto exista
+            status: offer.status?.status || offer.status
+          }));
+
+        console.log('Ofertas mapeadas:', this.dynamicOffers);
+        this.loading = false;
       },
-      error: (err) => console.error('Error cargando ofertas laborales:', err)
+      error: (err) => {
+        console.error('Error al cargar ofertas', err);
+        this.loading = false;
+      }
     });
   }
 
-  navigateToOffers(): void {
-    this.router.navigate(['/panel/student/offers']).catch(err => {
-      console.error('Navigation error:', err);
-      alert('Error al redirigir a ofertas laborales.');
-    });
+  showDialog() {
+    this.visible = true;
   }
 
-  navigateToOfferDetails(offerId: string): void {
-    this.router.navigate(['/panel/student/offers', offerId]).catch(err => {
-      console.error('Navigation error:', err);
-      alert('Error al redirigir a detalles de la oferta.');
-    });
+  navigateToOffers() {
+    this.router.navigate(['/ofertas']); // Ajusta esta ruta según tus rutas reales
   }
+
+  navigateToOfferDetails(id: number | undefined) {
+  if (id === undefined) return; // Evita errores
+  this.router.navigate(['/ofertas', id]);
+  }
+
 }
-
-

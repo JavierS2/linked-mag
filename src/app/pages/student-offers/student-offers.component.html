@@ -18,7 +18,7 @@
             </p-menubar>
         </header>
 
-    <p-table #dt1 [value]="combinedOffers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['title', 'location', 'closingDate', 'salary']">
+    <p-table #dt1 [value]="dynamicOffers" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading" [paginator]="true" [globalFilterFields]="['title', 'location', 'closingDate', 'salary']">
         <ng-template #caption>
             <div class="flex">
                 <p-iconfield iconPosition="left" class="m-auto">
@@ -68,21 +68,21 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
-    <tr>
-        <td style="min-width:15rem; padding-left: 20rem;">
-            {{ rowData.name }} <span>{{ rowData.location }}</span> 
-        </td>
-        <td>
-            {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
-        </td>
-        <td>
-            {{ rowData.salary | currency:'COP':'symbol':'1.0-0':'es-CO' }}
-        </td>
-        <td>
-            <app-student-apply-offer></app-student-apply-offer>
-        </td>
-    </tr>
-    </ng-template>
+<tr>
+    <td style="min-width:15rem; padding-left: 20rem;">
+        {{ rowData.name }} <span>{{ rowData.location }}</span> 
+    </td>
+    <td>
+        {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
+    </td>
+    <td>
+        {{ rowData.salary}}
+    </td>
+    <td>
+        <app-student-apply-offer [offer]="rowData"></app-student-apply-offer>
+    </td>
+</tr>
+</ng-template>
 </p-table>
 
 </div>
