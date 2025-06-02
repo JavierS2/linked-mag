@@ -15,6 +15,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -26,24 +27,60 @@ import { CommonModule, DatePipe } from '@angular/common';
   styleUrl: './university-validate-registration.component.css'
 })
 export class UniversityValidateRegistrationComponent {
+  
+  constructor(private api: ApiService) { }
+  
+  registrations: any[] = [];
+  loading = false;
 
-     loading = false;
+  onInit(): void {
+    this.loadRegistrations();
+  }
+
+  loadRegistrations() {
+    this.loading = true;
+    this.api.getAllStudents().subscribe({
+      next: (data) => {
+        this.applications = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al obtener los estudiantes:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  onChangeStatus(code: number, status: string): void {
+
+    const newStatus = status;
+    
+    this.api.changeStudentStatus(code, newStatus).subscribe({
+      next: () => {
+        this.applications = this.applications.filter(student => student.code !== code);
+        alert('Registro validado correctamente.');
+        // Aquí puedes actualizar la vista o cerrar el diálogo si aplica
+      },
+      error: (err) => {
+        console.error('Error al validar el registro:', err);
+        alert('Ocurrió un error al validar el registro.');
+      }
+    });
+  }
 
   applications = [
   {
     nameStudent: 'Carlos Andrés Lizarazo Romero',
-    code: '2021113344',
+    code: 2021113344,
     date: '2023-05-01',
     academicProgram: 'Ingeniería de Sistemas',
   },
   {
     nameStudent: 'Karla María Giraldo Lopez',
-    code: '2024113344',
+    code: 2024113344,
     date: '2023-05-01',
     academicProgram: 'Ingeniería de sistemas',
   }
 ]
-
-
 
 }

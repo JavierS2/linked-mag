@@ -85,8 +85,8 @@
             
             <td>
                  <ng-container [ngSwitch]="rowData.status">
-                    <p-button label="Aprobar" severity="success" [rounded]="true" />
-                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" />
+                    <p-button label="Aprobar" [rounded]="true" (click)="onChangeStatus(rowData.code, 'Aprobado')"/>
+                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" (click)="onChangeStatus(rowData.code, 'Rechazado')"/>
                 </ng-container>
             </td>
         </tr>
