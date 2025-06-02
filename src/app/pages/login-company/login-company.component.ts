@@ -1,28 +1,48 @@
-   import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputGroupModule } from 'primeng/inputgroup';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
-import { NavBarLoginComponent } from "../../shared/components/nav-bar-login/nav-bar-login.component";
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { NavBarLoginComponent } from '../../shared/components/nav-bar-login/nav-bar-login.component';
 
 @Component({
   selector: 'app-login-company',
-  imports: [NavBarLoginComponent, FormsModule, ButtonModule, 
-            InputTextModule, PasswordModule, InputGroupModule, FloatLabelModule, 
-            InputNumberModule
-          ],
+  standalone: true,
+  imports: [
+    FormsModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    InputGroupModule,
+    NavBarLoginComponent
+  ],
   templateUrl: './login-company.component.html',
-  styleUrl: './login-company.component.css'
+  styleUrls: ['./login-company.component.css']
 })
 export class LoginCompanyComponent {
-
-  text1: string = '';
+  nit: number | null = null;
   password: string = '';
-  nit: number | undefined;
-  nameCompany: string = '';
-  email: string = '';
 
+  constructor(private authService: AuthService, private router: Router) {}
+
+  login() {
+    if (!this.nit || !this.password) {
+      alert('Por favor ingrese NIT y contraseña.');
+      return;
+    }
+
+    this.authService.loginCompany(this.nit, this.password).subscribe({
+      next: (res: any) => {
+        this.authService.saveAuthData(res.token, res.company);
+        this.router.navigate(['/panel/company/home']);
+      },
+      error: (err) => {
+        alert('Credenciales inválidas o error en el servidor.');
+        console.error(err);
+      }
+    });
+  }
 }

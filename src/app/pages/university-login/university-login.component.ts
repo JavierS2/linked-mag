@@ -19,22 +19,5 @@ export class UniversityLoginComponent {
 
   constructor(private apiService: ApiService, private router: Router) {}
 
-  login() {
-    if (!this.text1 || !this.value) {
-      alert('Por favor ingrese usuario y contraseña.');
-      return;
-    }
-
-    this.apiService.loginStudent({ studentCode: this.text1, password: this.value })
-      .subscribe({
-        next: (res) => {
-          localStorage.setItem('token', res.token);
-          this.router.navigate(['/panel/student/home']);
-        },
-        error: (err) => {
-          alert('Credenciales inválidas o error en el servidor.');
-          console.error(err);
-        }
-      });
-  }
+  
 }

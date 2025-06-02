@@ -38,15 +38,6 @@ export class ApiService {
     });
   }
 
-  loginStudent(credentials: {
-    studentCode: string;
-    password: string;
-  }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/students/login`, credentials, {
-      headers: this.getHeaders(),
-    });
-  }
-
   getStudentById(studentId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/api/students/id/${studentId}`, {
       headers: this.getHeaders(),
@@ -248,15 +239,6 @@ export class ApiService {
 
   deleteCompany(NIT: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/companies/${NIT}`, {
-      headers: this.getHeaders(),
-    });
-  }
-
-  loginCompany(credentials: {
-    NIT: string;
-    password: string;
-  }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/companies/login`, credentials, {
       headers: this.getHeaders(),
     });
   }
