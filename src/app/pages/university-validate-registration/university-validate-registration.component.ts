@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarUniversityComponent } from '../../shared/components/sidebar-university/sidebar-university.component';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
@@ -15,35 +15,71 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
-
+import { ApiService } from '../../services/api.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-university-validate-registration', 
-  imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, AvatarModule, MenubarModule, TableModule, ButtonModule,
+  imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule],
+      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, ToastModule],
+      providers: [MessageService],
   templateUrl: './university-validate-registration.component.html',
   styleUrl: './university-validate-registration.component.css'
 })
-export class UniversityValidateRegistrationComponent {
+export class UniversityValidateRegistrationComponent implements OnInit {
 
-     loading = false;
+  constructor(private api: ApiService, private messageService: MessageService) { }
 
-  applications = [
-  {
-    nameStudent: 'Carlos Andrés Lizarazo Romero',
-    code: '2021113344',
-    date: '2023-05-01',
-    academicProgram: 'Ingeniería de Sistemas',
-  },
-  {
-    nameStudent: 'Karla María Giraldo Lopez',
-    code: '2024113344',
-    date: '2023-05-01',
-    academicProgram: 'Ingeniería de sistemas',
+  applications: any[] = [];
+  loading = false;
+
+  ngOnInit(): void {
+    this.loadRegistrations();
   }
-]
 
+  loadRegistrations() {
+    this.loading = true;
+    this.api.getAllStudents().subscribe({
+      next: (data) => {
+        this.applications = data.filter((student: any) => student.statusRegister === 'Pendiente');
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al obtener los estudiantes:', err);
+        this.loading = false;
+      }
+    });
+  }
 
+  onChangeStatus(studentCode: number, status: string): void {
+    const newStatus = status;
+    this.api.changeStudentStatus(studentCode, newStatus).subscribe({
+      next: () => {
+        this.applications = this.applications.filter(student => student.studentCode !== studentCode);
+        this.showSuccessMessage('Registro actualizado correctamente.');
+      },
+      error: (err) => {
+        console.error('Error al validar el registro:', err);
+        this.showErrorMessage('Error al actualizar el registro. Por favor, inténtelo de nuevo más tarde.');
+      }
+    });
+  }
 
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+    });
+  }
+
+  showErrorMessage(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
+  }
 }

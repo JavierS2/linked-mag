@@ -242,4 +242,22 @@ export class ApiService {
       headers: this.getHeaders(),
     });
   }
+
+  // ========== UNIVERSITY ==========
+  changeStudentStatus(studentCode: number, status: string): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/api/students/${studentCode}`,
+      { statusRegister: status },
+      { headers: this.getHeaders() }
+    );
+  }
+
+  changeCompanyStatus(NIT: number, status: string): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/api/companies/${NIT}`,
+      { statusRegister: status },
+      { headers: this.getHeaders() }
+    );
+  }
+
 }

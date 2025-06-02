@@ -10,15 +10,18 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ApiService } from '../../services/api.service';
 import { JobOffer } from '../../models/job-offer';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-company-dialog-applications',
-  imports: [ButtonModule, DialogModule, InputTextModule, EditorModule, FormsModule, DatePickerModule, SelectModule, KeyFilterModule, InputNumberModule],
+  imports: [ButtonModule, DialogModule, InputTextModule, EditorModule, FormsModule, DatePickerModule, ToastModule, SelectModule, KeyFilterModule, InputNumberModule],
+  providers:[MessageService],
   templateUrl: './company-dialog-applications.component.html',
 })
 export class CompanyDialogApplicationsComponent {
   
-  constructor(@Inject(ApiService) private jobOfferService: ApiService) {}
+  constructor(@Inject(ApiService) private jobOfferService: ApiService, private messageService: MessageService) {}
 
   publishOffer() {
     const offer: JobOffer = {
@@ -35,8 +38,15 @@ export class CompanyDialogApplicationsComponent {
     };
 
     this.jobOfferService.createOffer(offer).subscribe({
-      next: (response: any) => this.handleResponse(response),
-      error: (err: any) => this.handleError(err)
+      next: (response: any) => {
+        this.handleResponse(response)
+        this.messageService.add({severity:'success', summary: 'Éxito', detail: 'Oferta publicada correctamente'});
+        this.visible = false; // Cierra el diálogo después de publicar
+      },
+      error: (err: any) => {
+        this.handleError(err);
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'No se pudo publicar la oferta'});
+      }
     });
   }
 

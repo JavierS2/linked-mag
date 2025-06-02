@@ -18,19 +18,23 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { JobOffer } from '../../models/job-offer';
 import { CompanyDialogEditOfferComponent } from '../company-dialog-edit-offer/company-dialog-edit-offer.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-company-my-job-offers',
   imports: [CompanySidebarComponent, AvatarModule, MenubarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, TagModule, RouterLink, CompanyDialogEditOfferComponent],
+      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, TagModule, RouterLink, CompanyDialogEditOfferComponent,
+    ToastModule],
+    providers: [MessageService],
   templateUrl: './company-my-job-offers.component.html',
   styleUrl: './company-my-job-offers.component.css'
 })
 
 export class CompanyMyJobOffersComponent {
 
-  constructor(public api: ApiService) { }
+  constructor(public api: ApiService, private messageService: MessageService) { }
 
   loading = false;
   jobOffers: JobOffer[] = [
@@ -97,9 +101,7 @@ export class CompanyMyJobOffersComponent {
 ];
 
 ngOnInit() {
-  this.loadOffers();
-
-  
+  this.loadOffers();  
 }
 
 handleOfferUpdated(updatedOffer: any) {
@@ -125,10 +127,11 @@ onDeleteOffer(offerId: number): void {
     this.api.deleteOffer(offerId).subscribe({
       next: () => {
         this.jobOffers = this.jobOffers.filter(offer => offer.id !== offerId);
+        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'La oferta ha sido eliminada exitosamente.' });
       },
       error: (err) => {
         console.error('Error al eliminar la oferta:', err);
-        alert('Ocurrió un error al eliminar la oferta.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar la oferta.' });
       }
     });
   }

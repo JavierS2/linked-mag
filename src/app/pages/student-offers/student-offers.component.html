@@ -69,11 +69,11 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
     <tr>
-        <td style="padding-left:20rem;">
-            {{ rowData.title }} <span>{{ rowData.location }}</span>
+        <td style="min-width:15rem; padding-left: 20rem;">
+            {{ rowData.name }} <span>{{ rowData.location }}</span> 
         </td>
         <td>
-            {{ rowData.closingDate | date:'MMM dd, yyyy hh:mm a' }}
+            {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
         </td>
         <td>
             {{ rowData.salary | currency:'COP':'symbol':'1.0-0':'es-CO' }}

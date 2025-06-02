@@ -6,6 +6,7 @@ import { JobOfferDetailsComponent } from './pages/job-offer-details/job-offer-de
 
 const routes: Routes = [
   { path: 'ofertas/:id', component: JobOfferDetailsComponent },
+  { path: 'postulation/:id', component: JobOfferDetailsComponent },
   { path: 'login/student', component: LoginStudentComponent },
   { path: 'register/student', component: RegisterStudentComponent },
   // ...existing routes...

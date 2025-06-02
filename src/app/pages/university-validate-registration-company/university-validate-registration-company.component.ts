@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarUniversityComponent } from '../../shared/components/sidebar-university/sidebar-university.component';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
@@ -15,34 +15,77 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
-import { UniversityValidateSeeCompanyComponent } from '../university-validate-see-company/university-validate-see-company.component';
+import { ApiService } from '../../services/api.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-university-validate-registration-company',
   imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, AvatarModule, MenubarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, UniversityValidateSeeCompanyComponent],
+      SelectModule, ProgressBarModule, TagModule, FormsModule,DatePipe, CommonModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './university-validate-registration-company.component.html',
   styleUrl: './university-validate-registration-company.component.css'
 })
-export class UniversityValidateRegistrationCompanyComponent {
+export class UniversityValidateRegistrationCompanyComponent implements OnInit {
 
   loading = false;
   visible: boolean = false;
-  applications = [
-  {
-    nameCompany: 'Ecopetrol S.A.S',
-    NIT: '123456789',
-    date: '2023-05-01',
-    email: 'Ecopetrol@gmail.com',
-  },{
-    nameCompany: 'Incolab Servicios S.A.S',
-    NIT: '98765008765',
-    date: '2024-07-22',
-    email: 'IncolabSAS@gmail.com',
+
+  constructor(private api: ApiService, private messageService: MessageService) { }
+
+  companies: any[] = [];
+
+  ngOnInit(): void {
+    this.loadRegistrations();
   }
-]
-showDialog() {
+
+  loadRegistrations() {
+    this.loading = true;
+    this.api.getAllCompanies().subscribe({
+      next: (data) => {
+        this.companies = data.filter((company: any) => company.statusRegister === 'Pendiente');
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al obtener los estudiantes:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  onChangeStatus(NIT: number, status: string): void {
+    const newStatus = status;
+    this.api.changeCompanyStatus(NIT, newStatus).subscribe({
+      next: () => {
+        this.companies = this.companies.filter(company => company.NIT !== NIT);
+        this.showSuccessMessage('Registro validado exitosamente.');
+      },
+      error: (err) => {
+        console.error('Error al validar el registro:', err);
+        this.showErrorMessage('Error al validar el registro. Por favor, inténtelo de nuevo más tarde.');
+      }
+    });
+  }
+
+  showDialog() {
     this.visible = true;
+  }
+
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+    });
+  }
+
+  showErrorMessage(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
   }
 
 }
