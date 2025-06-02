@@ -203,34 +203,45 @@ export class RegisterStudentComponent {
   // ----------------------------
   // Método para registrar estudiante
   // ----------------------------
-  private registrarEstudiante(): void {
-    const studentData = {
-      name: this.name,
-      email: this.email,
-      studentCode: this.studentCode,
-      password: this.password,
-      academicProgram: {
-        name: this.selectPrograma.name,
-        code: this.selectPrograma.code,
-      },
-    };
+private registrarEstudiante(): void {
+  const studentData = {
+    name: this.name,
+    email: this.email,
+    studentCode: this.studentCode,
+    password: this.password,
+    academicProgram: {
+      name: this.selectPrograma.name,
+      code: this.selectPrograma.code,
+    },
+  };
 
-    this.apiService.registerStudent(studentData).subscribe({
-      next: () => {
-        this.mostrarExito('Estudiante registrado correctamente');
-        this.limpiarCampos();
-        // Redirigir después de 2 segundos (opcional)
-        setTimeout(() => {
-          this.router.navigate(['/login/student']); // O la ruta que prefieras
-        }, 2000);
-      },
-      error: (err) => {
-        const mensajeError =
-          err.error?.message || 'Error al conectar con el servidor';
-        this.mostrarError(mensajeError, 'Error en el registro');
-      },
-    });
-  }
+  console.log('Enviando datos de registro:', studentData); // Debug
+
+  this.apiService.registerStudent(studentData).subscribe({
+    next: (response) => {
+      console.log('Registro exitoso:', response); // Debug
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Registro exitoso',
+        detail: 'El estudiante ha sido registrado correctamente.',
+      });
+      this.router.navigate(['/login/student']);
+    },
+    error: (err) => {
+      console.error('Error en registro:', err); // Debug
+      const mensajeError =
+        err.error?.message || 'Error al conectar con el servidor';
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error en el registro',
+        detail: mensajeError,
+      });
+    },
+    complete: () => {
+      console.log('Petición de registro completada'); // Debug
+    }
+  });
+}
 
   private mostrarExito(detalle: string): void {
     this.messageService.add({

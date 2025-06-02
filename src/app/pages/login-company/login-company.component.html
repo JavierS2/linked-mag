@@ -1,46 +1,25 @@
 <app-nav-bar-login></app-nav-bar-login>
-
 <section class="first-section"></section>
 
 <section class="login">
-    <div class="box-login">
-        <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4">
-            Inicio de Sesión (Empresa)
-        </h2>
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 10px;">
-        <p-floatlabel variant="on" style="width: 400px;">
-            <input
-                pInputText
-                [(ngModel)]="email"
-                inputId="email"
-                class="custom-label"
-                style="width: 100%; height: 50px; border: 1px solid rgba(108, 122, 127, 0.4); border-radius: 4px; padding-left: 10px; margin-left: 15px;"
-                type="email"
-            />
-            <label for="email" style="padding-left: 15px;">Correo electrónico</label>
-        </p-floatlabel>
+  <div class="box-login">
+    <h2 class="text-2xl font-semibold text-gray-800 text-center mb-4">
+      Inicio de Sesión (Empresa)
+    </h2>
 
-        <!-- Campo Password -->
-        <p-floatlabel variant="on" style="width: 400px;">
-            <p-password
-            [(ngModel)]="password"
-            inputId="on_label"
-            [toggleMask]="true"
-            [feedback]="false"
-            class="custom-label"
-            
-            ></p-password>
-            <label style="padding-left:15px" for="on_label">Password</label>
-        </p-floatlabel>
-
-
-
-</div>
-
-
-
-         
-          
-          <button type="button" class="btn-login">Iniciar sesión</button>
+    <div style="display: flex; justify-content: center; align-items: center; margin-right: 40px;">
+      <p-inputgroup class="user-box">
+        <input pInputText [(ngModel)]="nit" style="width: 400px; margin-left: 7px; height: 50px;
+              border: 1px solid rgba(108, 122, 127, 0.4); border-radius: 4px; padding-left:10px;"
+          placeholder="NIT de la empresa" />
+      </p-inputgroup>
     </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; margin-right: 130px; margin-top: 10px;">
+      <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false" class="password-box"
+        placeholder="Contraseña"></p-password>
+    </div>
+
+    <button type="button" class="btn-login" (click)="login()">Iniciar sesión</button>
+  </div>
 </section>
