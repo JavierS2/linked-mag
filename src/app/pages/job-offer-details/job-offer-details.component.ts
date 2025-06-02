@@ -20,7 +20,6 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
-
 registerLocaleData(localeEsCO, 'es-CO');
 
 @Component({
@@ -29,43 +28,47 @@ registerLocaleData(localeEsCO, 'es-CO');
     templateUrl: 'job-offer-details.component.html',
     styleUrl: 'job-offer-details.component.css',
     imports: [
-    CommonModule,
+        CommonModule,
         CompanySidebarComponent,
-    AvatarModule,
-    MenubarModule,
-    TableModule,
-    ButtonModule,
-    InputTextModule,
-    IconFieldModule,
-    InputIconModule,
-    FormsModule,
-    RippleModule,
-    TagModule,
-    ToastModule,
-    
+        AvatarModule,
+        MenubarModule,
+        TableModule,
+        ButtonModule,
+        InputTextModule,
+        IconFieldModule,
+        InputIconModule,
+        FormsModule,
+        RippleModule,
+        TagModule,
+        ToastModule,
     ],
     providers: [DatePipe, MessageService]
 })
-
 export class JobOfferDetailsComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private api: ApiService, private datePipe: DatePipe, private messageService: MessageService) {}
+    constructor(
+        private route: ActivatedRoute,
+        private api: ApiService,
+        private datePipe: DatePipe,
+        private messageService: MessageService
+    ) {}
 
     loading = false;
     searchTerm = '';
     offer: JobOffer | null = null;
     statusClass: string = '';
     offerId!: number;
-    
+    allPostulations: any[] = [];
+    postulations: any[] = [];
 
     ngOnInit(): void {
         this.offerId = Number(this.route.snapshot.paramMap.get('id'));
         console.log('ID recibido desde la ruta:', this.offerId);
-        
+
         if (isNaN(this.offerId)) {
             console.error('ID inválido en la URL');
             return;
-        }// Ajusta el texto exacto a lo que devuelve tu API:
+        }
 
         this.api.getOfferById(this.offerId).subscribe({
             next: (data) => {
@@ -74,65 +77,64 @@ export class JobOfferDetailsComponent implements OnInit {
 
                 const status = this.offer?.status?.toLowerCase();
                 if (status === 'cerrada') {
-                this.statusClass = 'text-red-600';
+                    this.statusClass = 'text-red-600';
                 } else {
-                this.statusClass = 'text-green-600';
+                    this.statusClass = 'text-green-600';
                 }
+
+                // Cargar todas las postulaciones y filtrar por la oferta
+                this.loadAllPostulations();
             },
             error: (err) => {
                 console.error('Error al cargar la oferta:', err);
             }
         });
-
     }
 
-        postulations = [
-        {
-            id: 1,
-            fullName: 'Daniel Rodríguez',
-            studentCode: 202012345,
-            date: new Date('2025-05-15T10:00:00'),
-            program: 'Ingeniería de Sistemas',
-            status: 'Aprobada'
-        },
-        {
-            id: 2,
-            fullName: 'Laura Gómez',
-            studentCode: 202034567,
-            date: new Date('2025-05-14T09:30:00'),
-            program: 'Ingeniería Industrial',
-            status: 'Pendiente'
-        },
-        {
-            id: 3,
-            fullName: 'Carlos Torres',
-            studentCode: 202045678,
-            date: new Date('2025-05-13T14:15:00'),
-            program: 'Administración de Empresas',
-            status: 'Rechazada'
-        }
-    ];
-
-    onChangeStatus(id: number, status: string): void {
-        const newStatus = status;
-        this.api.changePostulationStatus(id, newStatus).subscribe({
-        next: () => {
-            this.postulations = this.postulations.filter(postulations => postulations.id !== id);
-            this.messageService.add({
-            severity: 'success',
-            summary: 'Éxito',
-            detail: 'Registro actualizado correctamente.'
-            });
-        },
-        error: (err) => {
-            console.error('Error al validar el registro:', err);
-            this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al actualizar el registro. Por favor, inténtelo de nuevo más tarde.'
-            });
-        }
+    loadAllPostulations(): void {
+        this.loading = true;
+        this.api.getAllPostulations().subscribe({
+            next: (data) => {
+                this.allPostulations = data;
+                this.filterPostulationsByOffer();
+                this.loading = false;
+            },
+            error: (err) => {
+                console.error('Error al cargar postulaciones:', err);
+                this.loading = false;
+            }
         });
     }
-    
+
+    filterPostulationsByOffer(): void {
+        this.postulations = this.allPostulations.filter(
+            (p: any) => p.offerId === this.offerId
+        );
+    }
+
+    onChangeStatus(id: number, status: string): void {
+        // Mapea el texto del botón al valor esperado por el backend
+        let backendStatus = status;
+        if (status === 'Aprobada') backendStatus = 'Aceptada';
+        if (status === 'Rechazada') backendStatus = 'Rechazada';
+
+        this.api.updatePostulation(id.toString(), { status: backendStatus }).subscribe({
+            next: () => {
+                this.postulations = this.postulations.filter(postulation => postulation.id !== id);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Éxito',
+                    detail: 'Registro actualizado correctamente.'
+                });
+            },
+            error: (err) => {
+                console.error('Error al validar el registro:', err);
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Error al actualizar el registro. Por favor, inténtelo de nuevo más tarde.'
+                });
+            }
+        });
+    }
 }

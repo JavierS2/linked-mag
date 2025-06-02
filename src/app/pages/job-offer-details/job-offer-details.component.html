@@ -47,7 +47,6 @@
                         <h2 class="text-gray-500 text-sm">Fecha Publicación</h2>
                         <p class="text-gray-900 font-semibold">{{ offer?.fechaPublicacion}}</p>
                     </div>
-                    
                 </div>
 
                 <!-- Columna 3: Descripción -->
@@ -56,22 +55,19 @@
                         <p class="text-gray-900 font-medium text-justify leading-relaxed break-words"
                             [innerHTML]="offer?.description"></p>
                 </div>
-
             </section>
 
-            
             <p-table #dt1 [value]="postulations" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                 [loading]="loading" [paginator]="true"
-                [globalFilterFields]="['fullName', 'studentCode', 'date', 'program', 'status']">
+                [globalFilterFields]="['student.name', 'student.studentCode', 'createdAt', 'student.academicProgram.name', 'status']">
 
                 <ng-template #caption>
                     <div class="flex">
-                        <div
-                class="flex items-start justify-between bg-white">
-                <h2 class="text-2xl font-bold text-gray-800">
-                    Postulaciones recibidas
-                </h2>
-            </div>
+                        <div class="flex items-start justify-between bg-white">
+                            <h2 class="text-2xl font-bold text-gray-800">
+                                Postulaciones recibidas
+                            </h2>
+                        </div>
                         <p-iconfield iconPosition="left" class="m-auto">
                             <p-inputicon>
                                 <i class="pi pi-search"></i>
@@ -88,25 +84,25 @@
                         <th style="min-width:15rem; padding-left: 5rem;">
                             <div class="flex items-center">
                                 Nombre completo
-                                <p-columnFilter type="text" field="fullName" display="menu" />
+                                <p-columnFilter type="text" field="student.name" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:10rem;">
                             <div class="flex items-center">
                                 Código estudiantil
-                                <p-columnFilter type="text" field="studentCode" display="menu" />
+                                <p-columnFilter type="text" field="student.studentCode" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:12rem;">
                             <div class="flex items-center">
                                 Fecha
-                                <p-columnFilter type="date" field="date" display="menu" />
+                                <p-columnFilter type="date" field="createdAt" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:12rem;">
                             <div class="flex items-center">
                                 Programa
-                                <p-columnFilter type="text" field="program" display="menu" />
+                                <p-columnFilter type="text" field="student.academicProgram.name" display="menu" />
                             </div>
                         </th>
                         <th style="min-width:10rem;">
@@ -119,43 +115,42 @@
                             Ver Perfil
                         </th>
                         <th style="min-width:8rem;">
-                           
                         </th>
                     </tr>
                 </ng-template>
 
                 <ng-template #emptymessage>
                     <tr>
-                        <td colspan="6">No se encontraron registros.</td>
+                        <td colspan="7">No se encontraron registros.</td>
                     </tr>
                 </ng-template>
 
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
                         <td style="padding-left:5rem;">
-                            {{ rowData.fullName }}
+                            {{ rowData.student?.name }}
                         </td>
-                        <td>{{ rowData.studentCode }}</td>
-                        <td>{{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}</td>
-                        <td>{{ rowData.program }}</td>
+                        <td>{{ rowData.student?.studentCode }}</td>
+                        <td>{{ rowData.createdAt | date:'MMM dd, yyyy hh:mm a' }}</td>
+                        <td>{{ rowData.student?.academicProgram?.name }}</td>
                         <td>
                             <ng-container [ngSwitch]="rowData.status">
                                 <p-tag *ngSwitchCase="'Aprobada'" [value]="'Aprobada'" severity="success"></p-tag>
+                                <p-tag *ngSwitchCase="'Aceptada'" [value]="'Aprobada'" severity="success"></p-tag>
                                 <p-tag *ngSwitchCase="'Rechazada'" [value]="'Rechazada'" severity="danger"></p-tag>
                                 <p-tag *ngSwitchCase="'Pendiente'" [value]="'Pendiente'" severity="warn"></p-tag>
                             </ng-container>
                         </td>
                         <td>
                             <p-button pButton pRipple type="button" icon="pi pi-eye"
-                                class="p-button-rounded p-button-text p-button-secondary"
-                                ></p-button>
+                                class="p-button-rounded p-button-text p-button-secondary"></p-button>
                         </td>
                         <td>
                             <p-button *ngIf="rowData.status === 'Pendiente'" pButton pRipple type="button" rounded="true" class="p-button-rounded p-button-text p-button-secondary"
                                 (click)="onChangeStatus(rowData.id, 'Aprobada')">
                                 Aprobar
                             </p-button>
-                            <p-button *ngIf="rowData.status === 'Pendiente'" pButton pRipple type="button" rounded="true" severity="danger" class=" p-button-rounded p-button-text p-button-secondary"
+                            <p-button *ngIf="rowData.status === 'Pendiente'" pButton pRipple type="button" rounded="true" severity="danger" class="p-button-rounded p-button-text p-button-secondary"
                                 (click)="onChangeStatus(rowData.id, 'Rechazada')">
                                 Denegar
                             </p-button>

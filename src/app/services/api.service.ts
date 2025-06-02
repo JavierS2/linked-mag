@@ -11,7 +11,7 @@ import { JobOffer } from '../models/job-offer';
 export class ApiService {
   private apiUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Headers comunes
   private getHeaders(): HttpHeaders {
@@ -135,6 +135,13 @@ export class ApiService {
     return this.http.get(`${this.apiUrl}/api/postulations/`, {
       headers: this.getHeaders(),
     });
+  }
+
+  getPostulationsByOfferId(offerId: number): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.apiUrl}/api/offers/${offerId}/postulations`,
+      { headers: this.getHeaders() }
+    );
   }
 
   // ========== CURRICULUM VITAE ==========
