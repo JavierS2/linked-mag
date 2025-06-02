@@ -19,6 +19,7 @@ import { JobOffer } from '../../models/job-offer';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { Output, EventEmitter } from '@angular/core';
 
 registerLocaleData(localeEsCO, 'es-CO');
 
@@ -46,12 +47,14 @@ registerLocaleData(localeEsCO, 'es-CO');
 })
 export class JobOfferDetailsComponent implements OnInit {
 
+    @Output() postulationStatusChanged = new EventEmitter<number>();
+
     constructor(
         private route: ActivatedRoute,
         private api: ApiService,
         private datePipe: DatePipe,
         private messageService: MessageService
-    ) {}
+    ) { }
 
     loading = false;
     searchTerm = '';
@@ -113,19 +116,24 @@ export class JobOfferDetailsComponent implements OnInit {
     }
 
     onChangeStatus(id: number, status: string): void {
-        // Mapea el texto del botón al valor esperado por el backend
         let backendStatus = status;
         if (status === 'Aprobada') backendStatus = 'Aceptada';
         if (status === 'Rechazada') backendStatus = 'Rechazada';
 
         this.api.updatePostulation(id.toString(), { status: backendStatus }).subscribe({
             next: () => {
-                this.postulations = this.postulations.filter(postulation => postulation.id !== id);
+                // Actualiza solo el estado de la postulación en el array, sin recargar
+                const idx = this.postulations.findIndex(postulation => postulation.id === id);
+                if (idx !== -1) {
+                    this.postulations[idx].status = backendStatus;
+                }
                 this.messageService.add({
                     severity: 'success',
                     summary: 'Éxito',
                     detail: 'Registro actualizado correctamente.'
                 });
+                // Emite el evento para el padre si lo necesitas
+                this.postulationStatusChanged.emit(id);
             },
             error: (err) => {
                 console.error('Error al validar el registro:', err);
