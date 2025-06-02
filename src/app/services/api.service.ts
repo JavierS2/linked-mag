@@ -260,4 +260,20 @@ export class ApiService {
     );
   }
 
+  changePostulationStatus(id: number, status: string): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/api/postulations/${id}`,
+      { status: status },
+      { headers: this.getHeaders() }
+    );
+  }
+
+  changePostulationStatus2(id: number, status: string): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/api/postulations/${id}/status`,
+      { status: status },
+      { headers: this.getHeaders() }
+    );
+  }
+
 }

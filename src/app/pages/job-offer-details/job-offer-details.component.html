@@ -60,7 +60,7 @@
             </section>
 
             
-            <p-table #dt1 [value]="students" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+            <p-table #dt1 [value]="postulations" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                 [loading]="loading" [paginator]="true"
                 [globalFilterFields]="['fullName', 'studentCode', 'date', 'program', 'status']">
 
@@ -116,7 +116,10 @@
                             </div>
                         </th>
                         <th style="min-width:8rem;">
-                            Ver
+                            Ver Perfil
+                        </th>
+                        <th style="min-width:8rem;">
+                           
                         </th>
                     </tr>
                 </ng-template>
@@ -145,7 +148,17 @@
                         <td>
                             <p-button pButton pRipple type="button" icon="pi pi-eye"
                                 class="p-button-rounded p-button-text p-button-secondary"
-                                (click)="verDetalles(rowData)"></p-button>
+                                ></p-button>
+                        </td>
+                        <td>
+                            <p-button *ngIf="rowData.status === 'Pendiente'" pButton pRipple type="button" rounded="true" class="p-button-rounded p-button-text p-button-secondary"
+                                (click)="onChangeStatus(rowData.id, 'Aprobada')">
+                                Aprobar
+                            </p-button>
+                            <p-button *ngIf="rowData.status === 'Pendiente'" pButton pRipple type="button" rounded="true" severity="danger" class=" p-button-rounded p-button-text p-button-secondary"
+                                (click)="onChangeStatus(rowData.id, 'Rechazada')">
+                                Denegar
+                            </p-button>
                         </td>
                     </tr>
                 </ng-template>
