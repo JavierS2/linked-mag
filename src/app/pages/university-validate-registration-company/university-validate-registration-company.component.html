@@ -1,4 +1,5 @@
 <app-sidebar-university></app-sidebar-university>
+
 <div class="flex-1 flex flex-col bg-gray-50 min-h-screen ml-60">
 <header class="Nav-Bar">
             <p-menubar>
@@ -20,7 +21,7 @@
 
          <p-table 
     #dt1 
-    [value]="applications" 
+    [value]="companies" 
     dataKey="id" 
     [rows]="10" 
     [rowsPerPageOptions]="[10, 25, 50]" 
@@ -32,31 +33,48 @@
         <tr>
             <th style="min-width:15rem; padding-left:5rem;">
                 <div class="flex items-center">
-                    Empresa
+                    Nombre empresa
                     <p-columnFilter type="text" field="name" display="menu" />
                 </div>
             </th>
+
             <th style="min-width:10rem">
                 <div class="flex items-center">
                     NIT
-                    <p-columnFilter type="text" field="modality" display="menu" />
+                    <p-columnFilter type="text" field="nit" display="menu" />
                 </div>
             </th>
+
+            <th style="min-width:10rem">
+                <div class="flex items-center">
+                    Email
+                </div>
+            </th>
+
+            <th style="min-width:10rem">
+                <div class="flex items-center">
+                    Sector económico
+                    <p-columnFilter type="text" field="sectorEconomic" display="menu" />
+                </div>
+            </th>
+
+            <th style="min-width:10rem">
+                <div class="flex items-center">
+                    Tipo empresa
+                    <p-columnFilter type="text" field="typeCompany" display="menu" />
+                </div>
+            </th>
+
             <th style="min-width:10rem">
                 <div class="flex items-center">
                     Fecha
                     <p-columnFilter type="text" field="location" display="menu" />
                 </div>
             </th>
-            <th style="min-width:12rem">
-                <div class="flex items-center">
-                    Correo
-                    <p-columnFilter type="date" field="date" display="menu" />
-                </div>
-            </th>
+
             <th style="min-width:10rem">
                 <div class="flex items-center">
-
+                    Acciones
                 </div>
             </th>
         </tr>
@@ -77,15 +95,21 @@
                 {{ rowData.NIT }}
             </td>
             <td>
+                {{ rowData.email }}
+            </td>
+            <td>
+                {{ rowData.sectorEconomic }}
+            </td>
+            <td>
+                {{ rowData.typeCompany }}
+            </td>
+            <td>
                 {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
             </td>
             <td>
-                {{ rowData.email }}
-            </td>
-            
-            <td>
-                 <ng-container [ngSwitch]="rowData.status">
-                    <app-university-validate-see-company></app-university-validate-see-company>
+                <ng-container [ngSwitch]="rowData.statusRegister">
+                    <p-button label="Aprobar" [rounded]="true" (click)="onChangeStatus(rowData.studentCode, 'Aprobado')"/>
+                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" (click)="onChangeStatus(rowData.studentCode, 'Rechazado')"/>
                 </ng-container>
             </td>
         </tr>

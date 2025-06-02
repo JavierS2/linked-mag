@@ -270,10 +270,10 @@ export class ApiService {
     );
   }
 
-  changeCompanyStatus(nit: number, status: string): Observable<any> {
+  changeCompanyStatus(NIT: number, status: string): Observable<any> {
     return this.http.patch(
-      `${this.apiUrl}/api/companies/${nit}`,
-      { status: status },
+      `${this.apiUrl}/api/companies/${NIT}`,
+      { statusRegister: status },
       { headers: this.getHeaders() }
     );
   }
