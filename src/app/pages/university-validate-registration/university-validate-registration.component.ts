@@ -16,18 +16,21 @@ import { TagModule } from 'primeng/tag';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-university-validate-registration', 
   imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
-      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule],
+      SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule, ToastModule],
+      providers: [MessageService],
   templateUrl: './university-validate-registration.component.html',
   styleUrl: './university-validate-registration.component.css'
 })
 export class UniversityValidateRegistrationComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private messageService: MessageService) { }
 
   applications: any[] = [];
   loading = false;
@@ -55,12 +58,28 @@ export class UniversityValidateRegistrationComponent implements OnInit {
     this.api.changeStudentStatus(studentCode, newStatus).subscribe({
       next: () => {
         this.applications = this.applications.filter(student => student.studentCode !== studentCode);
-        alert('Registro validado correctamente.');
+        this.showSuccessMessage('Registro actualizado correctamente.');
       },
       error: (err) => {
         console.error('Error al validar el registro:', err);
-        alert('Ocurrió un error al validar el registro.');
+        this.showErrorMessage('Error al actualizar el registro. Por favor, inténtelo de nuevo más tarde.');
       }
+    });
+  }
+
+  showSuccessMessage(message: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: message,
+    });
+  }
+
+  showErrorMessage(message: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
     });
   }
 }
