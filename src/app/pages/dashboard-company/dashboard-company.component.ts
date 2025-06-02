@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CompanySidebarComponent } from '../../shared/components/company-sidebar/company-sidebar.component';
 import { MenubarModule } from 'primeng/menubar';
 import { BadgeModule } from 'primeng/badge';
@@ -21,7 +21,7 @@ import { NgForOf, CommonModule } from '@angular/common';
   templateUrl: './dashboard-company.component.html',
   styleUrl: './dashboard-company.component.css'
 })
-export class DashboardCompanyComponent {
+export class DashboardCompanyComponent implements OnInit {
 
   @Input() offer!: JobOffer;
   loading = false;
@@ -29,46 +29,63 @@ export class DashboardCompanyComponent {
   value = 0;
 
   dynamicOffers: JobOffer[] = [];
-  
-    constructor(private apiService: ApiService) {}
-  
-    ngOnInit(): void {
-      this.loadOffers();
-    }
-  
-    loadOffers() {
-  this.loading = true;
-  this.apiService.getAllOffers().subscribe({
-    next: (offers: JobOffer[]) => {
-      console.log('Ofertas recibidas desde el backend:', offers);
-
-      this.dynamicOffers = offers
-        .filter((offer: any) => {
-          const estado = offer.status?.status || offer.status;
-          return estado === 'Abierta';
-        })
-        .map((offer: any) => ({
-          ...offer,
-          companyName: offer.company?.name,
-          status: offer.status?.status || offer.status
-        }));
-
-      console.log('Ofertas mapeadas:', this.dynamicOffers);
-      this.loading = false;
-    },
-    error: (err) => {
-      console.error('Error al cargar ofertas', err);
-      this.loading = false;
-    }
-  });
-}
-
+  publishedOffersCount = 0;
+  receivedPostulationsCount = 0;
+  companyId = 1; // Cambia esto por el id real de la empresa logueada
 
   visible: boolean = false;
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.loadOffers();
+    this.loadReceivedPostulations();
+  }
+
+  loadOffers() {
+    this.loading = true;
+    this.apiService.getAllOffers().subscribe({
+      next: (offers: JobOffer[]) => {
+        // Ofertas abiertas de la empresa
+        this.dynamicOffers = offers
+          .filter((offer: any) => {
+            const estado = offer.status?.status || offer.status;
+            return estado === 'Abierta' && offer.companyId === this.companyId;
+          })
+          .map((offer: any) => ({
+            ...offer,
+            companyName: offer.company?.name,
+            status: offer.status?.status || offer.status
+          }));
+
+        // Contador de todas las ofertas publicadas por la empresa (abiertas y cerradas)
+        this.publishedOffersCount = offers.filter((offer: any) => offer.companyId === this.companyId).length;
+
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar ofertas', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  loadReceivedPostulations() {
+    this.apiService.getAllPostulations().subscribe({
+      next: (postulations: any[]) => {
+        // Solo postulaciones a ofertas de esta empresa
+        this.receivedPostulationsCount = postulations.filter(
+          (p: any) => p.offer?.companyId === this.companyId
+        ).length;
+      },
+      error: (err) => {
+        console.error('Error al cargar postulaciones', err);
+        this.receivedPostulationsCount = 0;
+      }
+    });
+  }
 
   showDialog() {
     this.visible = true;
   }
-
-
 }
