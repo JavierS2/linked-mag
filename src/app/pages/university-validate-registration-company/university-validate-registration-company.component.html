@@ -74,7 +74,6 @@
 
             <th style="min-width:10rem">
                 <div class="flex items-center">
-                    Acciones
                 </div>
             </th>
         </tr>
@@ -95,21 +94,21 @@
                 {{ rowData.NIT }}
             </td>
             <td>
-                {{ rowData.email }}
+                {{ rowData.emailCompany }}
             </td>
             <td>
-                {{ rowData.sectorEconomic }}
+                {{ rowData.selectEconomicSector }}
             </td>
             <td>
-                {{ rowData.typeCompany }}
+                {{ rowData.selectTypeCompany }}
             </td>
             <td>
-                {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
+                {{ rowData.createdAt | date:'MMM dd, yyyy hh:mm a' }}
             </td>
             <td>
                 <ng-container [ngSwitch]="rowData.statusRegister">
-                    <p-button label="Aprobar" [rounded]="true" (click)="onChangeStatus(rowData.studentCode, 'Aprobado')"/>
-                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" (click)="onChangeStatus(rowData.studentCode, 'Rechazado')"/>
+                    <p-button label="Aprobar" [rounded]="true" (click)="onChangeStatus(rowData.NIT, 'Aprobado')"/>
+                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" (click)="onChangeStatus(rowData.NIT, 'Rechazado')"/>
                 </ng-container>
             </td>
         </tr>
