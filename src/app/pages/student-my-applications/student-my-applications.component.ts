@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarStudentComponent } from '../../shared/components/sidebar-student/sidebar-student.component';
 import { AvatarModule } from 'primeng/avatar';
 import { MenubarModule } from 'primeng/menubar';
@@ -23,7 +23,12 @@ import { InputTextModule } from 'primeng/inputtext';
   templateUrl: './student-my-applications.component.html',
   styleUrl: './student-my-applications.component.css'
 })
+
 export class StudentMyApplicationsComponent {
+
+  constructor() { }
+
+
   loading = false;
 
   applications = [
@@ -33,7 +38,7 @@ export class StudentMyApplicationsComponent {
     location: 'Bogotá',
     date: '2023-05-01',
     salary: 1000000,
-    status: 'En revisión',
+    status: 'Pendiente',
   },
   {
     name: 'Desarrollador Backend',
@@ -41,7 +46,7 @@ export class StudentMyApplicationsComponent {
     location: 'Medellín',
     date: '2023-06-15',
     salary: 1200000,
-    status: 'Entrevista',
+    status: 'Pendiente',
   },
   {
     name: 'Diseñador UI/UX',
@@ -57,7 +62,7 @@ export class StudentMyApplicationsComponent {
     location: 'Barranquilla',
     date: '2023-08-20',
     salary: 1100000,
-    status: 'En revisión',
+    status: 'Aceptada',
   },
   {
     name: 'Analista de Datos',
@@ -65,7 +70,7 @@ export class StudentMyApplicationsComponent {
     location: 'Bogotá',
     date: '2023-09-05',
     salary: 1300000,
-    status: 'Entrevista',
+    status: 'Rechazada',
   },
   {
     name: 'Project Manager',
@@ -89,7 +94,7 @@ export class StudentMyApplicationsComponent {
     location: 'Santa Marta',
     date: '2023-12-03',
     salary: 950000,
-    status: 'En revisión',
+    status: 'Pendiente',
   },
   {
     name: 'Desarrollador Móvil',
@@ -97,7 +102,7 @@ export class StudentMyApplicationsComponent {
     location: 'Cartagena',
     date: '2024-01-20',
     salary: 1400000,
-    status: 'Entrevista',
+    status: 'Pendiente',
   },
   {
     name: 'Administrador de Sistemas',
@@ -105,7 +110,7 @@ export class StudentMyApplicationsComponent {
     location: 'Bucaramanga',
     date: '2024-02-15',
     salary: 1500000,
-    status: 'Rechazada',
+    status: 'Pendiente',
   },
   {
     name: 'DevOps Engineer',
