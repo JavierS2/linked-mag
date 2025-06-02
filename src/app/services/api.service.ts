@@ -262,10 +262,10 @@ export class ApiService {
   }
 
   // ========== UNIVERSITY ==========
-  changeStudentStatus(code: number, status: string): Observable<any> {
+  changeStudentStatus(studentCode: number, status: string): Observable<any> {
     return this.http.patch(
-      `${this.apiUrl}/api/students/${code}`,
-      { status: status },
+      `${this.apiUrl}/api/students/${studentCode}`,
+      { statusRegister: status },
       { headers: this.getHeaders() }
     );
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarUniversityComponent } from '../../shared/components/sidebar-university/sidebar-university.component';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
@@ -17,23 +17,22 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 
-
 @Component({
   selector: 'app-university-validate-registration', 
-  imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, AvatarModule, MenubarModule, TableModule, ButtonModule,
+  imports: [SidebarUniversityComponent, MenubarModule, AvatarModule, TableModule, ButtonModule,
       InputTextModule, IconFieldModule, InputIconModule, MultiSelectModule, SliderModule,
       SelectModule, ProgressBarModule, TagModule, FormsModule, DatePipe, CommonModule],
   templateUrl: './university-validate-registration.component.html',
   styleUrl: './university-validate-registration.component.css'
 })
-export class UniversityValidateRegistrationComponent {
-  
+export class UniversityValidateRegistrationComponent implements OnInit {
+
   constructor(private api: ApiService) { }
-  
-  registrations: any[] = [];
+
+  applications: any[] = [];
   loading = false;
 
-  onInit(): void {
+  ngOnInit(): void {
     this.loadRegistrations();
   }
 
@@ -41,7 +40,7 @@ export class UniversityValidateRegistrationComponent {
     this.loading = true;
     this.api.getAllStudents().subscribe({
       next: (data) => {
-        this.applications = data;
+        this.applications = data.filter((student: any) => student.statusRegister === 'Pendiente');
         this.loading = false;
       },
       error: (err) => {
@@ -51,15 +50,12 @@ export class UniversityValidateRegistrationComponent {
     });
   }
 
-  onChangeStatus(code: number, status: string): void {
-
+  onChangeStatus(studentCode: number, status: string): void {
     const newStatus = status;
-    
-    this.api.changeStudentStatus(code, newStatus).subscribe({
+    this.api.changeStudentStatus(studentCode, newStatus).subscribe({
       next: () => {
-        this.applications = this.applications.filter(student => student.code !== code);
+        this.applications = this.applications.filter(student => student.studentCode !== studentCode);
         alert('Registro validado correctamente.');
-        // Aquí puedes actualizar la vista o cerrar el diálogo si aplica
       },
       error: (err) => {
         console.error('Error al validar el registro:', err);
@@ -67,20 +63,4 @@ export class UniversityValidateRegistrationComponent {
       }
     });
   }
-
-  applications = [
-  {
-    nameStudent: 'Carlos Andrés Lizarazo Romero',
-    code: 2021113344,
-    date: '2023-05-01',
-    academicProgram: 'Ingeniería de Sistemas',
-  },
-  {
-    nameStudent: 'Karla María Giraldo Lopez',
-    code: 2024113344,
-    date: '2023-05-01',
-    academicProgram: 'Ingeniería de sistemas',
-  }
-]
-
 }

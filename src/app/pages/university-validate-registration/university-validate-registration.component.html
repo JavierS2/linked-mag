@@ -1,24 +1,24 @@
 <app-sidebar-university></app-sidebar-university>
 <div class="flex-1 flex flex-col bg-gray-50 min-h-screen ml-60">
 <header class="Nav-Bar">
-            <p-menubar>
-                <ng-template #start>
-                    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="..." fill="var(--primary-color)" />
-                    </svg>
-                    <h1 class="text-2xl font-inter font-bold text-gray-800 tracking-wide">
-                       Validar registro
-                    </h1>
-                </ng-template>
-                <ng-template #end>
-                    <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" size="large" />
-                    </div>
-                </ng-template>
-            </p-menubar>
-        </header>
+    <p-menubar>
+        <ng-template #start>
+            <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="..." fill="var(--primary-color)" />
+            </svg>
+            <h1 class="text-2xl font-inter font-bold text-gray-800 tracking-wide">
+                Validar registro
+            </h1>
+        </ng-template>
+        <ng-template #end>
+            <div class="flex items-center gap-2">
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" size="large" />
+            </div>
+        </ng-template>
+    </p-menubar>
+</header>
 
-         <p-table 
+<p-table 
     #dt1 
     [value]="applications" 
     dataKey="id" 
@@ -26,7 +26,7 @@
     [rowsPerPageOptions]="[10, 25, 50]" 
     [loading]="loading" 
     [paginator]="true" 
-    [globalFilterFields]="['name', 'modality', 'location', 'availableUntil', 'status']"
+    [globalFilterFields]="['name', 'studentCode', 'createdAt', 'academicProgram.name']"
 >        
     <ng-template #header>
         <tr>
@@ -39,19 +39,19 @@
             <th style="min-width:10rem">
                 <div class="flex items-center">
                     Código
-                    <p-columnFilter type="text" field="modality" display="menu" />
+                    <p-columnFilter type="text" field="studentCode" display="menu" />
                 </div>
             </th>
             <th style="min-width:10rem">
                 <div class="flex items-center">
                     Fecha
-                    <p-columnFilter type="text" field="location" display="menu" />
+                    <p-columnFilter type="text" field="createdAt" display="menu" />
                 </div>
             </th>
             <th style="min-width:12rem">
                 <div class="flex items-center">
                     Programa
-                    <p-columnFilter type="date" field="date" display="menu" />
+                    <p-columnFilter type="text" field="academicProgram.name" display="menu" />
                 </div>
             </th>
             <th style="min-width:10rem">
@@ -71,22 +71,21 @@
     <ng-template pTemplate="body" let-rowData>
         <tr>
             <td style="padding-left:5rem;">
-                {{ rowData.nameStudent }}
+                {{ rowData.name }}
             </td>
             <td>
-                {{ rowData.code }}
+                {{ rowData.studentCode }}
             </td>
             <td>
-                {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
+                {{ rowData.createdAt | date:'MMM dd, yyyy hh:mm a' }}
             </td>
             <td>
-                {{ rowData.academicProgram }}
+                {{ rowData.academicProgram?.name }}
             </td>
-            
             <td>
-                 <ng-container [ngSwitch]="rowData.status">
-                    <p-button label="Aprobar" [rounded]="true" (click)="onChangeStatus(rowData.code, 'Aprobado')"/>
-                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" (click)="onChangeStatus(rowData.code, 'Rechazado')"/>
+                <ng-container [ngSwitch]="rowData.statusRegister">
+                    <p-button label="Aprobar" [rounded]="true" (click)="onChangeStatus(rowData.studentCode, 'Aprobado')"/>
+                    <p-button label="Rechazar" severity="danger" [rounded]="true" class="ml-2" (click)="onChangeStatus(rowData.studentCode, 'Rechazado')"/>
                 </ng-container>
             </td>
         </tr>
