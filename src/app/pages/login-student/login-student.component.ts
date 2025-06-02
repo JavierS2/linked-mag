@@ -1,39 +1,48 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { PasswordModule } from 'primeng/password';
-import { NavBarLoginComponent } from '../../shared/components/nav-bar-login/nav-bar-login.component';
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { ButtonModule } from 'primeng/button';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { NavBarLoginComponent } from '../../shared/components/nav-bar-login/nav-bar-login.component';
 
 @Component({
   selector: 'app-login-student',
-  imports: [NavBarLoginComponent, FormsModule, InputGroupModule, PasswordModule],
+  standalone: true,
+  imports: [
+    FormsModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    InputGroupModule,
+    NavBarLoginComponent
+  ],
   templateUrl: './login-student.component.html',
-  styleUrl: './login-student.component.css'
+  styleUrls: ['./login-student.component.css']
 })
 export class LoginStudentComponent {
-  text1: string = '';
-  value: string = '';
+  code: number | null = null;
+  password: string = '';
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    if (!this.text1 || !this.value) {
+    if (!this.code || !this.password) {
       alert('Por favor ingrese usuario y contraseña.');
       return;
     }
 
-    this.apiService.loginStudent({ studentCode: this.text1, password: this.value })
-      .subscribe({
-        next: (res) => {
-          localStorage.setItem('token', res.token);
-          this.router.navigate(['/panel/student/home']);
-        },
-        error: (err) => {
-          alert('Credenciales inválidas o error en el servidor.');
-          console.error(err);
-        }
-      });
+    this.authService.loginStudent(this.code, this.password).subscribe({
+      next: (res: any) => {
+        this.authService.saveAuthData(res.token, res.student);
+        this.router.navigate(['/panel/student/home']);
+      },
+      error: (err) => {
+        alert('Credenciales inválidas o error en el servidor.');
+        console.error(err);
+      }
+    });
   }
 }

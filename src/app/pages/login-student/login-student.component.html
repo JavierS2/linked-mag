@@ -9,15 +9,15 @@
 
     <div style="display: flex; justify-content: center; align-items: center; margin-right: 40px;">
       <p-inputgroup class="user-box">
-        <input pInputText [(ngModel)]="text1" style="width: 400px; margin-left: 7px; height: 50px;
+        <input pInputText [(ngModel)]="code" style="width: 400px; margin-left: 7px; height: 50px;
               border: 1px solid rgba(108, 122, 127, 0.4); border-radius: 4px; padding-left:10px;"
-          placeholder="Username" />
+          placeholder="Código estudiantil" />
       </p-inputgroup>
     </div>
 
     <div style="display: flex; justify-content: center; align-items: center; margin-right: 130px; margin-top: 10px;">
-      <p-password [(ngModel)]="value" [toggleMask]="true" [feedback]="false" class="password-box"
-        placeholder="Password"></p-password>
+      <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false" class="password-box"
+        placeholder="Contraseña"></p-password>
     </div>
 
     <button type="button" class="btn-login" (click)="login()">Iniciar sesión</button>

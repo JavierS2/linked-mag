@@ -1,16 +1,36 @@
-import { TestBed } from '@angular/core/testing';
+// auth.service.ts
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
-import { AuthService } from './auth.service';
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  private apiUrl = environment.apiBaseUrl;
 
-describe('AuthService', () => {
-  let service: AuthService;
+  constructor(private http: HttpClient) {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthService);
-  });
+  loginStudent(studentCode: string, password: string) {
+    return this.http.post(`${this.apiUrl}/students/login`, { studentCode, password });
+  }
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  loginCompany(NIT: number, password: string) {
+    return this.http.post(`${this.apiUrl}/companies/login`, { NIT, password });
+  }
+
+  saveAuthData(token: string, user: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+}

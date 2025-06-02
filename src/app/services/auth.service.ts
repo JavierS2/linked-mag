@@ -7,30 +7,30 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiBaseUrl; // Ej: http://localhost:3000/api
+  private apiUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
 
-  login(studentCode: string, password: string) {
-    return this.http.post(`${this.apiUrl}/students/login`, {
-      studentCode,
-      password,
-    });
+  loginStudent(studentCode: number, password: string) {
+    return this.http.post(`${this.apiUrl}/api/students/login`, { studentCode, password });
   }
 
-  // Guardar token y datos del usuario en localStorage
-  saveAuthData(token: string, student: any) {
+  loginCompany(NIT: number, password: string) {
+    return this.http.post(`${this.apiUrl}/api/companies/login`, { NIT, password });
+  }
+
+  saveAuthData(token: string, user: any) {
     localStorage.setItem('token', token);
-    localStorage.setItem('student', JSON.stringify(student));
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('student');
+    localStorage.removeItem('user');
   }
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    return !!token; // Devuelve true si hay un token, false si no
+    return !!token;
   }
 }
