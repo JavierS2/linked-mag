@@ -41,11 +41,14 @@ export class DashboardStudentComponent implements OnInit {
   dynamicOffers: JobOffer[] = [];
 
   latestOffer: JobOffer | null = null;
-  
+  appliedOffersCount = 0;
+  lastAppliedOffer?: JobOffer;
+  studentId = 1;
     constructor(private apiService: ApiService, private router: Router) {}
   
     ngOnInit(): void {
       this.loadOffers();
+       this.loadAppliedOffersCount();
     }
   
   loadOffers() {
@@ -88,9 +91,21 @@ goToLatestOffer() {
   if (this.latestOffer) {
     this.router.navigate(['panel/student/offers']);
   }
-}   
+} 
+loadAppliedOffersCount() {
+    this.apiService.getAllPostulations().subscribe({
+      next: (postulations: any[]) => {
+        this.appliedOffersCount = postulations.filter(p => p.studentId === this.studentId).length;
+      },
+      error: (err) => {
+        console.error('Error al cargar postulaciones', err);
+        this.appliedOffersCount = 0;
+      }
+    });
+  }
 
-      // Asigna la última oferta
+
+
       
 
 

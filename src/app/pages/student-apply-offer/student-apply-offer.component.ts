@@ -31,35 +31,52 @@ export class StudentApplyOfferComponent implements OnInit {
   value = 0;
 
   dynamicOffers: JobOffer[] = [];
-  
-    constructor(private apiService: ApiService) {}
-  
-    ngOnInit(): void {
-      this.loadOffers();
-    }
-  
-    loadOffers() {
-      this.loading = true;
-      this.apiService.getAllOffers().subscribe({
-        next: (offers: JobOffer[]) => {
-          this.dynamicOffers = offers.map((offer: any) => ({
-            ...offer,
-            companyName: offer.company?.name,
-            status: offer.status?.status || offer.status // en caso de que solo sea string
-          }));
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error al cargar ofertas', err);
-          this.loading = false;
-        }
-      });
-    }
-
   visible: boolean = false;
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.loadOffers();
+  }
+
+  loadOffers() {
+    this.loading = true;
+    this.apiService.getAllOffers().subscribe({
+      next: (offers: JobOffer[]) => {
+        this.dynamicOffers = offers.map((offer: any) => ({
+          ...offer,
+          companyName: offer.company?.name,
+          status: offer.status?.status || offer.status // en caso de que solo sea string
+        }));
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar ofertas', err);
+        this.loading = false;
+      }
+    });
+  }
 
   showDialog() {
     this.visible = true;
   }
-  
+
+  applyToOffer() {
+    const postulationData = {
+      studentId: 1, // Cambia esto por el id real del estudiante logueado si lo tienes
+      offerId: this.offer.id,
+      status: 'Pendiente'
+    };
+
+    this.apiService.createPostulation(postulationData).subscribe({
+      next: () => {
+        alert('¡Postulación enviada correctamente!');
+        this.visible = false;
+      },
+      error: (err) => {
+        alert('Error al postularse.');
+        console.error(err);
+      }
+    });
+  }
 }

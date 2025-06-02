@@ -38,7 +38,7 @@ export class StudentOffersComponent implements OnInit {
   searchTerm = '';
   value = 0;
   visible = true;
-  
+
 
   representatives = [
     { name: 'Empresa ABC', image: 'amyelsner.png' },
@@ -52,7 +52,9 @@ export class StudentOffersComponent implements OnInit {
 
   dynamicOffers: JobOffer[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
+
+  studentId = 1;
 
   ngOnInit(): void {
     this.loadOffers();
@@ -60,17 +62,36 @@ export class StudentOffersComponent implements OnInit {
 
   loadOffers() {
     this.loading = true;
-    this.apiService.getAllOffers().subscribe({
-      next: (offers: JobOffer[]) => {
-        this.dynamicOffers = offers.map((offer: any) => ({
-          ...offer,
-          companyName: offer.company?.name,
-          status: offer.status?.status || offer.status // en caso de que solo sea string
-        }));
-        this.loading = false;
+    // 1. Trae todas las postulaciones del estudiante
+    this.apiService.getAllPostulations().subscribe({
+      next: (postulations: any[]) => {
+        const appliedOfferIds = postulations
+          .filter(p => p.studentId === this.studentId)
+          .map(p => p.offerId);
+
+        // 2. Trae todas las ofertas abiertas y filtra las ya aplicadas
+        this.apiService.getAllOffers().subscribe({
+          next: (offers: JobOffer[]) => {
+            this.dynamicOffers = offers
+              .filter((offer: any) =>
+                (offer.status?.status || offer.status) === 'Abierta' &&
+                !appliedOfferIds.includes(offer.id)
+              )
+              .map((offer: any) => ({
+                ...offer,
+                companyName: offer.company?.name,
+                status: offer.status?.status || offer.status
+              }));
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error('Error al cargar ofertas', err);
+            this.loading = false;
+          }
+        });
       },
       error: (err) => {
-        console.error('Error al cargar ofertas', err);
+        console.error('Error al cargar postulaciones', err);
         this.loading = false;
       }
     });

@@ -85,11 +85,11 @@
                 {{ rowData.date | date:'MMM dd, yyyy hh:mm a' }}
             </td>
             <td>
-                 <ng-container [ngSwitch]="rowData.status">
-                    <p-button *ngSwitchCase="'Aceptada'" label="Aceptada" variant="text" severity="success"></p-button>
-                    <p-button *ngSwitchCase="'Rechazada'" label="Rechazada" variant="text" severity="danger"></p-button>
-                    <p-button *ngSwitchCase="'En espera'" label="En espera" variant="text" severity="warn"></p-button>
-                    <p-button *ngSwitchDefault [label]="rowData.status" variant="text"></p-button>
+                 <ng-container [ngSwitch]="rowData.status"> 
+                    <p-tag *ngSwitchCase="'Aceptada'" value="Aceptada" severity="success"></p-tag>
+                    <p-tag *ngSwitchCase="'Rechazada'" value="Rechazada" severity="danger"></p-tag>
+                    <p-tag *ngSwitchCase="'Pendiente'" value="Pendiente"></p-tag>
+                    <p-tag *ngSwitchDefault [value]="rowData.status"></p-tag>
                 </ng-container>
             </td>
         </tr>
