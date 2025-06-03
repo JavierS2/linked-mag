@@ -1,22 +1,32 @@
 # LinkedMag
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+LinkedMag es una plataforma desarrollada en Angular para la gestión de ofertas laborales y perfiles estudiantiles, facilitando la conexión entre empresas y estudiantes universitarios.
 
-## Development server
+## Tecnologías principales
 
-To start a local development server, run:
+- [Angular CLI 19.2.6](https://angular.io/)
+- [PrimeNG](https://www.primefaces.org/primeng/)
+- [PrimeIcons](https://www.primefaces.org/primeicons/)
+- [PrimeFlex](https://www.primefaces.org/primeflex/)
+- [TailwindCSS PrimeUI](https://www.npmjs.com/package/tailwindcss-primeui)
 
-```bash
-ng serve
-```
+## Instalación y configuración
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+1. Clona el repositorio:
+   ```bash
+   git clone <url-del-repositorio>
+   cd linked-mag-front
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de desarrollo:
+   ```bash
+   ng serve
+   ```
+4. Abre tu navegador en [http://localhost:4200/](http://localhost:4200/)
 
-To build the project run:
+---
 
-```bash
-npm install primeng @primeng/themes
-npm install primeicons
-npm install primeflex
-npm i tailwindcss-primeui
-```
+> © 2025
