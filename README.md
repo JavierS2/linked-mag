@@ -12,7 +12,7 @@
 
 ---
 
-## 🧩 Funcionallidades principales
+## 🧩 Funcionalidades principales
 
 - Registro y autenticación de estudiantes y empresas
 - Módulo admin/universidad para la validación de los registros
