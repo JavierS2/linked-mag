@@ -54,6 +54,8 @@ ng serve
 
 <http://localhost:4200>
 
+---
+
 ## Contribuidores 
 Este proyecto fue desarrollado por:
 
