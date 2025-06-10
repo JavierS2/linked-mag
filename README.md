@@ -1,6 +1,6 @@
 # LinkedMag
 
-**LinkedMag** es una plataforma desarrollada para la **gestión de prácticas profesionales** de los estudiantes de la **Universidad del Magdalena**. Permite a los estudiantes postularse a ofertas, llevar el seguimiento de sus prácticas y facilitar la conexión con empresas aliadas.
+**LinkedMag** es una plataforma desarrollada para la **gestión de prácticas profesionales** de los estudiantes de la **Universidad del Magdalena**. Permite a los estudiantes postularse a ofertas y facilitar la conexión con empresas aliadas.
 
 ---
 
