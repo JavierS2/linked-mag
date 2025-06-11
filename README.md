@@ -29,4 +29,14 @@ LinkedMag es una plataforma desarrollada en Angular para la gestión de ofertas 
 
 ---
 
-> © 2025
+## Contribuidores 
+Este proyecto fue desarrollado por:
+
+>- [Carlos Lizarazo](https://github.com/CALR0)
+>- [Daniel Ortíz](https://github.com/DanielOrtiz08)
+>- [Carlos Romero](https://github.com/Carlos-RomeroRo)
+>- [Javier Santodomingo](https://github.com/JavierS2)
+
+---
+
+© 2025
