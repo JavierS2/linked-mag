@@ -1,6 +1,6 @@
 # LinkedMag
 
-LinkedMag es una plataforma desarrollada en Angular para la gestión de ofertas laborales y perfiles estudiantiles, facilitando la conexión entre empresas y estudiantes universitarios.
+LinkedMag es una plataforma desarrollada en Angular para la gestión de ofertas laborales y perfiles estudiantiles, facilitando la conexión entre empresas y estudiantes universitarios, siendo la universidad el intermediario.
 
 ## Demostración
 
@@ -53,4 +53,4 @@ Este proyecto fue desarrollado por:
 
 ---
 
-© 2025
+LinkedMag © 2025
